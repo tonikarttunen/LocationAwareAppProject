@@ -1,0 +1,483 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E9DA005B16FA3B4F00A76D42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005A16FA3B4F00A76D42 /* UIKit.framework */; };
+		E9DA005D16FA3B4F00A76D42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005C16FA3B4F00A76D42 /* Foundation.framework */; };
+		E9DA005F16FA3B4F00A76D42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */; };
+		E9DA006516FA3B4F00A76D42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006316FA3B4F00A76D42 /* InfoPlist.strings */; };
+		E9DA006716FA3B4F00A76D42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
+		E9DA006B16FA3B4F00A76D42 /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
+		E9DA006D16FA3B4F00A76D42 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006C16FA3B4F00A76D42 /* Default.png */; };
+		E9DA006F16FA3B4F00A76D42 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006E16FA3B4F00A76D42 /* Default@2x.png */; };
+		E9DA007116FA3B4F00A76D42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */; };
+		E9DA007416FA3B4F00A76D42 /* TAKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA007316FA3B4F00A76D42 /* TAKViewController.m */; };
+		E9DA007716FA3B4F00A76D42 /* TAKViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007516FA3B4F00A76D42 /* TAKViewController_iPhone.xib */; };
+		E9DA007A16FA3B4F00A76D42 /* TAKViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007816FA3B4F00A76D42 /* TAKViewController_iPad.xib */; };
+		E9DA008216FA3B5000A76D42 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA008116FA3B5000A76D42 /* SenTestingKit.framework */; };
+		E9DA008316FA3B5000A76D42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005A16FA3B4F00A76D42 /* UIKit.framework */; };
+		E9DA008416FA3B5000A76D42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005C16FA3B4F00A76D42 /* Foundation.framework */; };
+		E9DA008C16FA3B5000A76D42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9DA008A16FA3B5000A76D42 /* InfoPlist.strings */; };
+		E9DA008F16FA3B5000A76D42 /* LocationAwareAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA008E16FA3B5000A76D42 /* LocationAwareAppTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9DA008516FA3B5000A76D42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9DA004F16FA3B4F00A76D42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9DA005616FA3B4F00A76D42;
+			remoteInfo = LocationAwareApp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationAwareApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9DA005A16FA3B4F00A76D42 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E9DA005C16FA3B4F00A76D42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E9DA006216FA3B4F00A76D42 /* LocationAwareApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LocationAwareApp-Info.plist"; sourceTree = "<group>"; };
+		E9DA006416FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E9DA006616FA3B4F00A76D42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E9DA006816FA3B4F00A76D42 /* LocationAwareApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocationAwareApp-Prefix.pch"; sourceTree = "<group>"; };
+		E9DA006916FA3B4F00A76D42 /* TAKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAKAppDelegate.h; sourceTree = "<group>"; };
+		E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAKAppDelegate.m; sourceTree = "<group>"; };
+		E9DA006C16FA3B4F00A76D42 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E9DA006E16FA3B4F00A76D42 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E9DA007216FA3B4F00A76D42 /* TAKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAKViewController.h; sourceTree = "<group>"; };
+		E9DA007316FA3B4F00A76D42 /* TAKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAKViewController.m; sourceTree = "<group>"; };
+		E9DA007616FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TAKViewController_iPhone.xib; sourceTree = "<group>"; };
+		E9DA007916FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TAKViewController_iPad.xib; sourceTree = "<group>"; };
+		E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationAwareAppTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9DA008116FA3B5000A76D42 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		E9DA008916FA3B5000A76D42 /* LocationAwareAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LocationAwareAppTests-Info.plist"; sourceTree = "<group>"; };
+		E9DA008B16FA3B5000A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E9DA008D16FA3B5000A76D42 /* LocationAwareAppTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationAwareAppTests.h; sourceTree = "<group>"; };
+		E9DA008E16FA3B5000A76D42 /* LocationAwareAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LocationAwareAppTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9DA005416FA3B4F00A76D42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA005B16FA3B4F00A76D42 /* UIKit.framework in Frameworks */,
+				E9DA005D16FA3B4F00A76D42 /* Foundation.framework in Frameworks */,
+				E9DA005F16FA3B4F00A76D42 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9DA007C16FA3B5000A76D42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA008216FA3B5000A76D42 /* SenTestingKit.framework in Frameworks */,
+				E9DA008316FA3B5000A76D42 /* UIKit.framework in Frameworks */,
+				E9DA008416FA3B5000A76D42 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E9DA004E16FA3B4F00A76D42 = {
+			isa = PBXGroup;
+			children = (
+				E9DA006016FA3B4F00A76D42 /* LocationAwareApp */,
+				E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */,
+				E9DA005916FA3B4F00A76D42 /* Frameworks */,
+				E9DA005816FA3B4F00A76D42 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E9DA005816FA3B4F00A76D42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */,
+				E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9DA005916FA3B4F00A76D42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA005A16FA3B4F00A76D42 /* UIKit.framework */,
+				E9DA005C16FA3B4F00A76D42 /* Foundation.framework */,
+				E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */,
+				E9DA008116FA3B5000A76D42 /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9DA006016FA3B4F00A76D42 /* LocationAwareApp */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA006916FA3B4F00A76D42 /* TAKAppDelegate.h */,
+				E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */,
+				E9DA007216FA3B4F00A76D42 /* TAKViewController.h */,
+				E9DA007316FA3B4F00A76D42 /* TAKViewController.m */,
+				E9DA007516FA3B4F00A76D42 /* TAKViewController_iPhone.xib */,
+				E9DA007816FA3B4F00A76D42 /* TAKViewController_iPad.xib */,
+				E9DA006116FA3B4F00A76D42 /* Supporting Files */,
+			);
+			path = LocationAwareApp;
+			sourceTree = "<group>";
+		};
+		E9DA006116FA3B4F00A76D42 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA006216FA3B4F00A76D42 /* LocationAwareApp-Info.plist */,
+				E9DA006316FA3B4F00A76D42 /* InfoPlist.strings */,
+				E9DA006616FA3B4F00A76D42 /* main.m */,
+				E9DA006816FA3B4F00A76D42 /* LocationAwareApp-Prefix.pch */,
+				E9DA006C16FA3B4F00A76D42 /* Default.png */,
+				E9DA006E16FA3B4F00A76D42 /* Default@2x.png */,
+				E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA008D16FA3B5000A76D42 /* LocationAwareAppTests.h */,
+				E9DA008E16FA3B5000A76D42 /* LocationAwareAppTests.m */,
+				E9DA008816FA3B5000A76D42 /* Supporting Files */,
+			);
+			path = LocationAwareAppTests;
+			sourceTree = "<group>";
+		};
+		E9DA008816FA3B5000A76D42 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA008916FA3B5000A76D42 /* LocationAwareAppTests-Info.plist */,
+				E9DA008A16FA3B5000A76D42 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E9DA005616FA3B4F00A76D42 /* LocationAwareApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9DA009216FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareApp" */;
+			buildPhases = (
+				E9DA005316FA3B4F00A76D42 /* Sources */,
+				E9DA005416FA3B4F00A76D42 /* Frameworks */,
+				E9DA005516FA3B4F00A76D42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LocationAwareApp;
+			productName = LocationAwareApp;
+			productReference = E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E9DA007F16FA3B5000A76D42 /* LocationAwareAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareAppTests" */;
+			buildPhases = (
+				E9DA007B16FA3B5000A76D42 /* Sources */,
+				E9DA007C16FA3B5000A76D42 /* Frameworks */,
+				E9DA007D16FA3B5000A76D42 /* Resources */,
+				E9DA007E16FA3B5000A76D42 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9DA008616FA3B5000A76D42 /* PBXTargetDependency */,
+			);
+			name = LocationAwareAppTests;
+			productName = LocationAwareAppTests;
+			productReference = E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9DA004F16FA3B4F00A76D42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TAK;
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "Toni Antero Karttunen";
+			};
+			buildConfigurationList = E9DA005216FA3B4F00A76D42 /* Build configuration list for PBXProject "LocationAwareApp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E9DA004E16FA3B4F00A76D42;
+			productRefGroup = E9DA005816FA3B4F00A76D42 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E9DA005616FA3B4F00A76D42 /* LocationAwareApp */,
+				E9DA007F16FA3B5000A76D42 /* LocationAwareAppTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E9DA005516FA3B4F00A76D42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA006516FA3B4F00A76D42 /* InfoPlist.strings in Resources */,
+				E9DA006D16FA3B4F00A76D42 /* Default.png in Resources */,
+				E9DA006F16FA3B4F00A76D42 /* Default@2x.png in Resources */,
+				E9DA007116FA3B4F00A76D42 /* Default-568h@2x.png in Resources */,
+				E9DA007716FA3B4F00A76D42 /* TAKViewController_iPhone.xib in Resources */,
+				E9DA007A16FA3B4F00A76D42 /* TAKViewController_iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9DA007D16FA3B5000A76D42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA008C16FA3B5000A76D42 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E9DA007E16FA3B5000A76D42 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E9DA005316FA3B4F00A76D42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA006716FA3B4F00A76D42 /* main.m in Sources */,
+				E9DA006B16FA3B4F00A76D42 /* TAKAppDelegate.m in Sources */,
+				E9DA007416FA3B4F00A76D42 /* TAKViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9DA007B16FA3B5000A76D42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9DA008F16FA3B5000A76D42 /* LocationAwareAppTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E9DA008616FA3B5000A76D42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9DA005616FA3B4F00A76D42 /* LocationAwareApp */;
+			targetProxy = E9DA008516FA3B5000A76D42 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E9DA006316FA3B4F00A76D42 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9DA006416FA3B4F00A76D42 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E9DA007516FA3B4F00A76D42 /* TAKViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9DA007616FA3B4F00A76D42 /* en */,
+			);
+			name = TAKViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		E9DA007816FA3B4F00A76D42 /* TAKViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9DA007916FA3B4F00A76D42 /* en */,
+			);
+			name = TAKViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+		E9DA008A16FA3B5000A76D42 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9DA008B16FA3B5000A76D42 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E9DA009016FA3B5000A76D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E9DA009116FA3B5000A76D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E9DA009316FA3B5000A76D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				INFOPLIST_FILE = "LocationAwareApp/LocationAwareApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E9DA009416FA3B5000A76D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				INFOPLIST_FILE = "LocationAwareApp/LocationAwareApp-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E9DA009616FA3B5000A76D42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LocationAwareApp.app/LocationAwareApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				INFOPLIST_FILE = "LocationAwareAppTests/LocationAwareAppTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E9DA009716FA3B5000A76D42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LocationAwareApp.app/LocationAwareApp";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				INFOPLIST_FILE = "LocationAwareAppTests/LocationAwareAppTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E9DA005216FA3B4F00A76D42 /* Build configuration list for PBXProject "LocationAwareApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9DA009016FA3B5000A76D42 /* Debug */,
+				E9DA009116FA3B5000A76D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9DA009216FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9DA009316FA3B5000A76D42 /* Debug */,
+				E9DA009416FA3B5000A76D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9DA009616FA3B5000A76D42 /* Debug */,
+				E9DA009716FA3B5000A76D42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E9DA004F16FA3B4F00A76D42 /* Project object */;
+}

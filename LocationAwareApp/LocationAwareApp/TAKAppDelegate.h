@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TAKLocationController.h"
 
 @class TAKViewController;
 
@@ -15,5 +16,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) TAKViewController *viewController;
+@property (strong, nonatomic) TAKLocationController *locationController;
 
 @end

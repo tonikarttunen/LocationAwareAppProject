@@ -27,6 +27,11 @@
 		E9DA009916FA3D4700A76D42 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009816FA3D4700A76D42 /* CoreLocation.framework */; };
 		E9DA009B16FA3D5200A76D42 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009A16FA3D5200A76D42 /* MapKit.framework */; };
 		E9DA009D16FA3D5E00A76D42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */; };
+		E9DA00A116FA6F6500A76D42 /* TAKLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA00A016FA6F6500A76D42 /* TAKLocationController.m */; };
+		E9DA00A516FA965A00A76D42 /* TAKLocationControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA00A416FA965A00A76D42 /* TAKLocationControllerTests.m */; };
+		E9DA00A716FA998700A76D42 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009816FA3D4700A76D42 /* CoreLocation.framework */; };
+		E9DA00A816FA999A00A76D42 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009A16FA3D5200A76D42 /* MapKit.framework */; };
+		E9DA00A916FA99A100A76D42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +71,10 @@
 		E9DA009816FA3D4700A76D42 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E9DA009A16FA3D5200A76D42 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E9DA009F16FA6F6500A76D42 /* TAKLocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKLocationController.h; path = LocationController/TAKLocationController.h; sourceTree = "<group>"; };
+		E9DA00A016FA6F6500A76D42 /* TAKLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKLocationController.m; path = LocationController/TAKLocationController.m; sourceTree = "<group>"; };
+		E9DA00A316FA965A00A76D42 /* TAKLocationControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKLocationControllerTests.h; path = LocationController/TAKLocationControllerTests.h; sourceTree = "<group>"; };
+		E9DA00A416FA965A00A76D42 /* TAKLocationControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKLocationControllerTests.m; path = LocationController/TAKLocationControllerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +95,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9DA00A916FA99A100A76D42 /* QuartzCore.framework in Frameworks */,
+				E9DA00A816FA999A00A76D42 /* MapKit.framework in Frameworks */,
+				E9DA00A716FA998700A76D42 /* CoreLocation.framework in Frameworks */,
 				E9DA008216FA3B5000A76D42 /* SenTestingKit.framework in Frameworks */,
 				E9DA008316FA3B5000A76D42 /* UIKit.framework in Frameworks */,
 				E9DA008416FA3B5000A76D42 /* Foundation.framework in Frameworks */,
@@ -131,13 +143,13 @@
 		E9DA006016FA3B4F00A76D42 /* LocationAwareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E9DA009E16FA6DAD00A76D42 /* Interface Builder Files */,
 				E9DA006916FA3B4F00A76D42 /* TAKAppDelegate.h */,
 				E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */,
 				E9DA007216FA3B4F00A76D42 /* TAKViewController.h */,
 				E9DA007316FA3B4F00A76D42 /* TAKViewController.m */,
-				E9DA007516FA3B4F00A76D42 /* TAKViewController_iPhone.xib */,
-				E9DA007816FA3B4F00A76D42 /* TAKViewController_iPad.xib */,
 				E9DA006116FA3B4F00A76D42 /* Supporting Files */,
+				E9DA00A216FA723400A76D42 /* LocationController */,
 			);
 			path = LocationAwareApp;
 			sourceTree = "<group>";
@@ -162,6 +174,7 @@
 				E9DA008D16FA3B5000A76D42 /* LocationAwareAppTests.h */,
 				E9DA008E16FA3B5000A76D42 /* LocationAwareAppTests.m */,
 				E9DA008816FA3B5000A76D42 /* Supporting Files */,
+				E9DA00A616FA967800A76D42 /* LocationController */,
 			);
 			path = LocationAwareAppTests;
 			sourceTree = "<group>";
@@ -173,6 +186,33 @@
 				E9DA008A16FA3B5000A76D42 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E9DA009E16FA6DAD00A76D42 /* Interface Builder Files */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA007516FA3B4F00A76D42 /* TAKViewController_iPhone.xib */,
+				E9DA007816FA3B4F00A76D42 /* TAKViewController_iPad.xib */,
+			);
+			name = "Interface Builder Files";
+			sourceTree = "<group>";
+		};
+		E9DA00A216FA723400A76D42 /* LocationController */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA009F16FA6F6500A76D42 /* TAKLocationController.h */,
+				E9DA00A016FA6F6500A76D42 /* TAKLocationController.m */,
+			);
+			name = LocationController;
+			sourceTree = "<group>";
+		};
+		E9DA00A616FA967800A76D42 /* LocationController */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA00A316FA965A00A76D42 /* TAKLocationControllerTests.h */,
+				E9DA00A416FA965A00A76D42 /* TAKLocationControllerTests.m */,
+			);
+			name = LocationController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +330,7 @@
 				E9DA006716FA3B4F00A76D42 /* main.m in Sources */,
 				E9DA006B16FA3B4F00A76D42 /* TAKAppDelegate.m in Sources */,
 				E9DA007416FA3B4F00A76D42 /* TAKViewController.m in Sources */,
+				E9DA00A116FA6F6500A76D42 /* TAKLocationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9DA008F16FA3B5000A76D42 /* LocationAwareAppTests.m in Sources */,
+				E9DA00A516FA965A00A76D42 /* TAKLocationControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,15 +8,21 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
 @interface TAKLocationController : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (setter = setLocationManagerCurrentlyActive:) BOOL isLocationManagerCurrentlyActive;
-@property (setter = setRegionMonitoringDesired:) BOOL isRegionMonitoringDerired;
+@property (setter = setRegionMonitoringDesired:) BOOL isRegionMonitoringDesired;
 
 - (BOOL)enableLocationManager;
-- (BOOL)enableRegionMonitoringForRegion:(CLRegion *)region;
-- (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region;
+- (BOOL)disableLocationManager;
+
+- (BOOL)enableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier;
+- (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier;
+
+- (BOOL)enableRegionMonitoringForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier;
+- (BOOL)disableRegionMonitoringForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier;
 
 @end

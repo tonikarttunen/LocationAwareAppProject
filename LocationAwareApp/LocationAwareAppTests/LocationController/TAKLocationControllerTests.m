@@ -53,22 +53,36 @@
 - (void)testEnableLocationManager // Tests both the condition when the location services are enabled and disabled on the device
 {
     BOOL areLocationServicesSupported = [CLLocationManager locationServicesEnabled];
+    BOOL isLocationManagerAuthorized;
     
-    BOOL isLocationMangagerEnablingSuccessful = [self.locationController enableLocationManager];
+    if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)) {
+        // NSLog(@"Cannot enable location manager because location services are not enabled.");
+        isLocationManagerAuthorized = NO;
+    } else {
+        isLocationManagerAuthorized = YES;
+    }
     
-    STAssertEquals(areLocationServicesSupported, isLocationMangagerEnablingSuccessful,
+    BOOL isLocationManagerAuthorizedAndLocationServicesSupported
+    = areLocationServicesSupported && isLocationManagerAuthorized;
+    
+    BOOL isLocationManagerEnablingSuccessful = [self.locationController enableLocationManager];
+    
+    STAssertEquals(isLocationManagerAuthorizedAndLocationServicesSupported, isLocationManagerEnablingSuccessful,
                    @"Cannot start location monitoring when location services are enabled / "
                    @"Can start location monitoring when location services are disabled");
 }
 
-- (void)testEnableRegionMonitoring
+- (void)testEnableRegionMonitoringForRegion
 {
     BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
     BOOL isLocationManagerAuthorized;
     
     if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
-        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)) {
-        NSLog(@"Cannot start region monitoring because location services are not enabled.");
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)) {
+        // NSLog(@"Cannot start region monitoring because location services are not enabled.");
         isLocationManagerAuthorized = NO;
     } else {
         isLocationManagerAuthorized = YES;
@@ -79,9 +93,10 @@
     
     CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60)
                                                                radius:150
-                                                           identifier:@"test region"];
+                                                           identifier:@"test region 1 id"];
     
-    BOOL isRegionMonitoringEnablingSuccessful = [self.locationController enableRegionMonitoringForRegion:region];
+    BOOL isRegionMonitoringEnablingSuccessful =
+        [self.locationController enableRegionMonitoringForRegion:region identifier:region.identifier];
     
     STAssertEquals(isRegionMonitoringSupportedAndLocationManagerAuthorized, isRegionMonitoringEnablingSuccessful,
                    @"Cannot enable region monitoring when the device supports it /"
@@ -89,29 +104,85 @@
                                                  
 }
 
-- (void)testDisableRegionMonitoring
+- (void)testDisableRegionMonitoringForRegion
 {
     // BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
     
     CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60)
                                                                radius:150
-                                                           identifier:@"test region"];
+                                                           identifier:@"test 1 region id"];
     
-    [self.locationController enableRegionMonitoringForRegion:region];
+    [self.locationController enableRegionMonitoringForRegion:region identifier:region.identifier];
     
-    BOOL isDisablingOfRegionMonitoringSuccessful = [self.locationController disableRegionMonitoringForRegion:region];
+    BOOL isDisablingOfRegionMonitoringSuccessful =
+        [self.locationController disableRegionMonitoringForRegion:region identifier:region.identifier];
     
     STAssertEquals(isDisablingOfRegionMonitoringSuccessful, YES,
                    @"Cannot disable region monitoring");
 }
 
-- (void)testDisableRegionMonitoringWhenItHasNotBeenEnabledYet
+- (void)testDisableRegionMonitoringForRegionWhenItHasNotBeenEnabledYet
 {
     CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60)
                                                                radius:150
                                                            identifier:@"test region"];
     
-    BOOL isDisablingOfRegionMonitoringSuccessful = [self.locationController disableRegionMonitoringForRegion:region];
+    BOOL isDisablingOfRegionMonitoringSuccessful =
+        [self.locationController disableRegionMonitoringForRegion:region identifier:region.identifier];
+    
+    STAssertEquals(isDisablingOfRegionMonitoringSuccessful, YES,
+                   @"Cannot disable region monitoring");
+}
+
+- (void)testEnableRegionMonitoringForCircularMapOverlay
+{
+    BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
+    BOOL isLocationManagerAuthorized;
+    
+    if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)) {
+        // NSLog(@"Cannot start region monitoring because location services are not enabled.");
+        isLocationManagerAuthorized = NO;
+    } else {
+        isLocationManagerAuthorized = YES;
+    }
+    
+    BOOL isRegionMonitoringSupportedAndLocationManagerAuthorized
+    = isRegionMonitoringSupported && isLocationManagerAuthorized;
+    
+    MKCircle *mapOverlayCircle = [[MKCircle alloc] init];
+    
+    BOOL isRegionMonitoringEnablingSuccessful =
+    [self.locationController enableRegionMonitoringForCircularMapOverlay:mapOverlayCircle identifier:@"overlayID"];
+    
+    STAssertEquals(isRegionMonitoringSupportedAndLocationManagerAuthorized, isRegionMonitoringEnablingSuccessful,
+                   @"Cannot enable region monitoring when the device supports it /"
+                   @"Can enable region monitoring when the device does not support it");
+    
+}
+
+- (void)testDisableRegionMonitoringForCircularMapOverlay
+{
+    // BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
+    
+    MKCircle *mapOverlayCircle = [[MKCircle alloc] init];
+    
+    [self.locationController enableRegionMonitoringForCircularMapOverlay:mapOverlayCircle identifier:@"overlayID"];
+    
+    BOOL isDisablingOfRegionMonitoringSuccessful =
+    [self.locationController disableRegionMonitoringForCircularMapOverlay:mapOverlayCircle identifier:@"overlayID"];
+    
+    STAssertEquals(isDisablingOfRegionMonitoringSuccessful, YES,
+                   @"Cannot disable region monitoring");
+}
+
+- (void)testDisableRegionMonitoringForCircularMapOverlayWhenItHasNotBeenEnabledYet
+{
+    MKCircle *mapOverlayCircle = [[MKCircle alloc] init];
+    
+    BOOL isDisablingOfRegionMonitoringSuccessful =
+    [self.locationController disableRegionMonitoringForCircularMapOverlay:mapOverlayCircle identifier:@"overlayID"];
     
     STAssertEquals(isDisablingOfRegionMonitoringSuccessful, YES,
                    @"Cannot disable region monitoring");

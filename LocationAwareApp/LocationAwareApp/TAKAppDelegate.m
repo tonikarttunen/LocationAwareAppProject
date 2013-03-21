@@ -27,11 +27,11 @@
     self.locationController = [[TAKLocationController alloc] init];
     
     // Region monitoring test
-    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60) radius:150 identifier:@"test region"];
-    BOOL success = [self.locationController enableRegionMonitoringForRegion:region];
+    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60) radius:150 identifier:@"Region monitoring test"];
+    BOOL success = [self.locationController enableRegionMonitoringForRegion:region identifier:region.identifier];
     NSLog(@"Region monitoring %@", (success ? @"enabled" : @"not supported"));
     if (success) {
-        BOOL anotherSuccess = [self.locationController disableRegionMonitoringForRegion:region];
+        BOOL anotherSuccess = [self.locationController disableRegionMonitoringForRegion:region identifier:region.identifier];
         NSLog(@"Stopping monitoring %@", (anotherSuccess ? @"works" : @"does not work"));
     }
     

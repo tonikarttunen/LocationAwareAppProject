@@ -16,9 +16,9 @@
     if (self) {
         [self enableLocationManager];
         if (![CLLocationManager regionMonitoringAvailable]) {
-            self.isRegionMonitoringDerired = NO;
+            self.isRegionMonitoringDesired = NO;
         } else {
-            self.isRegionMonitoringDerired = [self isLocationManagerAuthorizedByUser];
+            self.isRegionMonitoringDesired = [self isLocationManagerAuthorizedByUser];
         }
     }
     return self;
@@ -26,11 +26,13 @@
 
 - (BOOL)enableLocationManager
 {
-    if ([CLLocationManager locationServicesEnabled]) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = 5;
+    if ([CLLocationManager locationServicesEnabled] && [self isLocationManagerAuthorizedByUser]) {
+        if (self.locationManager == nil) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            self.locationManager.distanceFilter = 5;
+        }
         [self.locationManager startUpdatingLocation];
         self.isLocationManagerCurrentlyActive = YES;
         return YES;
@@ -41,22 +43,30 @@
     }
 }
 
-- (BOOL)enableRegionMonitoringForRegion:(CLRegion *)region
+- (BOOL)disableLocationManager
+{
+    if (self.locationManager != nil) {
+        [self.locationManager stopUpdatingLocation];
+    }
+    return YES;
+}
+
+- (BOOL)enableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier
 {
     if (self.locationManager == nil) {
         BOOL success = [self enableLocationManager];
         if (success) {
-            return [self isEnablingRegionMonitoringSuccessfulForRegion:region];
+            return [self isEnablingRegionMonitoringSuccessfulForRegion:region identifier:identifier];
         } else { // Location services not enabled.
             NSLog(@"Cannot start region monitoring - location services not enabled.");
             return NO;
         }
     } else { // Location manager has already been instantiated
-        return [self isEnablingRegionMonitoringSuccessfulForRegion:region];
+        return [self isEnablingRegionMonitoringSuccessfulForRegion:region identifier:identifier];
     }
 }
 
-- (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region
+- (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region identifier:(NSString *)identifier
 {
     if (![CLLocationManager regionMonitoringAvailable]) {
         NSLog(@"Region monitoring is not supported on this device.");
@@ -75,6 +85,80 @@
     NSLog(@"Region monitoring enabled.");
 #endif
     return YES;
+}
+
+- (BOOL)enableRegionMonitoringForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier
+{
+    if (self.locationManager == nil) {
+        BOOL success = [self enableLocationManager];
+        if (success) {
+            return [self isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:overlay identifier:identifier];
+        } else { // Location services not enabled.
+            NSLog(@"Cannot start region monitoring - location services not enabled.");
+            return NO;
+        }
+    } else { // Location manager has already been instantiated
+        return [self isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:overlay identifier:identifier];
+    }
+}
+
+- (BOOL)isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier
+{
+    if (![CLLocationManager regionMonitoringAvailable]) {
+        NSLog(@"Region monitoring is not supported on this device.");
+        return NO;
+    }
+    
+    if (![self isLocationManagerAuthorizedByUser]) {
+        return NO;
+    }
+    
+    // Clear out previously monitored regions
+    [self clearOutOldRegionsFromLocationManager];
+    
+    CLLocationDegrees regionRadius = overlay.radius;
+    if (regionRadius > self.locationManager.maximumRegionMonitoringDistance) {
+        regionRadius = self.locationManager.maximumRegionMonitoringDistance;
+    }
+    
+    CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:overlay.coordinate
+                                                               radius:regionRadius
+                                                           identifier:identifier];
+    [self.locationManager startMonitoringForRegion:region];
+    return YES;
+}
+
+- (BOOL)disableRegionMonitoringForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier
+{
+    if (overlay == nil) {
+#if DEBUG
+        NSLog(@"Cannot stop region monitoring because the overlay is nil");
+#endif
+        return NO;
+    }
+    
+    if (identifier == nil) {
+#if DEBUG
+        NSLog(@"Cannot stop region monitoring because the identifier is nil");
+#endif
+        return NO;
+    }
+    
+    @try {
+        for (CLRegion *monitoredObject in self.locationManager.monitoredRegions) {
+            if ([monitoredObject.identifier isEqualToString:identifier]) {
+                [self.locationManager stopMonitoringForRegion:monitoredObject];
+#if DEBUG
+                NSLog(@"Stopped monitoring region: %@", [monitoredObject description]);
+#endif
+            }
+        }
+        return YES;
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot stop monitoring region: %@", exception.description);
+        return NO;
+    }
 }
 
 - (void)clearOutOldRegionsFromLocationManager
@@ -97,35 +181,51 @@
 - (BOOL)isLocationManagerAuthorizedByUser
 {
     if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
-        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)) {
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)) {
         NSLog(@"Location services are not enabled.");
         return NO;
     }
     return YES;
 }
 
-- (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region
+- (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier
 {
     if (region == nil) {
 #if DEBUG
         NSLog(@"Cannot stop region monitoring because the region is nil");
 #endif
         return NO;
-    } else {
+    }
+    
+    if (identifier == nil) {
+#if DEBUG
+        NSLog(@"Cannot stop region monitoring because the identifier is nil");
+#endif
+        return NO;
+    }
+
+    @try {
         [self.locationManager stopMonitoringForRegion:region];
 #if DEBUG
         NSLog(@"Stopped monitoring region: %@", [region description]);
 #endif
         return YES;
     }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot stop monitoring region: %@", exception.description);
+        return NO;
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     if (status == kCLAuthorizationStatusAuthorized) {
-        self.isRegionMonitoringDerired = YES;
+        self.isRegionMonitoringDesired = YES;
+        [self enableLocationManager];
     } else {
-        self.isRegionMonitoringDerired = NO;
+        self.isRegionMonitoringDesired = NO;
+        [self disableLocationManager];
     }
     
 #if DEBUG

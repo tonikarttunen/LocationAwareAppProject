@@ -64,6 +64,18 @@
 - (void)testEnableRegionMonitoring
 {
     BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
+    BOOL isLocationManagerAuthorized;
+    
+    if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)) {
+        NSLog(@"Cannot start region monitoring because location services are not enabled.");
+        isLocationManagerAuthorized = NO;
+    } else {
+        isLocationManagerAuthorized = YES;
+    }
+    
+    BOOL isRegionMonitoringSupportedAndLocationManagerAuthorized
+         = isRegionMonitoringSupported && isLocationManagerAuthorized;
     
     CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60)
                                                                radius:150
@@ -71,7 +83,7 @@
     
     BOOL isRegionMonitoringEnablingSuccessful = [self.locationController enableRegionMonitoringForRegion:region];
     
-    STAssertEquals(isRegionMonitoringSupported, isRegionMonitoringEnablingSuccessful,
+    STAssertEquals(isRegionMonitoringSupportedAndLocationManagerAuthorized, isRegionMonitoringEnablingSuccessful,
                    @"Cannot enable region monitoring when the device supports it /"
                    @"Can enable region monitoring when the device does not support it");
                                                  

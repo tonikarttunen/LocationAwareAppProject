@@ -15,6 +15,11 @@
     self = [super init];
     if (self) {
         [self enableLocationManager];
+        if (![CLLocationManager regionMonitoringAvailable]) {
+            self.isRegionMonitoringDerired = NO;
+        } else {
+            self.isRegionMonitoringDerired = [self isLocationManagerAuthorizedByUser];
+        }
     }
     return self;
 }
@@ -41,31 +46,62 @@
     if (self.locationManager == nil) {
         BOOL success = [self enableLocationManager];
         if (success) {
-            if ([CLLocationManager regionMonitoringAvailable]) {
-                [self.locationManager startMonitoringForRegion:region];
-#if DEBUG
-                NSLog(@"Region monitoring enabled.");
-#endif
-                return YES;
-            } else {
-                NSLog(@"Region monitoring is not supported on this device.");
-                return NO;
-            }
+            return [self isEnablingRegionMonitoringSuccessfulForRegion:region];
         } else { // Location services not enabled.
+            NSLog(@"Cannot start region monitoring - location services not enabled.");
             return NO;
         }
     } else { // Location manager has already been instantiated
-        if ([CLLocationManager regionMonitoringAvailable]) {
-            [self.locationManager startMonitoringForRegion:region];
+        return [self isEnablingRegionMonitoringSuccessfulForRegion:region];
+    }
+}
+
+- (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region
+{
+    if (![CLLocationManager regionMonitoringAvailable]) {
+        NSLog(@"Region monitoring is not supported on this device.");
+        return NO;
+    }
+    
+    if (![self isLocationManagerAuthorizedByUser]) {
+        return NO;
+    }
+    
+    // Clear out previously monitored regions
+    [self clearOutOldRegionsFromLocationManager];
+    
+    [self.locationManager startMonitoringForRegion:region];
 #if DEBUG
-            NSLog(@"Region monitoring enabled.");
+    NSLog(@"Region monitoring enabled.");
 #endif
-            return YES;
-        } else {
-            NSLog(@"Region monitoring is not supported on this device.");
-            return NO;
+    return YES;
+}
+
+- (void)clearOutOldRegionsFromLocationManager
+{
+    if (self.locationManager.monitoredRegions.count > 0) {
+        @try {
+            for (id monitoredObject in self.locationManager.monitoredRegions) {
+                [self.locationManager stopMonitoringForRegion:monitoredObject];
+            }
+            NSLog(@"Cleared out previously monitored regions from self.locationManager "
+                  @"successfully");
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Cannot clear out all the previously monitored regions from "
+                  @"self.locationManager.monitoredRegions.");
         }
     }
+}
+
+- (BOOL)isLocationManagerAuthorizedByUser
+{
+    if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)) {
+        NSLog(@"Location services are not enabled.");
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region
@@ -86,6 +122,12 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
+    if (status == kCLAuthorizationStatusAuthorized) {
+        self.isRegionMonitoringDerired = YES;
+    } else {
+        self.isRegionMonitoringDerired = NO;
+    }
+    
 #if DEBUG
     NSLog(@"Location manager status: %u", status);
 #endif

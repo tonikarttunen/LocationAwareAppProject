@@ -12,7 +12,8 @@
 @interface TAKLocationController : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (setter=setLocationManagerCurrentlyActive:) BOOL isLocationManagerCurrentlyActive;
+@property (setter = setLocationManagerCurrentlyActive:) BOOL isLocationManagerCurrentlyActive;
+@property (setter = setRegionMonitoringDesired:) BOOL isRegionMonitoringDerired;
 
 - (BOOL)enableLocationManager;
 - (BOOL)enableRegionMonitoringForRegion:(CLRegion *)region;

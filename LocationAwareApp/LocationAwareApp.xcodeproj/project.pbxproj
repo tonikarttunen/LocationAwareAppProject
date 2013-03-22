@@ -143,6 +143,7 @@
 		E9DA006016FA3B4F00A76D42 /* LocationAwareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E9DA00AA16FBC66300A76D42 /* Map */,
 				E9DA009E16FA6DAD00A76D42 /* Interface Builder Files */,
 				E9DA006916FA3B4F00A76D42 /* TAKAppDelegate.h */,
 				E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */,
@@ -213,6 +214,13 @@
 				E9DA00A416FA965A00A76D42 /* TAKLocationControllerTests.m */,
 			);
 			name = LocationController;
+			sourceTree = "<group>";
+		};
+		E9DA00AA16FBC66300A76D42 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,6 +530,7 @@
 				E9DA009416FA3B5000A76D42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareAppTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +539,7 @@
 				E9DA009716FA3B5000A76D42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

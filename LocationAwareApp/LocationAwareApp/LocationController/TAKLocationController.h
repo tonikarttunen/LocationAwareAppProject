@@ -13,6 +13,7 @@
 @interface TAKLocationController : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *lastKnownLocation;
 @property (setter = setLocationManagerCurrentlyActive:) BOOL isLocationManagerCurrentlyActive;
 @property (setter = setRegionMonitoringDesired:) BOOL isRegionMonitoringDesired;
 

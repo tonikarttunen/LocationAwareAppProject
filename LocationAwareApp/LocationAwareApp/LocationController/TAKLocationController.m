@@ -10,6 +10,8 @@
 
 @implementation TAKLocationController
 
+#pragma mark - Lifecycle methods
+
 - (id)init
 {
     self = [super init];
@@ -24,6 +26,8 @@
     return self;
 }
 
+#pragma mark - Location manager
+
 - (BOOL)enableLocationManager
 {
     if ([CLLocationManager locationServicesEnabled] && [self isLocationManagerAuthorizedByUser]) {
@@ -32,6 +36,7 @@
             self.locationManager.delegate = self;
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
             self.locationManager.distanceFilter = 5;
+            self.lastKnownLocation = [[CLLocation alloc] init];
         }
         [self.locationManager startUpdatingLocation];
         self.isLocationManagerCurrentlyActive = YES;
@@ -47,9 +52,23 @@
 {
     if (self.locationManager != nil) {
         [self.locationManager stopUpdatingLocation];
+        self.isLocationManagerCurrentlyActive = NO;
     }
     return YES;
 }
+
+- (BOOL)isLocationManagerAuthorizedByUser
+{
+    if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)
+        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)) {
+        NSLog(@"Location services are not enabled.");
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - Region monitoring (geofencing)
 
 - (BOOL)enableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier
 {
@@ -178,17 +197,6 @@
     }
 }
 
-- (BOOL)isLocationManagerAuthorizedByUser
-{
-    if (([CLLocationManager authorizationStatus] != kCLAuthorizationStatusAuthorized)
-        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusNotDetermined)
-        && ([CLLocationManager authorizationStatus] != kCLAuthorizationStatusRestricted)) {
-        NSLog(@"Location services are not enabled.");
-        return NO;
-    }
-    return YES;
-}
-
 - (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier
 {
     if (region == nil) {
@@ -217,6 +225,8 @@
         return NO;
     }
 }
+
+#pragma mark - Location manager delegate methods
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
@@ -273,18 +283,18 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {    
-    CLLocation *location = [locations lastObject];
-    
+    self.lastKnownLocation = [locations lastObject];
 #if DEBUG
     NSLog(@"Did update locations: \ntimestamp: %@, \nlatitude: %f, longitude: %f, \naltitude: %f, speed: %f, course: %f",
-          location.timestamp, location.coordinate.latitude, location.coordinate.longitude,
-          location.altitude, location.speed, location.course);
+          self.lastKnownLocation.timestamp, self.lastKnownLocation.coordinate.latitude,
+          self.lastKnownLocation.coordinate.longitude, self.lastKnownLocation.altitude,
+          self.lastKnownLocation.speed, self.lastKnownLocation.course);
 #endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
-    NSLog(@"Monitoring did fail for region: %@", [error description]);
+    NSLog(@"Region monitoring did fail for region: %@", [error description]);
 }
 
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager

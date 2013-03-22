@@ -10,6 +10,15 @@
 #import "TAKLocationController.h"
 #import <objc/runtime.h>
 
+@interface TAKLocationController (UnitTestAdditions)
+
+- (BOOL)isLocationManagerAuthorizedByUser;
+- (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region identifier:(NSString *)identifier;
+- (BOOL)isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier;
+- (void)clearOutOldRegionsFromLocationManager;
+
+@end
+
 @interface TAKLocationControllerTests ()
 
 @property (nonatomic, strong) TAKLocationController *locationController;
@@ -17,6 +26,8 @@
 @end
 
 @implementation TAKLocationControllerTests
+
+#pragma mark - Set-up and tear-down
 
 - (void)setUp
 {
@@ -34,21 +45,33 @@
     [super tearDown];
 }
 
-- (void)testLocationControllerInstantiation
+#pragma mark - Location controller lifecycle methods
+
+- (void)testLocationControllerInitialization
 {
     STAssertNotNil(self.locationController, @"Cannot instantiate the location controller");
 }
 
+#pragma mark - Properties
+
 - (void)testLocationControllerPropertiesExist
 {
     objc_property_t locationManagerProperty = class_getProperty([self.locationController class], "locationManager");
+    objc_property_t lastKnownLocationProperty = class_getProperty([self.locationController class], "lastKnownLocation");
     objc_property_t isLocationManagerCurrentlyActiveProperty = class_getProperty([self.locationController class],
                                                                                  "isLocationManagerCurrentlyActive");
+    objc_property_t isRegionMonitoringDesiredProperty = class_getProperty([self.locationController class],
+                                                                                 "isRegionMonitoringDesired");
     
     STAssertTrue(locationManagerProperty != NULL, @"LocationController needs a locationManager property");
+    STAssertTrue(lastKnownLocationProperty != NULL, @"LocationController needs a lastKnownLocation property");
     STAssertTrue(isLocationManagerCurrentlyActiveProperty != NULL,
                  @"LocationController needs an isLocationManagerCurrentlyActive property");
+    STAssertTrue(isRegionMonitoringDesiredProperty != NULL,
+                 @"LocationController needs an isRegionMonitoringDesired property");
 }
+
+#pragma mark - Location manager
 
 - (void)testEnableLocationManager // Tests both the condition when the location services are enabled and disabled on the device
 {
@@ -65,7 +88,7 @@
     }
     
     BOOL isLocationManagerAuthorizedAndLocationServicesSupported
-    = areLocationServicesSupported && isLocationManagerAuthorized;
+        = areLocationServicesSupported && isLocationManagerAuthorized;
     
     BOOL isLocationManagerEnablingSuccessful = [self.locationController enableLocationManager];
     
@@ -73,6 +96,8 @@
                    @"Cannot start location monitoring when location services are enabled / "
                    @"Can start location monitoring when location services are disabled");
 }
+
+#pragma mark - Region monitoring (geofencing)
 
 - (void)testEnableRegionMonitoringForRegion
 {
@@ -106,8 +131,6 @@
 
 - (void)testDisableRegionMonitoringForRegion
 {
-    // BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
-    
     CLRegion *region = [[CLRegion alloc] initCircularRegionWithCenter:CLLocationCoordinate2DMake(60, 60)
                                                                radius:150
                                                            identifier:@"test 1 region id"];
@@ -164,8 +187,6 @@
 
 - (void)testDisableRegionMonitoringForCircularMapOverlay
 {
-    // BOOL isRegionMonitoringSupported = [CLLocationManager regionMonitoringAvailable];
-    
     MKCircle *mapOverlayCircle = [[MKCircle alloc] init];
     
     [self.locationController enableRegionMonitoringForCircularMapOverlay:mapOverlayCircle identifier:@"overlayID"];

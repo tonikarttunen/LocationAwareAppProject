@@ -12,7 +12,6 @@
 
 @interface TAKLocationController (UnitTestAdditions)
 
-- (BOOL)isLocationManagerAuthorizedByUser;
 - (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region identifier:(NSString *)identifier;
 - (BOOL)isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier;
 - (void)clearOutOldRegionsFromLocationManager;

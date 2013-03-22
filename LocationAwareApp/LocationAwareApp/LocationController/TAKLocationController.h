@@ -17,6 +17,8 @@
 @property (setter = setLocationManagerCurrentlyActive:) BOOL isLocationManagerCurrentlyActive;
 @property (setter = setRegionMonitoringDesired:) BOOL isRegionMonitoringDesired;
 
+- (BOOL)isLocationManagerAuthorizedByUser;
+
 - (BOOL)enableLocationManager;
 - (BOOL)disableLocationManager;
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TAKMapView.h"
 
 @interface TAKViewController : UIViewController
+
+@property (nonatomic, strong) TAKMapView *mapView;
 
 @end

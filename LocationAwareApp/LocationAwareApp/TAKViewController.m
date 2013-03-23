@@ -18,6 +18,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    self.mapView = [[TAKMapView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.mapView];
 }
 
 - (void)didReceiveMemoryWarning

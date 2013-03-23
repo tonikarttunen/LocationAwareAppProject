@@ -12,6 +12,7 @@
 
 @interface TAKLocationController (UnitTestAdditions)
 
+#pragma warning - TODO: Test these methods
 - (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region identifier:(NSString *)identifier;
 - (BOOL)isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier;
 - (void)clearOutOldRegionsFromLocationManager;

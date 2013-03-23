@@ -7,6 +7,8 @@
 //
 
 #import "TAKLocationController.h"
+#import "TAKAppDelegate.h"
+#import "TAKViewController.h"
 
 @implementation TAKLocationController
 
@@ -34,8 +36,8 @@
         if (self.locationManager == nil) {
             self.locationManager = [[CLLocationManager alloc] init];
             self.locationManager.delegate = self;
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-            self.locationManager.distanceFilter = 5;
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+            self.locationManager.distanceFilter = 10;
             self.lastKnownLocation = [[CLLocation alloc] init];
         }
         [self.locationManager startUpdatingLocation];
@@ -284,6 +286,13 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {    
     self.lastKnownLocation = [locations lastObject];
+    
+    TAKAppDelegate *myAppDelegate = [[UIApplication sharedApplication] delegate];
+    if ((myAppDelegate.viewController != nil) && (myAppDelegate.viewController.mapView != nil)) {
+        if (!myAppDelegate.viewController.mapView.isLocationAlreadyKnown) {
+            [myAppDelegate.viewController.mapView moveCenterPointToCurrentLocationAnimated:YES];
+        }
+    }
 #if DEBUG
     NSLog(@"Did update locations: \ntimestamp: %@, \nlatitude: %f, longitude: %f, \naltitude: %f, speed: %f, course: %f",
           self.lastKnownLocation.timestamp, self.lastKnownLocation.coordinate.latitude,

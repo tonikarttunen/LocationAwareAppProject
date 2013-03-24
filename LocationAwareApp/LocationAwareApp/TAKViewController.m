@@ -7,6 +7,7 @@
 //
 
 #import "TAKViewController.h"
+#import "TAKGeocoder.h"
 
 @interface TAKViewController ()
 
@@ -21,12 +22,25 @@
     
     self.mapView = [[TAKMapView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.mapView];
+    
+    TAKGeocoder *geo = [[TAKGeocoder alloc] init];
+    
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:37.781516 longitude:-122.404955];
+    [geo reverseGeocodeLocation:location];
+    
+    NSString *address = @"Aleksanterinkatu 52, Helsinki, Finland";
+    [geo forwardGeocodeAddress:address];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    self.mapView = nil;
 }
 
 @end

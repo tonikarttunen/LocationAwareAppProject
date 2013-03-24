@@ -49,7 +49,7 @@
 
 - (void)testLocationControllerInitialization
 {
-    STAssertNotNil(self.locationController, @"Cannot instantiate the location controller");
+    STAssertNotNil(self.locationController, @"Cannot create an instance of the location controller");
 }
 
 #pragma mark - Properties

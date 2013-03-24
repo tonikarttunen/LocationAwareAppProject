@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */; };
+		E9D1252416FEA8010057DC74 /* TAKGeocoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */; };
+		E9D1252716FEA82F0057DC74 /* TAKMapViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252616FEA82F0057DC74 /* TAKMapViewTests.m */; };
+		E9D1252916FEC01C0057DC74 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */; };
+		E9D1252A16FEC0250057DC74 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */; };
 		E9DA005B16FA3B4F00A76D42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005A16FA3B4F00A76D42 /* UIKit.framework */; };
 		E9DA005D16FA3B4F00A76D42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005C16FA3B4F00A76D42 /* Foundation.framework */; };
 		E9DA005F16FA3B4F00A76D42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */; };
@@ -48,6 +53,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E9D1251D16FEA7930057DC74 /* TAKGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoder.h; path = Geocoder/TAKGeocoder.h; sourceTree = "<group>"; };
+		E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKGeocoder.m; path = Geocoder/TAKGeocoder.m; sourceTree = "<group>"; };
+		E9D1252216FEA8010057DC74 /* TAKGeocoderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoderTests.h; path = Geocoder/TAKGeocoderTests.h; sourceTree = "<group>"; };
+		E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKGeocoderTests.m; path = Geocoder/TAKGeocoderTests.m; sourceTree = "<group>"; };
+		E9D1252516FEA82F0057DC74 /* TAKMapViewTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMapViewTests.h; path = Map/TAKMapViewTests.h; sourceTree = "<group>"; };
+		E9D1252616FEA82F0057DC74 /* TAKMapViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMapViewTests.m; path = Map/TAKMapViewTests.m; sourceTree = "<group>"; };
+		E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationAwareApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DA005A16FA3B4F00A76D42 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E9DA005C16FA3B4F00A76D42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D1252A16FEC0250057DC74 /* AddressBookUI.framework in Frameworks */,
 				E9DA009D16FA3D5E00A76D42 /* QuartzCore.framework in Frameworks */,
 				E9DA009B16FA3D5200A76D42 /* MapKit.framework in Frameworks */,
 				E9DA009916FA3D4700A76D42 /* CoreLocation.framework in Frameworks */,
@@ -103,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D1252916FEC01C0057DC74 /* AddressBookUI.framework in Frameworks */,
 				E9DA00A916FA99A100A76D42 /* QuartzCore.framework in Frameworks */,
 				E9DA00A816FA999A00A76D42 /* MapKit.framework in Frameworks */,
 				E9DA00A716FA998700A76D42 /* CoreLocation.framework in Frameworks */,
@@ -115,9 +129,63 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9D1251916FEA6F30057DC74 /* Geocoder */ = {
+			isa = PBXGroup;
+			children = (
+				E9D1251D16FEA7930057DC74 /* TAKGeocoder.h */,
+				E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */,
+			);
+			name = Geocoder;
+			sourceTree = "<group>";
+		};
+		E9D1251A16FEA7090057DC74 /* App Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA006916FA3B4F00A76D42 /* TAKAppDelegate.h */,
+				E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */,
+			);
+			name = "App Delegate";
+			sourceTree = "<group>";
+		};
+		E9D1251B16FEA7220057DC74 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E9D1251C16FEA7330057DC74 /* Main View */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		E9D1251C16FEA7330057DC74 /* Main View */ = {
+			isa = PBXGroup;
+			children = (
+				E9DA007216FA3B4F00A76D42 /* TAKViewController.h */,
+				E9DA007316FA3B4F00A76D42 /* TAKViewController.m */,
+			);
+			name = "Main View";
+			sourceTree = "<group>";
+		};
+		E9D1252016FEA7C10057DC74 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				E9D1252516FEA82F0057DC74 /* TAKMapViewTests.h */,
+				E9D1252616FEA82F0057DC74 /* TAKMapViewTests.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		E9D1252116FEA7C80057DC74 /* Geocoder */ = {
+			isa = PBXGroup;
+			children = (
+				E9D1252216FEA8010057DC74 /* TAKGeocoderTests.h */,
+				E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */,
+			);
+			name = Geocoder;
+			sourceTree = "<group>";
+		};
 		E9DA004E16FA3B4F00A76D42 = {
 			isa = PBXGroup;
 			children = (
+				E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */,
 				E9DA006016FA3B4F00A76D42 /* LocationAwareApp */,
 				E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */,
 				E9DA005916FA3B4F00A76D42 /* Frameworks */,
@@ -151,11 +219,10 @@
 		E9DA006016FA3B4F00A76D42 /* LocationAwareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E9D1251A16FEA7090057DC74 /* App Delegate */,
+				E9D1251B16FEA7220057DC74 /* View Controllers */,
+				E9D1251916FEA6F30057DC74 /* Geocoder */,
 				E9DA009E16FA6DAD00A76D42 /* Interface Builder Files */,
-				E9DA006916FA3B4F00A76D42 /* TAKAppDelegate.h */,
-				E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */,
-				E9DA007216FA3B4F00A76D42 /* TAKViewController.h */,
-				E9DA007316FA3B4F00A76D42 /* TAKViewController.m */,
 				E9DA006116FA3B4F00A76D42 /* Supporting Files */,
 				E9DA00A216FA723400A76D42 /* LocationController */,
 				E9DA00AA16FBC66300A76D42 /* Map */,
@@ -180,6 +247,8 @@
 		E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				E9D1252116FEA7C80057DC74 /* Geocoder */,
+				E9D1252016FEA7C10057DC74 /* Map */,
 				E9DA008D16FA3B5000A76D42 /* LocationAwareAppTests.h */,
 				E9DA008E16FA3B5000A76D42 /* LocationAwareAppTests.m */,
 				E9DA008816FA3B5000A76D42 /* Supporting Files */,
@@ -363,6 +432,7 @@
 				E9DA00A116FA6F6500A76D42 /* TAKLocationController.m in Sources */,
 				E9DA00AD16FD242B00A76D42 /* TAKMapController.m in Sources */,
 				E9DA00B316FD2A7800A76D42 /* TAKMapView.m in Sources */,
+				E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +442,8 @@
 			files = (
 				E9DA008F16FA3B5000A76D42 /* LocationAwareAppTests.m in Sources */,
 				E9DA00A516FA965A00A76D42 /* TAKLocationControllerTests.m in Sources */,
+				E9D1252416FEA8010057DC74 /* TAKGeocoderTests.m in Sources */,
+				E9D1252716FEA82F0057DC74 /* TAKMapViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -83,7 +83,7 @@
     }
 }
 
-#pragma warning - TODO: Test whether this method works
+#warning - TODO: Test whether this method works
 - (void)moveCenterPointToLocation:(CLLocation *)location animated:(BOOL)animated
 {
     @try {

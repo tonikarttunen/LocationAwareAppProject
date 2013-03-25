@@ -64,7 +64,7 @@
             NSLog(@"Location: latitude: %f, longitude: %f",
                   self.addressLocation.coordinate.latitude, self.addressLocation.coordinate.longitude);
         } else {
-            NSLog(@"\n\nNo placemarks found.\n\n");
+            NSLog(@"No placemarks found.");
         }
     }
     @catch (NSException *exception) {

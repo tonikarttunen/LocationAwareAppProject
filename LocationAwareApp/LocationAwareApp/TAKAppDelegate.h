@@ -12,12 +12,15 @@
 // #import "TAKViewController.h"
 
 @class TAKViewController;
+@class TAKMainMenuViewController;
 
 @interface TAKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) TAKViewController *viewController;
+// @property (strong, nonatomic) TAKViewController *viewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
+@property (strong, nonatomic) TAKMainMenuViewController *mainMenuViewController;
 @property (strong, nonatomic) TAKLocationController *locationController;
 
 @end

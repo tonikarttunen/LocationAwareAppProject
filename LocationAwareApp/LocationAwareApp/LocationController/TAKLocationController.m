@@ -287,12 +287,15 @@
 {    
     self.lastKnownLocation = [locations lastObject];
     
+#warning TODO Update location on the map
+    /*
     TAKAppDelegate *myAppDelegate = [[UIApplication sharedApplication] delegate];
     if ((myAppDelegate.viewController != nil) && (myAppDelegate.viewController.mapView != nil)) {
         if (!myAppDelegate.viewController.mapView.isLocationAlreadyKnown) {
             [myAppDelegate.viewController.mapView moveCenterPointToCurrentLocationAnimated:YES];
         }
     }
+    */
 #if DEBUG
     NSLog(@"Did update locations: \ntimestamp: %@, \nlatitude: %f, longitude: %f, \naltitude: %f, speed: %f, course: %f",
           self.lastKnownLocation.timestamp, self.lastKnownLocation.coordinate.latitude,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
 		E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */; };
 		E9D1252416FEA8010057DC74 /* TAKGeocoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */; };
 		E9D1252716FEA82F0057DC74 /* TAKMapViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252616FEA82F0057DC74 /* TAKMapViewTests.m */; };
@@ -37,7 +38,6 @@
 		E9DA00A716FA998700A76D42 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009816FA3D4700A76D42 /* CoreLocation.framework */; };
 		E9DA00A816FA999A00A76D42 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009A16FA3D5200A76D42 /* MapKit.framework */; };
 		E9DA00A916FA99A100A76D42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */; };
-		E9DA00AD16FD242B00A76D42 /* TAKMapController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA00AC16FD242B00A76D42 /* TAKMapController.m */; };
 		E9DA00AF16FD27F000A76D42 /* MapPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9DA00AE16FD27F000A76D42 /* MapPropertyList.plist */; };
 		E9DA00B316FD2A7800A76D42 /* TAKMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA00B216FD2A7800A76D42 /* TAKMapView.m */; };
 /* End PBXBuildFile section */
@@ -53,6 +53,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
+		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
 		E9D1251D16FEA7930057DC74 /* TAKGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoder.h; path = Geocoder/TAKGeocoder.h; sourceTree = "<group>"; };
 		E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKGeocoder.m; path = Geocoder/TAKGeocoder.m; sourceTree = "<group>"; };
 		E9D1252216FEA8010057DC74 /* TAKGeocoderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoderTests.h; path = Geocoder/TAKGeocoderTests.h; sourceTree = "<group>"; };
@@ -90,8 +92,6 @@
 		E9DA00A016FA6F6500A76D42 /* TAKLocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKLocationController.m; path = LocationController/TAKLocationController.m; sourceTree = "<group>"; };
 		E9DA00A316FA965A00A76D42 /* TAKLocationControllerTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKLocationControllerTests.h; path = LocationController/TAKLocationControllerTests.h; sourceTree = "<group>"; };
 		E9DA00A416FA965A00A76D42 /* TAKLocationControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKLocationControllerTests.m; path = LocationController/TAKLocationControllerTests.m; sourceTree = "<group>"; };
-		E9DA00AB16FD242B00A76D42 /* TAKMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMapController.h; path = Map/TAKMapController.h; sourceTree = "<group>"; };
-		E9DA00AC16FD242B00A76D42 /* TAKMapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMapController.m; path = Map/TAKMapController.m; sourceTree = "<group>"; };
 		E9DA00AE16FD27F000A76D42 /* MapPropertyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MapPropertyList.plist; path = Map/MapPropertyList.plist; sourceTree = "<group>"; };
 		E9DA00B116FD2A7800A76D42 /* TAKMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMapView.h; path = Map/TAKMapView.h; sourceTree = "<group>"; };
 		E9DA00B216FD2A7800A76D42 /* TAKMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMapView.m; path = Map/TAKMapView.m; sourceTree = "<group>"; };
@@ -129,6 +129,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E981EE7716FFD70E008717C9 /* Main Menu */ = {
+			isa = PBXGroup;
+			children = (
+				E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */,
+				E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */,
+			);
+			name = "Main Menu";
+			sourceTree = "<group>";
+		};
 		E9D1251916FEA6F30057DC74 /* Geocoder */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +159,7 @@
 		E9D1251B16FEA7220057DC74 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E981EE7716FFD70E008717C9 /* Main Menu */,
 				E9D1251C16FEA7330057DC74 /* Main View */,
 			);
 			name = "View Controllers";
@@ -296,8 +306,6 @@
 		E9DA00AA16FBC66300A76D42 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				E9DA00AB16FD242B00A76D42 /* TAKMapController.h */,
-				E9DA00AC16FD242B00A76D42 /* TAKMapController.m */,
 				E9DA00B116FD2A7800A76D42 /* TAKMapView.h */,
 				E9DA00B216FD2A7800A76D42 /* TAKMapView.m */,
 				E9DA00B016FD289300A76D42 /* Supporting Files */,
@@ -430,9 +438,9 @@
 				E9DA006B16FA3B4F00A76D42 /* TAKAppDelegate.m in Sources */,
 				E9DA007416FA3B4F00A76D42 /* TAKViewController.m in Sources */,
 				E9DA00A116FA6F6500A76D42 /* TAKLocationController.m in Sources */,
-				E9DA00AD16FD242B00A76D42 /* TAKMapController.m in Sources */,
 				E9DA00B316FD2A7800A76D42 /* TAKMapView.m in Sources */,
 				E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */,
+				E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

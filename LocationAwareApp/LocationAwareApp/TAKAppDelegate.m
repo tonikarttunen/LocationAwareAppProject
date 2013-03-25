@@ -8,7 +8,8 @@
 
 #import "TAKAppDelegate.h"
 
-#import "TAKViewController.h"
+// #import "TAKViewController.h"
+#import "TAKMainMenuViewController.h"
 
 @implementation TAKAppDelegate
 
@@ -16,13 +17,19 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    self.mainMenuViewController = [TAKMainMenuViewController new];
+    /*
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.viewController = [[TAKViewController alloc] initWithNibName:@"TAKViewController_iPhone" bundle:nil];
+        self.viewController = [[TAKViewController alloc] init];
+        // self.viewController = [[TAKViewController alloc] initWithNibName:@"TAKViewController_iPhone" bundle:nil];
     } else {
         self.viewController = [[TAKViewController alloc] initWithNibName:@"TAKViewController_iPad" bundle:nil];
     }
+    */
     self.window.backgroundColor = [UIColor blackColor];
-    self.window.rootViewController = self.viewController;
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuViewController];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+    self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     self.locationController = [[TAKLocationController alloc] init];
     

@@ -102,6 +102,12 @@
     [self clearOutOldRegionsFromLocationManager];
     
     [self.locationManager startMonitoringForRegion:region];
+    
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    if (appDelegate != nil) {
+        appDelegate.isRegionMonitoringActive = YES;
+    }
+    
 #if DEBUG
     NSLog(@"Region monitoring enabled.");
 #endif
@@ -146,6 +152,15 @@
                                                                radius:regionRadius
                                                            identifier:identifier];
     [self.locationManager startMonitoringForRegion:region];
+    
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    if (appDelegate != nil) {
+        appDelegate.isRegionMonitoringActive = YES;
+    }
+    
+#if DEBUG
+    NSLog(@"Region monitoring enabled.");
+#endif
     return YES;
 }
 
@@ -173,6 +188,10 @@
                 NSLog(@"Stopped monitoring region: %@", [monitoredObject description]);
 #endif
             }
+        }
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        if (appDelegate != nil) {
+            appDelegate.isRegionMonitoringActive = NO;
         }
         return YES;
     }
@@ -220,6 +239,10 @@
 #if DEBUG
         NSLog(@"Stopped monitoring region: %@", [region description]);
 #endif
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        if (appDelegate != nil) {
+            appDelegate.isRegionMonitoringActive = NO;
+        }
         return YES;
     }
     @catch (NSException *exception) {
@@ -238,6 +261,11 @@
     } else {
         self.isRegionMonitoringDesired = NO;
         [self disableLocationManager];
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        if (appDelegate && appDelegate.isRegionMonitoringActive) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Turned Off" message:@"You have set a location-based reminder. Unfortunately, location-based reminders do not work if location services are turned off" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
     }
     
 #if DEBUG

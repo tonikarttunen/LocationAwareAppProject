@@ -55,7 +55,11 @@
         CLLocation *currentUserLocation;
         
         TAKAppDelegate *myAppDelegate = [[UIApplication sharedApplication] delegate];
-        CLLocation *lastLocation = myAppDelegate.locationController.lastKnownLocation;
+        CLLocation *lastLocation;
+        if (myAppDelegate != nil) {
+            lastLocation = myAppDelegate.locationController.lastKnownLocation;
+        }
+        
         if (self.userLocation.location != nil) { // Use the location that was provided my the MapKit
             currentUserLocation = self.userLocation.location;
             self.isLocationAlreadyKnown = YES;
@@ -92,7 +96,11 @@
             currentUserLocation = location;
         } else {
             TAKAppDelegate *myAppDelegate = [[UIApplication sharedApplication] delegate];
-            CLLocation *lastLocation = myAppDelegate.locationController.lastKnownLocation;
+            CLLocation *lastLocation;
+            if (myAppDelegate != nil) {
+                lastLocation = myAppDelegate.locationController.lastKnownLocation;
+            }
+            
             if (self.userLocation.location != nil) { // Use the location that was provided my the MapKit
                 currentUserLocation = self.userLocation.location;
             } else if (lastLocation != nil) { // Use the last known location (if available)

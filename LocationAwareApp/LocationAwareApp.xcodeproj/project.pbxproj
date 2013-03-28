@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
+		E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
 		E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */; };
 		E9D1252416FEA8010057DC74 /* TAKGeocoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */; };
 		E9D1252716FEA82F0057DC74 /* TAKMapViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252616FEA82F0057DC74 /* TAKMapViewTests.m */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
+		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
+		E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKReminderMasterViewController.m; path = ViewControllers/Reminder/TAKReminderMasterViewController.m; sourceTree = "<group>"; };
 		E9D1251D16FEA7930057DC74 /* TAKGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoder.h; path = Geocoder/TAKGeocoder.h; sourceTree = "<group>"; };
 		E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKGeocoder.m; path = Geocoder/TAKGeocoder.m; sourceTree = "<group>"; };
 		E9D1252216FEA8010057DC74 /* TAKGeocoderTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoderTests.h; path = Geocoder/TAKGeocoderTests.h; sourceTree = "<group>"; };
@@ -138,6 +141,15 @@
 			name = "Main Menu";
 			sourceTree = "<group>";
 		};
+		E981EE8016FFEBE1008717C9 /* Reminder */ = {
+			isa = PBXGroup;
+			children = (
+				E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */,
+				E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */,
+			);
+			name = Reminder;
+			sourceTree = "<group>";
+		};
 		E9D1251916FEA6F30057DC74 /* Geocoder */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +171,7 @@
 		E9D1251B16FEA7220057DC74 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E981EE8016FFEBE1008717C9 /* Reminder */,
 				E981EE7716FFD70E008717C9 /* Main Menu */,
 				E9D1251C16FEA7330057DC74 /* Main View */,
 			);
@@ -441,6 +454,7 @@
 				E9DA00B316FD2A7800A76D42 /* TAKMapView.m in Sources */,
 				E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */,
 				E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */,
+				E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

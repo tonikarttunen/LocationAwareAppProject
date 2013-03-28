@@ -17,10 +17,10 @@
 @interface TAKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
 // @property (strong, nonatomic) TAKViewController *viewController;
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) TAKMainMenuViewController *mainMenuViewController;
 @property (strong, nonatomic) TAKLocationController *locationController;
+@property (setter = setRegionMonitoringActive:) BOOL isRegionMonitoringActive;
 
 @end

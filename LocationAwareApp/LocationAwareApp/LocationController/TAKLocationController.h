@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-@interface TAKLocationController : NSObject <CLLocationManagerDelegate>
+@interface TAKLocationController : NSObject <CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) CLLocation *lastKnownLocation;

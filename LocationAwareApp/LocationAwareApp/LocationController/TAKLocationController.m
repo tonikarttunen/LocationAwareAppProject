@@ -28,6 +28,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+    self.lastKnownLocation = nil;
+}
+
 #pragma mark - Location manager
 
 - (BOOL)enableLocationManager
@@ -37,7 +44,7 @@
             self.locationManager = [[CLLocationManager alloc] init];
             self.locationManager.delegate = self;
             self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
-            self.locationManager.distanceFilter = 10;
+            self.locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
             self.lastKnownLocation = [[CLLocation alloc] init];
         }
         [self.locationManager startUpdatingLocation];

@@ -54,6 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
 		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
 		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
@@ -208,7 +209,7 @@
 		E9DA004E16FA3B4F00A76D42 = {
 			isa = PBXGroup;
 			children = (
-				E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */,
+				E958D943170CD3730092E324 /* Constants.h */,
 				E9DA006016FA3B4F00A76D42 /* LocationAwareApp */,
 				E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */,
 				E9DA005916FA3B4F00A76D42 /* Frameworks */,
@@ -228,6 +229,7 @@
 		E9DA005916FA3B4F00A76D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */,
 				E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */,
 				E9DA009A16FA3D5200A76D42 /* MapKit.framework */,
 				E9DA009816FA3D4700A76D42 /* CoreLocation.framework */,

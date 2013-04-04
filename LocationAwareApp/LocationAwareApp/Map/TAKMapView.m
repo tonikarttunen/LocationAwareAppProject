@@ -8,6 +8,15 @@
 
 #import "TAKMapView.h"
 
+#define TAK_MAP_ANNOTATION_IDENTIFIER   @"TAK_MAP_ANNOTATION_IDENTIFIER"
+
+@interface TAKMapView ()
+
+@property (nonatomic, strong) MKLocalSearch *localSearch;
+@property (nonatomic, strong) MKLocalSearchResponse *localSearchResponse;
+
+@end
+
 @implementation TAKMapView
 
 #pragma mark - Lifecycle methods
@@ -17,6 +26,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        self.localSearchResponse = [[MKLocalSearchResponse alloc] init];
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.mapProperties = [NSMutableDictionary new];
         [self readMapPropertiesFromPlistFile];
@@ -33,7 +43,13 @@
 
 - (void)dealloc
 {
+    self.delegate = nil;
     self.mapProperties = nil;
+    if (self.localSearch.isSearching) {
+        [self.localSearch cancel];
+    }
+    self.localSearch = nil;
+    self.localSearchResponse = nil;
 }
 
 #pragma mark - Custom drawing
@@ -72,7 +88,7 @@
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 3.0;
+        double mapKilometers = 10.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;
@@ -210,70 +226,177 @@
     }
 }
 
+- (void)refreshMapAnnotations
+{
+    @try {
+        if ((self.annotations != nil) && (self.annotations.count > 0)) {
+            [self removeAnnotations:self.annotations];
+        }
+
+        if (self.localSearchResponse.mapItems.count > 0) {
+            for (int i = 0; i < self.localSearchResponse.mapItems.count; i++) {
+                MKMapItem *mapItem = [self.localSearchResponse.mapItems objectAtIndex:i];
+                MKPlacemark *placemark = mapItem.placemark;
+                MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+                annotation.coordinate = placemark.coordinate;
+                annotation.title = mapItem.name;
+                NSLog(@"Annotation title: %@", annotation.title);
+                annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+                [self addAnnotation:annotation];
+                
+                if (i == self.localSearchResponse.mapItems.count - 1) {
+                    [self selectAnnotation:annotation animated:YES];
+                }
+                
+//                if ([mapItem isEqual:[self.results.mapItems lastObject]]) {
+//                    [self selectAnnotation:annotation animated:YES];
+//                }
+            }
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot refresh map annotations: %@. %@.", exception.description, exception.reason);
+    }
+}
+
 #pragma mark - Map view delegate methods
 
 /*
- - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView didAddOverlayViews:(NSArray *)overlayViews
- {
- 
- }
- */
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
+{
+
+}
+*/
+
+//- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views
+//{
+//    [mapView selectAnnotation:[[mapView annotations] lastObject] animated:NO];
+//}
+
+/*
+- (void)mapView:(MKMapView *)mapView didAddOverlayViews:(NSArray *)overlayViews
+{
+
+}
+*/
+
 - (void)mapView:(MKMapView *)mapView didChangeUserTrackingMode:(MKUserTrackingMode)mode animated:(BOOL)animated
 {
     
 }
+
 /*
- - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
- {
- 
- }
- 
- - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
- {
- 
- }
- */
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view
+{
+
+}
+*/
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+#ifdef DEBUG
+    NSLog(@"Map view did fail locating the user with error: %@.", [error description]);
+#endif
+}
+
+- (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
+{
+//    UIAlertView *mapAlert = [[UIAlertView alloc] initWithTitle:@"Cannot Load Map Data" message:[error description] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//    [mapAlert show];
+    
+#ifdef DEBUG
+    NSLog(@"Cannot Load Map Data: %@", [error description]);
+#endif
+}
+
 /*
- - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
- {
- 
- }
- 
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+
+}
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+
+}
+
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated
+{
+
+}
+*/
+
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
+//{
+//    MKPinAnnotationView *pinAnnotationView;
+//    
+////    if (annotation != mapView.userLocation) {
+////        pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
+////        if (!pinAnnotationView) {
+////            pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
+////            
+////        }
+////    }
+//    
+//    if ([annotation isKindOfClass:[MKUserLocation class]]) {
+//        return nil;
+//    }
+//    
+//    if (!pinAnnotationView) {
+//        pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
+//        pinAnnotationView.pinColor = MKPinAnnotationColorGreen;
+//        pinAnnotationView.animatesDrop = YES;
+//        pinAnnotationView.canShowCallout = YES;
+//        
+//        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//        pinAnnotationView.rightCalloutAccessoryView = rightButton;
+//    } else {
+//        pinAnnotationView.annotation = annotation;
+//    }
+//    
+//    return pinAnnotationView;
+//}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
+    if (!pinView) {
+        if ([annotation isKindOfClass:[MKUserLocation class]]) {
+            return nil;
+        }
+        pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                  reuseIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
+        pinView.pinColor = MKPinAnnotationColorRed;
+        pinView.animatesDrop = YES;
+        pinView.canShowCallout = YES;
+        
+        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        // rightButton.accessibilityHint = [@"More information about " stringByAppendingString:annotation.title];
+//        if ([annotation.title isEqual: MANHATTAN_OFFICE]) {
+//            rightButton.accessibilityHint = @"View more information about the New York office";
+//        }
+//        else if ([annotation.title isEqual: COPENHAGEN_OFFICE]) {
+//            rightButton.accessibilityHint = @"View more information about the Copenhagen office";
+//        }
+//        else {
+//            rightButton.accessibilityHint = @"View more information about the London office";
+//        }
+        pinView.rightCalloutAccessoryView = rightButton;
+    } else {
+        pinView.annotation = annotation;
+    }
+    return pinView;
+}
+
+/*
  - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id < MKOverlay >)overlay
  {
  
@@ -305,5 +428,59 @@
  
  }
  */
+
+#pragma mark - Local search
+
+- (void)performLocalSearchWithString:(NSString *)searchString
+{
+    NSLog(@"Search string: %@", searchString);
+//    if (self.localSearch) {
+//        [self.localSearch cancel];
+//    }
+    
+    MKLocalSearchRequest *localSearchRequest = [MKLocalSearchRequest new];
+    NSLog(@"Region: lat. %f, long. %f.",
+          self.region.center.latitude,
+          self.region.center.longitude);
+    localSearchRequest.region = self.region;
+    localSearchRequest.naturalLanguageQuery = searchString;
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    self.localSearch = [[MKLocalSearch alloc] initWithRequest:localSearchRequest];
+    
+    [self.localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+        if (error != nil) {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Local Search Failed"
+//                                       message:error.description
+//                                      delegate:self
+//                             cancelButtonTitle:@"Dismiss"
+//                             otherButtonTitles: nil];
+//            [alert show];
+            NSLog(@"Local search failed: %@", error.description);
+            return;
+        }
+        
+        if (response.mapItems.count == 0) {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Search Results"
+//                                                            message:nil
+//                                                           delegate:self
+//                                                  cancelButtonTitle:@"OK"
+//                                                  otherButtonTitles: nil];
+//            [alert show];
+#if DEBUG
+            NSLog(@"No local search results for place: lat. %f, long. %f.",
+                  self.region.center.latitude,
+                  self.region.center.longitude);
+#endif
+            return;
+        }
+        NSLog(@"%@", response.mapItems.description);
+        self.localSearchResponse = response;
+        [self refreshMapAnnotations];
+    }];
+}
 
 @end

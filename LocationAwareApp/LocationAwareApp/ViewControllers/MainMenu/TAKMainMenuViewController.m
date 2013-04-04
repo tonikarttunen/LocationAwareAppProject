@@ -22,8 +22,7 @@
     if (self) {
         // Custom initialization
         self.title = @"Location-Aware App";
-        self.titleArray = @[@"Recommended", @"Everything", @"Weather",
-                            @"Location-Based Reminder", @"Social Media", @"Photos"];
+        [self generateTitleArray];
     }
     return self;
 }
@@ -51,6 +50,14 @@
     self.titleArray = nil;
 }
 
+#pragma mark - Table view contents
+
+- (void)generateTitleArray
+{
+    self.titleArray = @[TAK_ARCHITECTURE, TAK_ART_MUSEUMS, TAK_ATTRACTION, TAK_BEACH, TAK_COFFEE, TAK_DINNER, TAK_EVENTS, TAK_LUNCH, TAK_MOVIES, TAK_MUSEUMS, TAK_NIGHTLIFE, TAK_OUTDOOR_LIFE, TAK_SHOPPING, TAK_SPORTS, TAK_THEATRE];// @[@"Recommended", @"Everything", @"Weather",
+                        //@"Location-Based Reminder", @"Social Media", @"Photos"];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -62,6 +69,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
+    if (self.titleArray == nil) {
+        [self generateTitleArray];
+    }
     return self.titleArray.count;
 }
 
@@ -85,8 +95,7 @@
     
     @try {
         if (self.titleArray == nil) {
-            self.titleArray = @[@"Recommended", @"Everything", @"Weather",
-                                @"Location-Based Reminder", @"Social Media", @"Photos"];
+            [self generateTitleArray];
         }
         cell.textLabel.text = [self.titleArray objectAtIndex:indexPath.row];
     }
@@ -147,14 +156,23 @@
 {
     // Navigation logic may go here. Create and push another view controller.
     switch (indexPath.row) {
-        case 0: {
+//        case 0: {
+//            TAKViewController *DVC = [[TAKViewController alloc] init];
+//            [self.navigationController pushViewController:DVC animated:YES];
+//            break;
+//        }
+            
+        default: {
             TAKViewController *DVC = [[TAKViewController alloc] init];
+            @try {
+                DVC.title = [self.titleArray objectAtIndex:indexPath.row];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", [exception description]);
+            }
             [self.navigationController pushViewController:DVC animated:YES];
             break;
         }
-            
-        default:
-            break;
     }
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];

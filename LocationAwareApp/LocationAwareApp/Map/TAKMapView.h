@@ -7,9 +7,10 @@
 //
 
 #import <MapKit/MapKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "TAKAppDelegate.h"
 
-@interface TAKMapView : MKMapView <MKMapViewDelegate>
+@interface TAKMapView : MKMapView <MKMapViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *mapProperties;
 @property BOOL isLocationAlreadyKnown;
@@ -18,5 +19,7 @@
 - (void)moveCenterPointToCurrentLocationAnimated:(BOOL)animated;
 - (void)readMapPropertiesFromPlistFile;
 - (void)writeMapPropertiesToPlistFile;
+- (void)performLocalSearchWithString:(NSString *)searchString;
+- (void)refreshMapAnnotations;
 
 @end

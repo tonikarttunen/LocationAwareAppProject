@@ -20,18 +20,20 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.title = @"Map";
-    
     self.mapView = [[TAKMapView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.mapView];
     
-    TAKGeocoder *geo = [[TAKGeocoder alloc] init];
+    if (self.title != nil) {
+        [self.mapView performLocalSearchWithString:self.title];
+    }
     
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:37.781516 longitude:-122.404955];
-    [geo reverseGeocodeLocation:location];
-    
-    NSString *address = @"Aleksanterinkatu 52, Helsinki, Finland";
-    [geo forwardGeocodeAddress:address];
+//    TAKGeocoder *geo = [[TAKGeocoder alloc] init];
+//    
+//    CLLocation *location = [[CLLocation alloc] initWithLatitude:37.781516 longitude:-122.404955];
+//    [geo reverseGeocodeLocation:location];
+//    
+//    NSString *address = @"Aleksanterinkatu 52, Helsinki, Finland";
+//    [geo forwardGeocodeAddress:address];
 }
 
 - (void)didReceiveMemoryWarning

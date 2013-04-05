@@ -8,7 +8,7 @@
 
 #import "TAKLocationController.h"
 #import "TAKAppDelegate.h"
-#import "TAKViewController.h"
+#import "TAKLocalSearchResultsViewController.h"
 
 @implementation TAKLocationController
 

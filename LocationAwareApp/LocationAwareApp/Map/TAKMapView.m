@@ -10,12 +10,12 @@
 
 #define TAK_MAP_ANNOTATION_IDENTIFIER   @"TAK_MAP_ANNOTATION_IDENTIFIER"
 
-@interface TAKMapView ()
-
-@property (nonatomic, strong) MKLocalSearch *localSearch;
-@property (nonatomic, strong) MKLocalSearchResponse *localSearchResponse;
-
-@end
+//@interface TAKMapView ()
+//
+//@property (nonatomic, strong) MKLocalSearch *localSearch;
+//@property (nonatomic, strong) MKLocalSearchResponse *localSearchResponse;
+//
+//@end
 
 @implementation TAKMapView
 
@@ -26,7 +26,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.localSearchResponse = [[MKLocalSearchResponse alloc] init];
+        // self.localSearchResponse = [[MKLocalSearchResponse alloc] init];
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.mapProperties = [NSMutableDictionary new];
         [self readMapPropertiesFromPlistFile];
@@ -45,11 +45,11 @@
 {
     self.delegate = nil;
     self.mapProperties = nil;
-    if (self.localSearch.isSearching) {
-        [self.localSearch cancel];
-    }
-    self.localSearch = nil;
-    self.localSearchResponse = nil;
+//    if (self.localSearch.isSearching) {
+//        [self.localSearch cancel];
+//    }
+//    self.localSearch = nil;
+//    self.localSearchResponse = nil;
 }
 
 #pragma mark - Custom drawing
@@ -226,16 +226,16 @@
     }
 }
 
-- (void)refreshMapAnnotations
+- (void)refreshMapAnnotationsWithArray:(NSArray *)array
 {
     @try {
         if ((self.annotations != nil) && (self.annotations.count > 0)) {
             [self removeAnnotations:self.annotations];
         }
 
-        if (self.localSearchResponse.mapItems.count > 0) {
-            for (int i = 0; i < self.localSearchResponse.mapItems.count; i++) {
-                MKMapItem *mapItem = [self.localSearchResponse.mapItems objectAtIndex:i];
+        if (array.count > 0) {
+            for (int i = 0; i < array.count; i++) {
+                MKMapItem *mapItem = [array objectAtIndex:i];
                 MKPlacemark *placemark = mapItem.placemark;
                 MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
                 annotation.coordinate = placemark.coordinate;
@@ -244,7 +244,7 @@
                 annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
                 [self addAnnotation:annotation];
                 
-                if (i == self.localSearchResponse.mapItems.count - 1) {
+                if (i == array.count - 1) {
                     [self selectAnnotation:annotation animated:YES];
                 }
                 
@@ -430,7 +430,7 @@
  */
 
 #pragma mark - Local search
-
+/*
 - (void)performLocalSearchWithString:(NSString *)searchString
 {
     NSLog(@"Search string: %@", searchString);
@@ -482,5 +482,6 @@
         [self refreshMapAnnotations];
     }];
 }
+*/
 
 @end

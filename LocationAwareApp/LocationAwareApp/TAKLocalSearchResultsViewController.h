@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "TAKMapView.h"
+#import "TAKSearchResultsTableView.h"
 
-@interface TAKViewController : UIViewController
+@interface TAKLocalSearchResultsViewController : UIViewController
 
-@property (nonatomic, strong) TAKMapView *mapView;
+- (void)performLocalSearchWithString:(NSString *)searchString;
 
 @end

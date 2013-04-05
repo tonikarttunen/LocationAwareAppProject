@@ -19,7 +19,7 @@
 - (void)moveCenterPointToCurrentLocationAnimated:(BOOL)animated;
 - (void)readMapPropertiesFromPlistFile;
 - (void)writeMapPropertiesToPlistFile;
-- (void)performLocalSearchWithString:(NSString *)searchString;
-- (void)refreshMapAnnotations;
+// - (void)performLocalSearchWithString:(NSString *)searchString;
+- (void)refreshMapAnnotationsWithArray:(NSArray *)array;
 
 @end

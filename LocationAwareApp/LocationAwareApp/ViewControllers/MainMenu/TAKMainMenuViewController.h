@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TAKViewController.h"
+#import "TAKLocalSearchResultsViewController.h"
 #import "Constants.h"
 
 @interface TAKMainMenuViewController : UITableViewController

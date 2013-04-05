@@ -11,7 +11,7 @@
 #import "TAKLocationController.h"
 // #import "TAKViewController.h"
 
-@class TAKViewController;
+// @class TAKLocalSearchResultsViewController;
 @class TAKMainMenuViewController;
 
 @interface TAKAppDelegate : UIResponder <UIApplicationDelegate>

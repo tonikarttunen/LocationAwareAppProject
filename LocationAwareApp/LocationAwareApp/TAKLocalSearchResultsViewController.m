@@ -1,5 +1,5 @@
 //
-//  TAKViewController.m
+//  TAKLocalSearchResultsViewController.m
 //  LocationAwareApp
 //
 //  Created by Toni Antero Karttunen on 3/20/13.
@@ -101,7 +101,7 @@
 {
     NSArray *segmentedControlItems = @[@"Map", @"List"];
     self.segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedControlItems];
-    self.segmentedControl.frame = CGRectMake(0, 0, TAK_SEGMENTED_CONTROL_WIDTH, TAK_SEGMENTED_CONTROL_HEIGHT);
+    self.segmentedControl.frame = CGRectMake(0.0f, 0.0f, TAK_SEGMENTED_CONTROL_WIDTH, TAK_SEGMENTED_CONTROL_HEIGHT);
     self.segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.selectedSegmentIndex = 0;
@@ -145,7 +145,6 @@
             }
             break;
         }
-            
         default: {
             // Swap the view if necessary
             if (self.tableView == nil) {
@@ -160,7 +159,7 @@
     }
 }
 
-#pragma mark - Local search (Apple)
+#pragma mark - Local search (Apple MKLocalSearch)
 
 - (void)performLocalSearchWithString:(NSString *)searchString
 {

@@ -1,5 +1,5 @@
 //
-//  TAKViewController.h
+//  TAKLocalSearchResultsViewController.h
 //  LocationAwareApp
 //
 //  Created by Toni Antero Karttunen on 3/20/13.

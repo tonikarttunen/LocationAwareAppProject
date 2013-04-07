@@ -233,7 +233,7 @@
             [self removeAnnotations:self.annotations];
         }
 
-        if (array.count > 0) {
+        if ((array != nil) && (array.count > 0)) {
             for (int i = 0; i < array.count; i++) {
                 MKMapItem *mapItem = [array objectAtIndex:i];
                 MKPlacemark *placemark = mapItem.placemark;
@@ -244,13 +244,9 @@
                 annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
                 [self addAnnotation:annotation];
                 
-                if (i == array.count - 1) {
+                if (i == 0) {
                     [self selectAnnotation:annotation animated:YES];
                 }
-                
-//                if ([mapItem isEqual:[self.results.mapItems lastObject]]) {
-//                    [self selectAnnotation:annotation animated:YES];
-//                }
             }
         }
     }
@@ -305,6 +301,7 @@
 
 - (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {
+#warning TODO: Show a message to the user
 //    UIAlertView *mapAlert = [[UIAlertView alloc] initWithTitle:@"Cannot Load Map Data" message:[error description] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
 //    [mapAlert show];
     
@@ -403,11 +400,6 @@
  }
  */
 /*
- - (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
- {
- 
- }
- 
  - (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
  {
  

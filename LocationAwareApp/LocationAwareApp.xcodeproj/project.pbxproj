@@ -239,18 +239,18 @@
 			children = (
 				E981EE8016FFEBE1008717C9 /* Reminder */,
 				E981EE7716FFD70E008717C9 /* Main Menu */,
-				E9D1251C16FEA7330057DC74 /* Main View */,
+				E9D1251C16FEA7330057DC74 /* Local Search Results */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
 		};
-		E9D1251C16FEA7330057DC74 /* Main View */ = {
+		E9D1251C16FEA7330057DC74 /* Local Search Results */ = {
 			isa = PBXGroup;
 			children = (
 				E9DA007216FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.h */,
 				E9DA007316FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.m */,
 			);
-			name = "Main View";
+			name = "Local Search Results";
 			sourceTree = "<group>";
 		};
 		E9D1252016FEA7C10057DC74 /* Map */ = {

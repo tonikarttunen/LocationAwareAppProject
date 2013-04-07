@@ -120,6 +120,10 @@
 - (void)generateTableView
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    if ((self.localSearchResponse != nil) && (self.localSearchResponse.mapItems.count > 0)) {
+        self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
+        [self.tableView reloadData];
+    }
     [self.view addSubview:self.tableView];
 }
 
@@ -209,7 +213,14 @@
         }
         NSLog(@"%@", response.mapItems.description);
         self.localSearchResponse = response;
+        
         [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems];
+        
+        if (self.tableView != nil) {
+            self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
+            [self.tableView reloadData];
+        }
+        
     }];
 }
 

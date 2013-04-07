@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 
-@interface TAKSearchResultsTableView : UITableView
+@interface TAKSearchResultsTableView : UITableView <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) NSMutableArray *tableViewContents;
 
 @end

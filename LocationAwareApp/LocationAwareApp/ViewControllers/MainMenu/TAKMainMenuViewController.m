@@ -54,7 +54,7 @@
 
 - (void)generateTitleArray
 {
-    self.titleArray = @[TAK_ARCHITECTURE, TAK_ART_MUSEUMS, TAK_ATTRACTION, TAK_BEACH, TAK_COFFEE, TAK_DINNER, TAK_EVENTS, TAK_LUNCH, TAK_MOVIES, TAK_MUSEUMS, TAK_NIGHTLIFE, TAK_OUTDOOR_LIFE, TAK_SHOPPING, TAK_SPORTS, TAK_THEATRE];// @[@"Recommended", @"Everything", @"Weather",
+    self.titleArray = @[TAK_ARCHITECTURE, TAK_ART_MUSEUMS, TAK_BEACH, TAK_COFFEE, TAK_DINNER, TAK_EVENTS, TAK_LUNCH, TAK_MOVIES, TAK_MUSEUMS, TAK_NIGHTLIFE, TAK_SHOPPING, TAK_SPORTS, TAK_THEATRE, TAK_TOURIST_ATTRACTIONS];// @[@"Recommended", @"Everything", @"Weather",
                         //@"Location-Based Reminder", @"Social Media", @"Photos"];
 }
 

@@ -6,7 +6,9 @@
 //  Copyright (c) 2013 Toni Antero Karttunen. All rights reserved.
 //
 
+#import "TAKAppDelegate.h"
 #import "TAKFoursquareLocalSearchResultsViewController.h"
+#import "TAKFoursquareController.h"
 
 @interface TAKFoursquareLocalSearchResultsViewController ()
 
@@ -15,42 +17,35 @@
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) TAKMapView *mapView;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
-@property (nonatomic, strong) TAKFoursquareAuthorizationView *foursquareAuthorizationView;
-
-// Foursquare
-@property (nonatomic, strong, readwrite) BZFoursquare *foursquare;
-@property (nonatomic, strong) BZFoursquareRequest *foursquareRequest;
-@property (nonatomic, copy) NSDictionary *foursquareResponse;
-@property (nonatomic, copy) NSDictionary *foursquareMeta;
-@property (nonatomic, copy) NSArray *foursquareNotifications;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
-enum {
-    TAK_BZFoursquareAuthenticationSection = 0,
-    TAK_BZFoursquareEndpointsSection,
-    TAK_BZFoursquareResponsesSection,
-    TAK_BZFoursquareSectionCount
-};
-
-enum {
-    TAK_BZFoursquareAccessTokenRow = 0,
-    TAK_BZFoursquareAuthenticationRowCount
-};
-
-enum {
-    TAK_BZFoursquareSearchVenuesRow = 0,
-    TAK_BZFoursquareCheckInRow,
-    TAK_BZFoursquareAddPhotoRow,
-    TAK_BZFoursquareEndpointsRowCount
-};
-
-enum {
-    TAK_BZFoursquareMetaRow = 0,
-    TAK_BZFoursquareNotificationsRow,
-    TAK_BZFoursquareResponseRow,
-    TAK_BZFoursquareResponsesRowCount
-};
+//enum {
+//    TAK_BZFoursquareAuthenticationSection = 0,
+//    TAK_BZFoursquareEndpointsSection,
+//    TAK_BZFoursquareResponsesSection,
+//    TAK_BZFoursquareSectionCount
+//};
+//
+//enum {
+//    TAK_BZFoursquareAccessTokenRow = 0,
+//    TAK_BZFoursquareAuthenticationRowCount
+//};
+//
+//enum {
+//    TAK_BZFoursquareSearchVenuesRow = 0,
+//    TAK_BZFoursquareCheckInRow,
+//    TAK_BZFoursquareAddPhotoRow,
+//    TAK_BZFoursquareEndpointsRowCount
+//};
+//
+//enum {
+//    TAK_BZFoursquareMetaRow = 0,
+//    TAK_BZFoursquareNotificationsRow,
+//    TAK_BZFoursquareResponseRow,
+//    TAK_BZFoursquareResponsesRowCount
+//};
 
 @implementation TAKFoursquareLocalSearchResultsViewController
 
@@ -59,12 +54,23 @@ enum {
     // self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     self = [super init /* WithCoder:aDecoder */];
     if (self) {
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        
+        
+        if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController) {
+            TAKFoursquareController *foursquareController = appDelegate.foursquareController;
+            if ([foursquareController.foursquare isSessionValid]) {
+                [foursquareController searchFoursquareContentWithPath:@"venues/search"
+                                                     searchParameters:@{@"ll" : @"40.7,-74"}];
+            }
+        }
+        
         // Custom initialization
-        self.foursquare = [[BZFoursquare alloc] initWithClientID:TAK_FOURSQUARE_API_KEY callbackURL:TAK_FOURSQUARE_API_REDIRECT_URL];
-        self.foursquare.locale = @"en";
-        // NSLog(@"LOCALE: %@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]);
-        self.foursquare.version = @"20111119";
-        self.foursquare.sessionDelegate = self;
+//        self.foursquare = [[BZFoursquare alloc] initWithClientID:TAK_FOURSQUARE_API_KEY callbackURL:TAK_FOURSQUARE_API_REDIRECT_URL];
+//        self.foursquare.locale = @"en";
+//        // NSLog(@"LOCALE: %@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]);
+//        self.foursquare.version = @"20111119";
+//        self.foursquare.sessionDelegate = self;
     }
     return self;
 }
@@ -74,10 +80,14 @@ enum {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    if ([self.foursquare isSessionValid]) {
-        [self generateInitialUI];
-    } else {
-        [self generateFoursquareAuthorizationUI];
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquare) {
+        BZFoursquare *foursquare = appDelegate.foursquareController.foursquare;
+        if (foursquare.isSessionValid) {
+            [self generateInitialUI];
+        } else {
+            [self generateFoursquareAuthorizationUI];
+        }
     }
 }
 
@@ -92,12 +102,12 @@ enum {
     _mapView = nil;
     _toolbar = nil;
     _segmentedControl = nil;
-    _foursquare.sessionDelegate = nil;
-    [self cancelFoursquareRequest];
-    _foursquare = nil;
-    _foursquareResponse = nil;
-    _foursquareMeta = nil;
-    _foursquareNotifications = nil;
+//    _foursquare.sessionDelegate = nil;
+//    [self cancelFoursquareRequest];
+//    _foursquare = nil;
+//    _foursquareResponse = nil;
+//    _foursquareMeta = nil;
+//    _foursquareNotifications = nil;
 }
 
 #pragma mark - UI
@@ -113,6 +123,26 @@ enum {
     [self setViewBasicProperties];
     [self generateToolbar];
     [self generateMapView];
+}
+
+- (void)updateUI
+{
+#if DEBUG
+    NSLog(@"The updateUI method was called.");
+#endif
+}
+
+- (void)showActivityIndicator
+{
+#if DEBUG
+    NSLog(@"showActivityIndicator was called.");
+#endif
+}
+- (void)removeActivityIndicatorFromView
+{
+#if DEBUG
+    NSLog(@"removeActivityIndicatorFromView was called.");
+#endif
 }
 
 - (void)setViewBasicProperties
@@ -217,21 +247,21 @@ enum {
 //    }
 //}
 //
-- (void)cancelFoursquareRequest {
-    if (self.foursquareRequest != nil) {
-        self.foursquareRequest.delegate = nil;
-        [self.foursquareRequest cancel];
-        self.foursquareRequest = nil;
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    }
-}
-
-- (void)prepareForFoursquareRequest {
-    [self cancelFoursquareRequest];
-    self.foursquareMeta = nil;
-    self.foursquareResponse = nil;
-    self.foursquareNotifications = nil;
-}
+//- (void)cancelFoursquareRequest {
+//    if (self.foursquareRequest != nil) {
+//        self.foursquareRequest.delegate = nil;
+//        [self.foursquareRequest cancel];
+//        self.foursquareRequest = nil;
+//        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+//    }
+//}
+//
+//- (void)prepareForFoursquareRequest {
+//    [self cancelFoursquareRequest];
+//    self.foursquareMeta = nil;
+//    self.foursquareResponse = nil;
+//    self.foursquareNotifications = nil;
+//}
 //
 //- (void)searchFoursquareVenues {
 //    [self prepareForFoursquareRequest];
@@ -262,24 +292,24 @@ enum {
 //    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 //}
 
-#pragma mark - BZFoursquareSessionDelegate
-
-//- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare {
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:TAK_BZFoursquareAccessTokenRow inSection:TAK_BZFoursquareAuthenticationSection];
-//    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
-//    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+//#pragma mark - BZFoursquareSessionDelegate
+//
+////- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare {
+////    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:TAK_BZFoursquareAccessTokenRow inSection:TAK_BZFoursquareAuthenticationSection];
+////    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
+////    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+////}
+//
+//- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare
+//{
+//    [self.foursquareAuthorizationView removeFromSuperview];
+//    [self generateInitialUI];
 //}
-
-- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare
-{
-    [self.foursquareAuthorizationView removeFromSuperview];
-    [self generateInitialUI];
-}
-- (void)foursquareDidNotAuthorize:(BZFoursquare *)foursquare error:(NSDictionary *)errorInfo
-{
-    NSLog(@"%s: %@", __PRETTY_FUNCTION__, errorInfo);
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Authorization Failed" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-    [alertView show];
-}
+//- (void)foursquareDidNotAuthorize:(BZFoursquare *)foursquare error:(NSDictionary *)errorInfo
+//{
+//    NSLog(@"%s: %@", __PRETTY_FUNCTION__, errorInfo);
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Authorization Failed" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+//    [alertView show];
+//}
 
 @end

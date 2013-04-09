@@ -7,10 +7,10 @@
 //
 
 #import "TAKAppDelegate.h"
-#import "BZFoursquare.h"
 // #import "TAKViewController.h"
 #import "TAKMainMenuViewController.h"
 #import "TAKFoursquareLocalSearchResultsViewController.h"
+#import "BZFoursquare.h"
 
 @implementation TAKAppDelegate
 
@@ -34,6 +34,7 @@
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     self.locationController = [[TAKLocationController alloc] init];
+    self.foursquareController = [[TAKFoursquareController alloc] init];
     
 #warning Read the correct value from NSUserDefaults
     self.isRegionMonitoringActive = NO;
@@ -96,14 +97,44 @@
     }
 }
 
-#pragma mark - Foursquare URL callback handling
+#pragma mark - Foursquare URL callback handling and successful authorization handling
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     @try {
-        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-        TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
-        BZFoursquare *foursquare = foursquareViewController.foursquare;
+        // UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        // TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+        BZFoursquare *foursquare = self.foursquareController.foursquare;
         return [foursquare handleOpenURL:url];
+    }
+    @catch (NSException *exception) {
+        // NSLog(@"Cannot Open the Foursquare View. %@.", exception.description);
+        NSLog(@"Foursquare authorization problem: %@.", exception.description);
+        // UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Open the Foursquare View" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Foursquare Authorization Error" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return NO;
+    }
+}
+
+- (BOOL)handleSuccessfulFoursquareAuthorization
+{
+    @try {
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        if (navigationController == nil) {
+            return NO;
+        }
+        TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+        if (foursquareViewController == nil) {
+            return NO;
+        } else if ([foursquareViewController respondsToSelector:@selector(generateInitialUI)]
+                   && (foursquareViewController.foursquareAuthorizationView != nil)) {
+//            [foursquareViewController.foursquareAuthorizationView removeFromSuperview];
+//            [foursquareViewController generateInitialUI];
+            [foursquareViewController generateInitialUI];
+            return YES;
+        } else {
+            return NO;
+        }
     }
     @catch (NSException *exception) {
         NSLog(@"Cannot Open the Foursquare View. %@.", exception.description);

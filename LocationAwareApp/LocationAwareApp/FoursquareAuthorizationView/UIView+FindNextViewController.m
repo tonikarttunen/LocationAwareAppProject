@@ -17,14 +17,19 @@
 
 - (id)findParentViewController
 {
-    id nextResponderObject = [self nextResponder];
-    
-    if ([nextResponderObject isKindOfClass:[UIViewController class]]) {
-        return nextResponderObject;
-    } else if ([nextResponderObject isKindOfClass:[UIView class]]) {
-        return [nextResponderObject findParentViewController];
-    } else {
-        return nil;
+    @try {
+        id nextResponderObject = [self nextResponder];
+        
+        if ([nextResponderObject isKindOfClass:[UIViewController class]]) {
+            return nextResponderObject;
+        } else if ([nextResponderObject isKindOfClass:[UIView class]]) {
+            return [nextResponderObject findParentViewController];
+        } else {
+            return nil;
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot find the parent view controller: %@", exception.description);
     }
 }
 

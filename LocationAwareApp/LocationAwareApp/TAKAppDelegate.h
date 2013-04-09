@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "TAKLocationController.h"
+#import "TAKFoursquareController.h"
 // #import "TAKViewController.h"
 
 // @class TAKLocalSearchResultsViewController;
@@ -21,6 +22,9 @@
 @property (strong, nonatomic) UINavigationController *navigationController;
 @property (strong, nonatomic) TAKMainMenuViewController *mainMenuViewController;
 @property (strong, nonatomic) TAKLocationController *locationController;
+@property (strong, nonatomic) TAKFoursquareController *foursquareController;
 @property (setter = setRegionMonitoringActive:) BOOL isRegionMonitoringActive;
+
+- (BOOL)handleSuccessfulFoursquareAuthorization;
 
 @end

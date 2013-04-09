@@ -10,14 +10,20 @@
 #import "TAKMapView.h"
 #import "TAKSearchResultsTableView.h"
 #import "Constants.h"
-#import "APIConstants.h"
-#import "BZFoursquare.h"
+// #import "APIConstants.h"
+// #import "BZFoursquare.h"
 #import "TAKFoursquareAuthorizationView.h"
 // #import "FSQJSONObjectViewController.h"
 
 
-@interface TAKFoursquareLocalSearchResultsViewController : UIViewController <BZFoursquareRequestDelegate, BZFoursquareSessionDelegate>
+@interface TAKFoursquareLocalSearchResultsViewController : UIViewController 
 
-@property (nonatomic, strong, readonly) BZFoursquare *foursquare;
+// @property (nonatomic, strong, readonly) BZFoursquare *foursquare;
+@property (nonatomic, strong) TAKFoursquareAuthorizationView *foursquareAuthorizationView;
+
+- (void)showActivityIndicator;
+- (void)removeActivityIndicatorFromView;
+- (void)generateInitialUI;
+- (void)updateUI;
 
 @end

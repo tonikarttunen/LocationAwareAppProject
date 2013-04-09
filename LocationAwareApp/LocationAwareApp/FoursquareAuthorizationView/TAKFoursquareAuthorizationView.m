@@ -65,10 +65,11 @@
 
 - (void)startFoursquareAuthorization
 {
-    // TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    TAKFoursquareLocalSearchResultsViewController *foursquareSearchResultsViewController = (TAKFoursquareLocalSearchResultsViewController *)[self parentViewController];
-    BZFoursquare *foursquare = foursquareSearchResultsViewController.foursquare;
-    [foursquare startAuthorization];
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquare) {
+        BZFoursquare *foursquare = appDelegate.foursquareController.foursquare;
+        [foursquare startAuthorization];
+    }
 }
 
 @end

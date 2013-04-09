@@ -8,6 +8,8 @@
 
 #import "TAKSearchResultsTableView.h"
 
+@class TAKFoursquareLocalSearchResultsViewController;
+
 @implementation TAKSearchResultsTableView
 
 - (id)initWithFrame:(CGRect)frame
@@ -75,11 +77,17 @@
     
     @try {
         if ((self.tableViewContents != nil) && (self.tableViewContents.count > 0)) {
-            MKMapItem *mapItem = [self.tableViewContents objectAtIndex:indexPath.row];
-            MKPlacemark *placemark = mapItem.placemark;
+            if ((self.informationSourceType != nil) && ([self.informationSourceType isEqualToString:TAK_INFORMATION_SOURCE_APPLE])) {
+                MKMapItem *mapItem = [self.tableViewContents objectAtIndex:indexPath.row];
+                MKPlacemark *placemark = mapItem.placemark;
+                
+                cell.textLabel.text = mapItem.name;
+                cell.detailTextLabel.text = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+            } else if ((self.informationSourceType != nil) && ([self.informationSourceType isEqualToString:TAK_INFORMATION_SOURCE_FOURSQUARE])) {
+#warning TODO: Implement: Foursquare
+                
+            }
             
-            cell.textLabel.text = mapItem.name;
-            cell.detailTextLabel.text = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
         }
     }
     @catch (NSException *exception) {

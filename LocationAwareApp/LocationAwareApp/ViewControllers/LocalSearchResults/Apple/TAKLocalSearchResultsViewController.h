@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TAKMapView.h"
 #import "TAKSearchResultsTableView.h"
+#import "Constants.h"
 
 @interface TAKLocalSearchResultsViewController : UIViewController
 

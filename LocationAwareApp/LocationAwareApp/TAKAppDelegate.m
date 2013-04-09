@@ -7,9 +7,10 @@
 //
 
 #import "TAKAppDelegate.h"
-
+#import "BZFoursquare.h"
 // #import "TAKViewController.h"
 #import "TAKMainMenuViewController.h"
+#import "TAKFoursquareLocalSearchResultsViewController.h"
 
 @implementation TAKAppDelegate
 
@@ -17,6 +18,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+
     self.mainMenuViewController = [TAKMainMenuViewController new];
     /*
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
@@ -91,6 +93,23 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     if (self.locationController && (!self.isRegionMonitoringActive)) {
         [self.locationController disableLocationManager];
+    }
+}
+
+#pragma mark - Foursquare URL callback handling
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    @try {
+        UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+        TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+        BZFoursquare *foursquare = foursquareViewController.foursquare;
+        return [foursquare handleOpenURL:url];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot Open the Foursquare View. %@.", exception.description);
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Cannot Open the Foursquare View" message:@"" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        return NO;
     }
 }
 

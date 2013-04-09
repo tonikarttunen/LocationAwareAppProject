@@ -21,7 +21,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-        self.title = @"Location-Aware App";
+        self.title = @"Nearby Places";
         [self generateTitleArray];
     }
     return self;
@@ -30,6 +30,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Privacy" style:UIBarButtonItemStyleBordered target:self action:@selector(presentPrivacyViewController)];
+    
+    [self setViewBasicProperties];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -163,7 +167,8 @@
 //        }
             
         default: {
-            TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
+            // TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
+            TAKFoursquareLocalSearchResultsViewController *DVC = [[TAKFoursquareLocalSearchResultsViewController alloc] init];
             @try {
                 DVC.title = [self.titleArray objectAtIndex:indexPath.row];
             }
@@ -180,6 +185,22 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+#pragma mark - Show the privacy view
+
+- (void)presentPrivacyViewController
+{
+    
+}
+
+#pragma mark - UI creation
+
+- (void)setViewBasicProperties
+{
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.opaque = YES;
 }
 
 @end

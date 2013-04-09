@@ -7,19 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E92899EF170E3F4B00BC4AD0 /* Foursquare2.m in Sources */ = {isa = PBXBuildFile; fileRef = E92899E3170E3F4B00BC4AD0 /* Foursquare2.m */; };
-		E92899F0170E3F4B00BC4AD0 /* FSRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = E92899E5170E3F4B00BC4AD0 /* FSRequester.m */; };
-		E92899F1170E3F4B00BC4AD0 /* FSTargetCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = E92899E7170E3F4B00BC4AD0 /* FSTargetCallback.m */; };
-		E92899F2170E3F4B00BC4AD0 /* FSWebLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = E92899E9170E3F4B00BC4AD0 /* FSWebLogin.m */; };
-		E92899F3170E3F4B00BC4AD0 /* FSWebLogin.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92899EA170E3F4B00BC4AD0 /* FSWebLogin.xib */; };
-		E92899F4170E3F4B00BC4AD0 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = E92899EB170E3F4B00BC4AD0 /* pin.png */; };
-		E92899F5170E3F4B00BC4AD0 /* pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E92899EC170E3F4B00BC4AD0 /* pin@2x.png */; };
-		E92899F6170E3F4B00BC4AD0 /* poweredByFoursquare_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E92899ED170E3F4B00BC4AD0 /* poweredByFoursquare_gray.png */; };
-		E92899F7170E3F4B00BC4AD0 /* poweredByFoursquare_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E92899EE170E3F4B00BC4AD0 /* poweredByFoursquare_gray@2x.png */; };
+		E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */; };
+		E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
 		E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
-		E9BF2245170E515500E928AF /* FSConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BF2242170E515400E928AF /* FSConverter.m */; };
-		E9BF2246170E515500E928AF /* FSVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BF2244170E515500E928AF /* FSVenue.m */; };
 		E9BF224A170E5D8400E928AF /* TAKSearchResultsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BF2249170E5D8400E928AF /* TAKSearchResultsTableView.m */; };
 		E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */; };
 		E9D1252416FEA8010057DC74 /* TAKGeocoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */; };
@@ -35,7 +26,6 @@
 		E9DA006D16FA3B4F00A76D42 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006C16FA3B4F00A76D42 /* Default.png */; };
 		E9DA006F16FA3B4F00A76D42 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006E16FA3B4F00A76D42 /* Default@2x.png */; };
 		E9DA007116FA3B4F00A76D42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */; };
-		E9DA007416FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA007316FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.m */; };
 		E9DA007716FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007516FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPhone.xib */; };
 		E9DA007A16FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007816FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPad.xib */; };
 		E9DA008216FA3B5000A76D42 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA008116FA3B5000A76D42 /* SenTestingKit.framework */; };
@@ -53,6 +43,14 @@
 		E9DA00A916FA99A100A76D42 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */; };
 		E9DA00AF16FD27F000A76D42 /* MapPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = E9DA00AE16FD27F000A76D42 /* MapPropertyList.plist */; };
 		E9DA00B316FD2A7800A76D42 /* TAKMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA00B216FD2A7800A76D42 /* TAKMapView.m */; };
+		E9DD63801712F58C009EEB22 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */; };
+		E9DD63811712F5A8009EEB22 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */; };
+		E9DD63871712F933009EEB22 /* BZFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD63841712F933009EEB22 /* BZFoursquare.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E9DD63881712F933009EEB22 /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD63861712F933009EEB22 /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E9DD638D1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */; };
+		E9DD6390171303EB009EEB22 /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */; };
+		E9DD639417136180009EEB22 /* poweredByFoursquare_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639217136180009EEB22 /* poweredByFoursquare_gray.png */; };
+		E9DD639517136180009EEB22 /* poweredByFoursquare_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639317136180009EEB22 /* poweredByFoursquare_gray@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,29 +64,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E92899E2170E3F4B00BC4AD0 /* Foursquare2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Foursquare2.h; sourceTree = "<group>"; };
-		E92899E3170E3F4B00BC4AD0 /* Foursquare2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Foursquare2.m; sourceTree = "<group>"; };
-		E92899E4170E3F4B00BC4AD0 /* FSRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSRequester.h; sourceTree = "<group>"; };
-		E92899E5170E3F4B00BC4AD0 /* FSRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSRequester.m; sourceTree = "<group>"; };
-		E92899E6170E3F4B00BC4AD0 /* FSTargetCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSTargetCallback.h; sourceTree = "<group>"; };
-		E92899E7170E3F4B00BC4AD0 /* FSTargetCallback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSTargetCallback.m; sourceTree = "<group>"; };
-		E92899E8170E3F4B00BC4AD0 /* FSWebLogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSWebLogin.h; sourceTree = "<group>"; };
-		E92899E9170E3F4B00BC4AD0 /* FSWebLogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSWebLogin.m; sourceTree = "<group>"; };
-		E92899EA170E3F4B00BC4AD0 /* FSWebLogin.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FSWebLogin.xib; sourceTree = "<group>"; };
-		E92899EB170E3F4B00BC4AD0 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
-		E92899EC170E3F4B00BC4AD0 /* pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pin@2x.png"; sourceTree = "<group>"; };
-		E92899ED170E3F4B00BC4AD0 /* poweredByFoursquare_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poweredByFoursquare_gray.png; sourceTree = "<group>"; };
-		E92899EE170E3F4B00BC4AD0 /* poweredByFoursquare_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "poweredByFoursquare_gray@2x.png"; sourceTree = "<group>"; };
 		E92899F8170E42B600BC4AD0 /* APIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIConstants.h; path = LocationAwareApp/APIConstants.h; sourceTree = "<group>"; };
+		E947C52D17138B3300E8AA3E /* TAKFoursquareAuthorizationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareAuthorizationView.h; path = FoursquareAuthorizationView/TAKFoursquareAuthorizationView.h; sourceTree = "<group>"; };
+		E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareAuthorizationView.m; path = FoursquareAuthorizationView/TAKFoursquareAuthorizationView.m; sourceTree = "<group>"; };
+		E947C5301713991300E8AA3E /* UIView+FindNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FindNextViewController.h"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.h"; sourceTree = "<group>"; };
+		E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FindNextViewController.m"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.m"; sourceTree = "<group>"; };
 		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
 		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
 		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
 		E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKReminderMasterViewController.m; path = ViewControllers/Reminder/TAKReminderMasterViewController.m; sourceTree = "<group>"; };
-		E9BF2241170E515400E928AF /* FSConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSConverter.h; sourceTree = "<group>"; };
-		E9BF2242170E515400E928AF /* FSConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSConverter.m; sourceTree = "<group>"; };
-		E9BF2243170E515400E928AF /* FSVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSVenue.h; sourceTree = "<group>"; };
-		E9BF2244170E515500E928AF /* FSVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSVenue.m; sourceTree = "<group>"; };
 		E9BF2248170E5D8400E928AF /* TAKSearchResultsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKSearchResultsTableView.h; path = TableViews/TAKSearchResultsTableView.h; sourceTree = "<group>"; };
 		E9BF2249170E5D8400E928AF /* TAKSearchResultsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKSearchResultsTableView.m; path = TableViews/TAKSearchResultsTableView.m; sourceTree = "<group>"; };
 		E9D1251D16FEA7930057DC74 /* TAKGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoder.h; path = Geocoder/TAKGeocoder.h; sourceTree = "<group>"; };
@@ -111,8 +96,6 @@
 		E9DA006C16FA3B4F00A76D42 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		E9DA006E16FA3B4F00A76D42 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		E9DA007216FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TAKLocalSearchResultsViewController.h; sourceTree = "<group>"; };
-		E9DA007316FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TAKLocalSearchResultsViewController.m; sourceTree = "<group>"; };
 		E9DA007616FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TAKLocalSearchResultsViewController_iPhone.xib; sourceTree = "<group>"; };
 		E9DA007916FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TAKLocalSearchResultsViewController_iPad.xib; sourceTree = "<group>"; };
 		E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationAwareAppTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +114,17 @@
 		E9DA00AE16FD27F000A76D42 /* MapPropertyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MapPropertyList.plist; path = Map/MapPropertyList.plist; sourceTree = "<group>"; };
 		E9DA00B116FD2A7800A76D42 /* TAKMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMapView.h; path = Map/TAKMapView.h; sourceTree = "<group>"; };
 		E9DA00B216FD2A7800A76D42 /* TAKMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMapView.m; path = Map/TAKMapView.m; sourceTree = "<group>"; };
+		E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		E9DD63831712F933009EEB22 /* BZFoursquare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquare.h; sourceTree = "<group>"; };
+		E9DD63841712F933009EEB22 /* BZFoursquare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZFoursquare.m; sourceTree = "<group>"; };
+		E9DD63851712F933009EEB22 /* BZFoursquareRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BZFoursquareRequest.h; sourceTree = "<group>"; };
+		E9DD63861712F933009EEB22 /* BZFoursquareRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BZFoursquareRequest.m; sourceTree = "<group>"; };
+		E9DD638B1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareLocalSearchResultsViewController.h; path = ViewControllers/LocalSearchResults/Foursquare/TAKFoursquareLocalSearchResultsViewController.h; sourceTree = "<group>"; };
+		E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareLocalSearchResultsViewController.m; path = ViewControllers/LocalSearchResults/Foursquare/TAKFoursquareLocalSearchResultsViewController.m; sourceTree = "<group>"; };
+		E9DD638E171303EB009EEB22 /* TAKLocalSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKLocalSearchResultsViewController.h; path = ViewControllers/LocalSearchResults/Apple/TAKLocalSearchResultsViewController.h; sourceTree = "<group>"; };
+		E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKLocalSearchResultsViewController.m; path = ViewControllers/LocalSearchResults/Apple/TAKLocalSearchResultsViewController.m; sourceTree = "<group>"; };
+		E9DD639217136180009EEB22 /* poweredByFoursquare_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poweredByFoursquare_gray.png; path = Images/poweredByFoursquare_gray.png; sourceTree = "<group>"; };
+		E9DD639317136180009EEB22 /* poweredByFoursquare_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poweredByFoursquare_gray@2x.png"; path = "Images/poweredByFoursquare_gray@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,12 +132,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9DD63801712F58C009EEB22 /* MobileCoreServices.framework in Frameworks */,
+				E9DA005D16FA3B4F00A76D42 /* Foundation.framework in Frameworks */,
 				E9D1252A16FEC0250057DC74 /* AddressBookUI.framework in Frameworks */,
 				E9DA009D16FA3D5E00A76D42 /* QuartzCore.framework in Frameworks */,
 				E9DA009B16FA3D5200A76D42 /* MapKit.framework in Frameworks */,
 				E9DA009916FA3D4700A76D42 /* CoreLocation.framework in Frameworks */,
 				E9DA005B16FA3B4F00A76D42 /* UIKit.framework in Frameworks */,
-				E9DA005D16FA3B4F00A76D42 /* Foundation.framework in Frameworks */,
 				E9DA005F16FA3B4F00A76D42 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9DD63811712F5A8009EEB22 /* MobileCoreServices.framework in Frameworks */,
 				E9D1252916FEC01C0057DC74 /* AddressBookUI.framework in Frameworks */,
 				E9DA00A916FA99A100A76D42 /* QuartzCore.framework in Frameworks */,
 				E9DA00A816FA999A00A76D42 /* MapKit.framework in Frameworks */,
@@ -165,28 +161,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E92899E1170E3F4B00BC4AD0 /* Foursquare-API-Classes */ = {
+		E947C52C17138A7400E8AA3E /* Foursquare Authorization UI */ = {
 			isa = PBXGroup;
 			children = (
-				E92899E2170E3F4B00BC4AD0 /* Foursquare2.h */,
-				E92899E3170E3F4B00BC4AD0 /* Foursquare2.m */,
-				E92899E4170E3F4B00BC4AD0 /* FSRequester.h */,
-				E92899E5170E3F4B00BC4AD0 /* FSRequester.m */,
-				E92899E6170E3F4B00BC4AD0 /* FSTargetCallback.h */,
-				E92899E7170E3F4B00BC4AD0 /* FSTargetCallback.m */,
-				E92899E8170E3F4B00BC4AD0 /* FSWebLogin.h */,
-				E92899E9170E3F4B00BC4AD0 /* FSWebLogin.m */,
-				E92899EA170E3F4B00BC4AD0 /* FSWebLogin.xib */,
-				E9BF2241170E515400E928AF /* FSConverter.h */,
-				E9BF2242170E515400E928AF /* FSConverter.m */,
-				E9BF2243170E515400E928AF /* FSVenue.h */,
-				E9BF2244170E515500E928AF /* FSVenue.m */,
-				E92899EB170E3F4B00BC4AD0 /* pin.png */,
-				E92899EC170E3F4B00BC4AD0 /* pin@2x.png */,
-				E92899ED170E3F4B00BC4AD0 /* poweredByFoursquare_gray.png */,
-				E92899EE170E3F4B00BC4AD0 /* poweredByFoursquare_gray@2x.png */,
+				E947C52D17138B3300E8AA3E /* TAKFoursquareAuthorizationView.h */,
+				E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */,
+				E947C5301713991300E8AA3E /* UIView+FindNextViewController.h */,
+				E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */,
 			);
-			path = "Foursquare-API-Classes";
+			name = "Foursquare Authorization UI";
 			sourceTree = "<group>";
 		};
 		E981EE7716FFD70E008717C9 /* Main Menu */ = {
@@ -247,8 +230,8 @@
 		E9D1251C16FEA7330057DC74 /* Local Search Results */ = {
 			isa = PBXGroup;
 			children = (
-				E9DA007216FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.h */,
-				E9DA007316FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.m */,
+				E9DD6389171302C1009EEB22 /* Apple Local Search API */,
+				E9DD638A171302D3009EEB22 /* Foursquare API */,
 			);
 			name = "Local Search Results";
 			sourceTree = "<group>";
@@ -295,7 +278,8 @@
 		E9DA005916FA3B4F00A76D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E92899E1170E3F4B00BC4AD0 /* Foursquare-API-Classes */,
+				E9DD63821712F933009EEB22 /* BZFoursquare */,
+				E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */,
 				E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */,
 				E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */,
 				E9DA009A16FA3D5200A76D42 /* MapKit.framework */,
@@ -311,6 +295,7 @@
 		E9DA006016FA3B4F00A76D42 /* LocationAwareApp */ = {
 			isa = PBXGroup;
 			children = (
+				E9DD6391171360F1009EEB22 /* Images */,
 				E9D1251A16FEA7090057DC74 /* App Delegate */,
 				E9D1251B16FEA7220057DC74 /* View Controllers */,
 				E9D1251916FEA6F30057DC74 /* Geocoder */,
@@ -404,6 +389,46 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E9DD63821712F933009EEB22 /* BZFoursquare */ = {
+			isa = PBXGroup;
+			children = (
+				E9DD63831712F933009EEB22 /* BZFoursquare.h */,
+				E9DD63841712F933009EEB22 /* BZFoursquare.m */,
+				E9DD63851712F933009EEB22 /* BZFoursquareRequest.h */,
+				E9DD63861712F933009EEB22 /* BZFoursquareRequest.m */,
+			);
+			name = BZFoursquare;
+			path = LocationAwareApp/BZFoursquare;
+			sourceTree = "<group>";
+		};
+		E9DD6389171302C1009EEB22 /* Apple Local Search API */ = {
+			isa = PBXGroup;
+			children = (
+				E9DD638E171303EB009EEB22 /* TAKLocalSearchResultsViewController.h */,
+				E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */,
+			);
+			name = "Apple Local Search API";
+			sourceTree = "<group>";
+		};
+		E9DD638A171302D3009EEB22 /* Foursquare API */ = {
+			isa = PBXGroup;
+			children = (
+				E9DD638B1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.h */,
+				E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */,
+				E947C52C17138A7400E8AA3E /* Foursquare Authorization UI */,
+			);
+			name = "Foursquare API";
+			sourceTree = "<group>";
+		};
+		E9DD6391171360F1009EEB22 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E9DD639217136180009EEB22 /* poweredByFoursquare_gray.png */,
+				E9DD639317136180009EEB22 /* poweredByFoursquare_gray@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -483,11 +508,8 @@
 				E9DA007716FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */,
 				E9DA007A16FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPad.xib in Resources */,
 				E9DA00AF16FD27F000A76D42 /* MapPropertyList.plist in Resources */,
-				E92899F3170E3F4B00BC4AD0 /* FSWebLogin.xib in Resources */,
-				E92899F4170E3F4B00BC4AD0 /* pin.png in Resources */,
-				E92899F5170E3F4B00BC4AD0 /* pin@2x.png in Resources */,
-				E92899F6170E3F4B00BC4AD0 /* poweredByFoursquare_gray.png in Resources */,
-				E92899F7170E3F4B00BC4AD0 /* poweredByFoursquare_gray@2x.png in Resources */,
+				E9DD639417136180009EEB22 /* poweredByFoursquare_gray.png in Resources */,
+				E9DD639517136180009EEB22 /* poweredByFoursquare_gray@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,19 +546,18 @@
 			files = (
 				E9DA006716FA3B4F00A76D42 /* main.m in Sources */,
 				E9DA006B16FA3B4F00A76D42 /* TAKAppDelegate.m in Sources */,
-				E9DA007416FA3B4F00A76D42 /* TAKLocalSearchResultsViewController.m in Sources */,
 				E9DA00A116FA6F6500A76D42 /* TAKLocationController.m in Sources */,
 				E9DA00B316FD2A7800A76D42 /* TAKMapView.m in Sources */,
 				E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */,
 				E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */,
 				E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */,
-				E92899EF170E3F4B00BC4AD0 /* Foursquare2.m in Sources */,
-				E92899F0170E3F4B00BC4AD0 /* FSRequester.m in Sources */,
-				E92899F1170E3F4B00BC4AD0 /* FSTargetCallback.m in Sources */,
-				E92899F2170E3F4B00BC4AD0 /* FSWebLogin.m in Sources */,
-				E9BF2245170E515500E928AF /* FSConverter.m in Sources */,
-				E9BF2246170E515500E928AF /* FSVenue.m in Sources */,
 				E9BF224A170E5D8400E928AF /* TAKSearchResultsTableView.m in Sources */,
+				E9DD63871712F933009EEB22 /* BZFoursquare.m in Sources */,
+				E9DD63881712F933009EEB22 /* BZFoursquareRequest.m in Sources */,
+				E9DD638D1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m in Sources */,
+				E9DD6390171303EB009EEB22 /* TAKLocalSearchResultsViewController.m in Sources */,
+				E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */,
+				E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

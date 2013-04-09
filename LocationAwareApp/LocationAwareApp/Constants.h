@@ -9,7 +9,14 @@
 #ifndef LocationAwareApp_Constants_h
 #define LocationAwareApp_Constants_h
 
+// Tabs
+
+#define TAK_CATEGORY_APPLE      @"Apple"
+#define TAK_CATEGORY_FOURSQUARE @"Foursquare"
+#define TAK_CATEGORY_PRIVACY    @"Privacy"
+
 // Local search categories
+
 #define TAK_COFFEE              @"Coffee"
 #define TAK_LUNCH               @"Lunch"
 #define TAK_DINNER              @"Dinner"
@@ -24,5 +31,16 @@
 #define TAK_SHOPPING            @"Shopping"
 #define TAK_EVENTS              @"Events"
 #define TAK_ARCHITECTURE        @"Architecture"
+
+// UI
+
+#define TAK_STANDARD_TOOLBAR_HEIGHT     44.0f
+#define TAK_SEGMENTED_CONTROL_HEIGHT    31.0f
+#define TAK_SEGMENTED_CONTROL_WIDTH     308.0f
+
+// Information sources
+
+#define TAK_INFORMATION_SOURCE_APPLE        @"Apple"
+#define TAK_INFORMATION_SOURCE_FOURSQUARE   @"Foursquare"
 
 #endif

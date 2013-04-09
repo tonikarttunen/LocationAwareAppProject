@@ -7,11 +7,6 @@
 //
 
 #import "TAKLocalSearchResultsViewController.h"
-#import "TAKGeocoder.h"
-
-#define TAK_STANDARD_TOOLBAR_HEIGHT     44.0f
-#define TAK_SEGMENTED_CONTROL_HEIGHT    31.0f
-#define TAK_SEGMENTED_CONTROL_WIDTH     308.0f
 
 @interface TAKLocalSearchResultsViewController ()
 
@@ -77,8 +72,16 @@
 
 - (void)generateInitialUI
 {
+    [self setViewBasicProperties];
     [self generateToolbar];
     [self generateMapView];
+}
+
+- (void)setViewBasicProperties
+{
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.opaque = YES;
 }
 
 - (void)generateToolbar
@@ -120,6 +123,7 @@
 - (void)generateTableView
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.tableView.informationSourceType = TAK_INFORMATION_SOURCE_APPLE;
     if ((self.localSearchResponse != nil) && (self.localSearchResponse.mapItems.count > 0)) {
         self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
         [self.tableView reloadData];
@@ -133,7 +137,7 @@
     [self.view addSubview:self.mapView];
 }
 
-#pragma mark - Segmeted control actions
+#pragma mark - Segmented control actions
 
 - (void)segmentedControlValueChanged:(id)sender
 {
@@ -211,7 +215,9 @@
 #endif
             return;
         }
+#if DEBUG
         NSLog(@"%@", response.mapItems.description);
+#endif
         self.localSearchResponse = response;
         
         [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems];

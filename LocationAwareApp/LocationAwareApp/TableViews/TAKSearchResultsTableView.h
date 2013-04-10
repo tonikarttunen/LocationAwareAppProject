@@ -11,7 +11,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "Constants.h"
 
-@interface TAKSearchResultsTableView : UITableView <UITableViewDataSource, UITableViewDelegate>
+@interface TAKSearchResultsTableView : UITableView <UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *tableViewContents;
 @property (nonatomic, copy) NSString *informationSourceType;

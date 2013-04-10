@@ -11,7 +11,7 @@
 #import "TAKSearchResultsTableView.h"
 #import "Constants.h"
 
-@interface TAKLocalSearchResultsViewController : UIViewController
+@interface TAKLocalSearchResultsViewController : UIViewController <UITableViewDelegate>
 
 - (void)performLocalSearchWithString:(NSString *)searchString;
 

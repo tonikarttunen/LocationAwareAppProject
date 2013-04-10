@@ -173,7 +173,7 @@
             }
             
             [self searchFoursquareContentWithPath:@"venues/search"
-                                 searchParameters:[NSDictionary dictionaryWithObjectsAndKeys:locationString, @"ll", nil]];
+                                 searchParameters:@{@"ll" : locationString, @"radius" : @"2000"}];
         } else {
             NSLog(@"TAKAppDelegate does not respond to selector \"handleSuccessfulFoursquareAuthorization\"");
         }

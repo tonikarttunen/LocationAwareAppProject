@@ -16,7 +16,7 @@
 // #import "FSQJSONObjectViewController.h"
 
 
-@interface TAKFoursquareLocalSearchResultsViewController : UIViewController 
+@interface TAKFoursquareLocalSearchResultsViewController : UIViewController <UITableViewDelegate>
 
 // @property (nonatomic, strong, readonly) BZFoursquare *foursquare;
 @property (nonatomic, strong) TAKFoursquareAuthorizationView *foursquareAuthorizationView;

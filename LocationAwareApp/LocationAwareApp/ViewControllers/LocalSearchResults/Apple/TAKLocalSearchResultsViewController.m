@@ -7,6 +7,7 @@
 //
 
 #import "TAKLocalSearchResultsViewController.h"
+#import "TAKDetailViewController.h"
 
 @interface TAKLocalSearchResultsViewController ()
 
@@ -48,6 +49,13 @@
 //    
 //    NSString *address = @"Aleksanterinkatu 52, Helsinki, Finland";
 //    [geo forwardGeocodeAddress:address];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -230,5 +238,16 @@
     }];
 }
 
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MKMapItem *mapItem = [self.tableView.tableViewContents objectAtIndex:indexPath.row];
+    NSString *DVCTitle = mapItem.name;
+    TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    DVC.title = DVCTitle;
+    [self.navigationController pushViewController:DVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 @end

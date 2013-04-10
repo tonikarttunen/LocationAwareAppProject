@@ -9,6 +9,7 @@
 #import "TAKAppDelegate.h"
 #import "TAKFoursquareLocalSearchResultsViewController.h"
 #import "TAKFoursquareController.h"
+#import "TAKDetailViewController.h"
 
 @interface TAKFoursquareLocalSearchResultsViewController ()
 
@@ -18,6 +19,8 @@
 @property (nonatomic, strong) TAKMapView *mapView;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+
+// Foursquare
 @property (nonatomic, copy) NSArray *venues;
 
 @end
@@ -44,11 +47,19 @@
                     locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
                 }
                 [foursquareController searchFoursquareContentWithPath:@"venues/search"
-                                                     searchParameters:@{@"ll" : locationString}];
+                                                     searchParameters:@{@"ll" : locationString,
+                                                                        @"radius" : @"2000"}];
             }
         }
     }
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
 }
 
 - (void)viewDidLoad
@@ -177,6 +188,7 @@
 - (void)generateTableView
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.tableView.delegate = self;
     self.tableView.informationSourceType = TAK_INFORMATION_SOURCE_FOURSQUARE;
     
     @try {
@@ -225,6 +237,17 @@
             break;
         }
     }
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *DVCTitle = (NSString *)[[self.tableView.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
+    TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+    DVC.title = DVCTitle;
+    [self.navigationController pushViewController:DVC animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 @end

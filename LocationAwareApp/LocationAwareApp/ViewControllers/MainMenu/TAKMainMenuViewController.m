@@ -31,6 +31,7 @@
 {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(presentSettingsViewController)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Privacy" style:UIBarButtonItemStyleBordered target:self action:@selector(presentPrivacyViewController)];
     
     [self setViewBasicProperties];
@@ -187,9 +188,16 @@
      */
 }
 
-#pragma mark - Show the privacy view
+#pragma mark - Present the privacy view controller
 
 - (void)presentPrivacyViewController
+{
+    
+}
+
+#pragma mark - Present the settings view controller
+
+- (void)presentSettingsViewController
 {
     
 }

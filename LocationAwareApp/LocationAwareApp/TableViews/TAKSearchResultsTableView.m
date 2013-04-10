@@ -19,7 +19,7 @@
         // Initialization code
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.tableViewContents = [NSMutableArray new];
-        self.delegate = self;
+        // self.delegate = self;
         self.dataSource = self;
     }
     return self;
@@ -100,39 +100,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 58.0f;
-}
-
-#pragma mark - Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Navigation logic may go here. Create and push another view controller.
-//    NSString *dvcTitle;
-//    switch (indexPath.row) {
-//        case 0:
-//            dvcTitle = COPENHAGEN_OFFICE;
-//            break;
-//            
-//        case 1:
-//            dvcTitle = LONDON_OFFICE;
-//            break;
-//            
-//        default:
-//            dvcTitle = MANHATTAN_OFFICE;
-//            break;
-//    }
-//    
-//    NSLog(@"Detail View Controller Title: %@", dvcTitle);
-//    TAKOfficeDetailViewController *officeDetailViewController = [[TAKOfficeDetailViewController alloc] initWithStyle:UITableViewStyleGrouped title:dvcTitle];
-//    
-//    @try {
-//        UIViewController *mainViewController = (UIViewController *)[self.view.superview nextResponder];
-//        [mainViewController.navigationController pushViewController:officeDetailViewController animated:YES];
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"%@", exception.description);
-//    }
 }
 
 @end

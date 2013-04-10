@@ -8,6 +8,8 @@
 
 #import "TAKMapView.h"
 #import "Constants.h"
+#import "TAKDetailViewController.h"
+#import "UIView+FindNextViewController.h"
 
 #define TAK_MAP_ANNOTATION_IDENTIFIER   @"TAK_MAP_ANNOTATION_IDENTIFIER"
 
@@ -89,7 +91,7 @@
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 1.0;
+        double mapKilometers = 2.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;
@@ -129,7 +131,7 @@
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 1.0;
+        double mapKilometers = 2.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;
@@ -274,12 +276,20 @@
 
 #pragma mark - Map view delegate methods
 
-/*
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-
+    @try {
+        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+        DVC.title = view.annotation.title;
+        UIViewController *viewController = [self findParentViewController];
+        [viewController.navigationController pushViewController:DVC animated:YES];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot present TAKDetailViewController: %@", exception.description);
+    }
 }
 
+/*
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState
 {
 

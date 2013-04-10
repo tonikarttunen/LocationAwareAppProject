@@ -11,6 +11,7 @@
 		E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
 		E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
+		E990AD771714B65D007EA467 /* TAKFoursquareDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */; };
 		E9BF224A170E5D8400E928AF /* TAKSearchResultsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BF2249170E5D8400E928AF /* TAKSearchResultsTableView.m */; };
 		E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */; };
 		E9D1252416FEA8010057DC74 /* TAKGeocoderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1252316FEA8010057DC74 /* TAKGeocoderTests.m */; };
@@ -75,6 +76,8 @@
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
 		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
 		E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKReminderMasterViewController.m; path = ViewControllers/Reminder/TAKReminderMasterViewController.m; sourceTree = "<group>"; };
+		E990AD751714B65D007EA467 /* TAKFoursquareDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareDataController.h; path = Controllers/FoursquareDataController/TAKFoursquareDataController.h; sourceTree = "<group>"; };
+		E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareDataController.m; path = Controllers/FoursquareDataController/TAKFoursquareDataController.m; sourceTree = "<group>"; };
 		E9BF2248170E5D8400E928AF /* TAKSearchResultsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKSearchResultsTableView.h; path = TableViews/TAKSearchResultsTableView.h; sourceTree = "<group>"; };
 		E9BF2249170E5D8400E928AF /* TAKSearchResultsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKSearchResultsTableView.m; path = TableViews/TAKSearchResultsTableView.m; sourceTree = "<group>"; };
 		E9D1251D16FEA7930057DC74 /* TAKGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKGeocoder.h; path = Geocoder/TAKGeocoder.h; sourceTree = "<group>"; };
@@ -191,6 +194,15 @@
 				E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */,
 			);
 			name = Reminder;
+			sourceTree = "<group>";
+		};
+		E990AD711714AF38007EA467 /* FoursquareDataController */ = {
+			isa = PBXGroup;
+			children = (
+				E990AD751714B65D007EA467 /* TAKFoursquareDataController.h */,
+				E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */,
+			);
+			name = FoursquareDataController;
 			sourceTree = "<group>";
 		};
 		E9BF2247170E5D2800E928AF /* Table Views */ = {
@@ -435,6 +447,7 @@
 				E9D1251916FEA6F30057DC74 /* Geocoder */,
 				E9DA00A216FA723400A76D42 /* LocationController */,
 				E9F86A9517141EE800D249AD /* FoursquareController */,
+				E990AD711714AF38007EA467 /* FoursquareDataController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -588,6 +601,7 @@
 				E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */,
 				E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */,
 				E9F86A9317141ECA00D249AD /* TAKFoursquareController.m in Sources */,
+				E990AD771714B65D007EA467 /* TAKFoursquareDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

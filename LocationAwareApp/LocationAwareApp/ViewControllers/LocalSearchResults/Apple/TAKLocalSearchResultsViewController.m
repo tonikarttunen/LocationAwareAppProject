@@ -220,7 +220,7 @@
 #endif
         self.localSearchResponse = response;
         
-        [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems];
+        [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems informationSource:TAK_INFORMATION_SOURCE_APPLE];
         
         if (self.tableView != nil) {
             self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;

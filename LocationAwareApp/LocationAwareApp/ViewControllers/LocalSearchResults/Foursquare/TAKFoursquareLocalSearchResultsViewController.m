@@ -18,34 +18,9 @@
 @property (nonatomic, strong) TAKMapView *mapView;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, copy) NSArray *venues;
 
 @end
-
-//enum {
-//    TAK_BZFoursquareAuthenticationSection = 0,
-//    TAK_BZFoursquareEndpointsSection,
-//    TAK_BZFoursquareResponsesSection,
-//    TAK_BZFoursquareSectionCount
-//};
-//
-//enum {
-//    TAK_BZFoursquareAccessTokenRow = 0,
-//    TAK_BZFoursquareAuthenticationRowCount
-//};
-//
-//enum {
-//    TAK_BZFoursquareSearchVenuesRow = 0,
-//    TAK_BZFoursquareCheckInRow,
-//    TAK_BZFoursquareAddPhotoRow,
-//    TAK_BZFoursquareEndpointsRowCount
-//};
-//
-//enum {
-//    TAK_BZFoursquareMetaRow = 0,
-//    TAK_BZFoursquareNotificationsRow,
-//    TAK_BZFoursquareResponseRow,
-//    TAK_BZFoursquareResponsesRowCount
-//};
 
 @implementation TAKFoursquareLocalSearchResultsViewController
 
@@ -55,22 +30,23 @@
     self = [super init /* WithCoder:aDecoder */];
     if (self) {
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        
-        
         if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController) {
             TAKFoursquareController *foursquareController = appDelegate.foursquareController;
             if ([foursquareController.foursquare isSessionValid]) {
+                CLLocation *location;
+                NSString *locationString;
+                if (appDelegate.locationController.lastKnownLocation != nil) {
+                    location = appDelegate.locationController.lastKnownLocation;
+                    double latitude = (double)location.coordinate.latitude;
+                    double longitude = (double)location.coordinate.longitude;
+                    locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                } else {
+                    locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
+                }
                 [foursquareController searchFoursquareContentWithPath:@"venues/search"
-                                                     searchParameters:@{@"ll" : @"40.7,-74"}];
+                                                     searchParameters:@{@"ll" : locationString}];
             }
         }
-        
-        // Custom initialization
-//        self.foursquare = [[BZFoursquare alloc] initWithClientID:TAK_FOURSQUARE_API_KEY callbackURL:TAK_FOURSQUARE_API_REDIRECT_URL];
-//        self.foursquare.locale = @"en";
-//        // NSLog(@"LOCALE: %@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]);
-//        self.foursquare.version = @"20111119";
-//        self.foursquare.sessionDelegate = self;
     }
     return self;
 }
@@ -102,12 +78,8 @@
     _mapView = nil;
     _toolbar = nil;
     _segmentedControl = nil;
-//    _foursquare.sessionDelegate = nil;
-//    [self cancelFoursquareRequest];
-//    _foursquare = nil;
-//    _foursquareResponse = nil;
-//    _foursquareMeta = nil;
-//    _foursquareNotifications = nil;
+    _activityIndicatorView = nil;
+    _venues = nil;
 }
 
 #pragma mark - UI
@@ -130,6 +102,20 @@
 #if DEBUG
     NSLog(@"The updateUI method was called.");
 #endif
+    
+    @try {
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquareDataController) {
+            self.venues = [appDelegate.foursquareController.foursquareDataController foursquareDataToArray];
+            [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAK_INFORMATION_SOURCE_FOURSQUARE];
+#if DEBUG
+            // NSLog(@"\nVenues: %@\n", venues);
+#endif
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot update the UI: %@", exception.description);
+    }
 }
 
 - (void)showActivityIndicator
@@ -192,10 +178,16 @@
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
     self.tableView.informationSourceType = TAK_INFORMATION_SOURCE_FOURSQUARE;
-//    if ((self.localSearchResponse != nil) && (self.localSearchResponse.mapItems.count > 0)) {
-//        self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
-//        [self.tableView reloadData];
-//    }
+    
+    @try {
+        if ((self.venues != nil) && (self.venues.count > 0)) {
+            self.tableView.tableViewContents = (NSMutableArray *)self.venues;
+            [self.tableView reloadData];
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot create a table view: %@", exception. description);
+    }
     [self.view addSubview:self.tableView];
 }
 
@@ -234,82 +226,5 @@
         }
     }
 }
-
-#pragma mark - Fousquare
-
-//- (void)updateView {
-//    if ([self isViewLoaded] && (self.tableView != nil) ) {
-//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        [self.tableView reloadData];
-//        if (indexPath) {
-//            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-//        }
-//    }
-//}
-//
-//- (void)cancelFoursquareRequest {
-//    if (self.foursquareRequest != nil) {
-//        self.foursquareRequest.delegate = nil;
-//        [self.foursquareRequest cancel];
-//        self.foursquareRequest = nil;
-//        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//    }
-//}
-//
-//- (void)prepareForFoursquareRequest {
-//    [self cancelFoursquareRequest];
-//    self.foursquareMeta = nil;
-//    self.foursquareResponse = nil;
-//    self.foursquareNotifications = nil;
-//}
-//
-//- (void)searchFoursquareVenues {
-//    [self prepareForFoursquareRequest];
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"40.7,-74", @"ll", nil];
-//    self.foursquareRequest = [self.foursquare requestWithPath:@"venues/search" HTTPMethod:@"GET" parameters:parameters delegate:self];
-//    [self.foursquareRequest start];
-//    [self updateView];
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//}
-//
-//- (void)checkInToFoursquarePlace {
-//    [self prepareForFoursquareRequest];
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"4d341a00306160fcf0fc6a88", @"venueId", @"public", @"broadcast", nil];
-//    self.foursquareRequest = [self.foursquare requestWithPath:@"checkins/add" HTTPMethod:@"POST" parameters:parameters delegate:self];
-//    [self.foursquareRequest start];
-//    [self updateView];
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//}
-//
-//- (void)uploadPhotoToFoursquare {
-//    [self prepareForFoursquareRequest];
-//    NSURL *photoURL = [[NSBundle mainBundle] URLForResource:@"Icon" withExtension:@"png"];
-//    NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:photoData, @"photo.jpg", @"4d341a00306160fcf0fc6a88", @"venueId", nil];
-//    self.foursquareRequest = [self.foursquare requestWithPath:@"photos/add" HTTPMethod:@"POST" parameters:parameters delegate:self];
-//    [self.foursquareRequest start];
-//    [self updateView];
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//}
-
-//#pragma mark - BZFoursquareSessionDelegate
-//
-////- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare {
-////    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:TAK_BZFoursquareAccessTokenRow inSection:TAK_BZFoursquareAuthenticationSection];
-////    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
-////    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-////}
-//
-//- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare
-//{
-//    [self.foursquareAuthorizationView removeFromSuperview];
-//    [self generateInitialUI];
-//}
-//- (void)foursquareDidNotAuthorize:(BZFoursquare *)foursquare error:(NSDictionary *)errorInfo
-//{
-//    NSLog(@"%s: %@", __PRETTY_FUNCTION__, errorInfo);
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Authorization Failed" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-//    [alertView show];
-//}
 
 @end

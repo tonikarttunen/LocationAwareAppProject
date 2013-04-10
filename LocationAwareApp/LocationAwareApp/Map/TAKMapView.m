@@ -7,6 +7,7 @@
 //
 
 #import "TAKMapView.h"
+#import "Constants.h"
 
 #define TAK_MAP_ANNOTATION_IDENTIFIER   @"TAK_MAP_ANNOTATION_IDENTIFIER"
 
@@ -82,13 +83,13 @@
         } else if (lastLocation != nil) { // Use the last known location (if available)
             currentUserLocation = lastLocation;
             self.isLocationAlreadyKnown = YES;
-        } else { // The location is unknown; the code below sets the location to San Francisco
-            currentUserLocation = [[CLLocation alloc] initWithLatitude:37.781516 longitude:-122.404955];
+        } else { // The location is unknown; the code below sets the location to Helsinki downtown
+            currentUserLocation = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
         }
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 10.0;
+        double mapKilometers = 1.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;
@@ -121,14 +122,14 @@
                 currentUserLocation = self.userLocation.location;
             } else if (lastLocation != nil) { // Use the last known location (if available)
                 currentUserLocation = lastLocation;
-            } else { // The location is unknown; the code below sets the location to San Francisco
-                currentUserLocation = [[CLLocation alloc] initWithLatitude:37.781516 longitude:-122.404955];
+            } else { // The location is unknown; the code below sets the location to Helsinki downtown 
+                currentUserLocation = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
             }
         }
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 3.0;
+        double mapKilometers = 1.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;
@@ -226,7 +227,7 @@
     }
 }
 
-- (void)refreshMapAnnotationsWithArray:(NSArray *)array
+- (void)refreshMapAnnotationsWithArray:(NSArray *)array informationSource:(NSString *)informationSource
 {
     @try {
         if ((self.annotations != nil) && (self.annotations.count > 0)) {
@@ -235,15 +236,31 @@
 
         if ((array != nil) && (array.count > 0)) {
             for (int i = 0; i < array.count; i++) {
-                MKMapItem *mapItem = [array objectAtIndex:i];
-                MKPlacemark *placemark = mapItem.placemark;
                 MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
-                annotation.coordinate = placemark.coordinate;
-                annotation.title = mapItem.name;
-                NSLog(@"Annotation title: %@", annotation.title);
-                annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
-                [self addAnnotation:annotation];
                 
+                if ([informationSource isEqualToString:TAK_INFORMATION_SOURCE_APPLE]) {
+                    MKMapItem *mapItem = [array objectAtIndex:i];
+                    MKPlacemark *placemark = mapItem.placemark;
+                    annotation.coordinate = placemark.coordinate;
+                    annotation.title = mapItem.name;
+                    NSLog(@"Annotation title: %@", annotation.title);
+                    annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+                    [self addAnnotation:annotation];
+                } else { // Foursquare
+                    // id obj = [array objectAtIndex:i];
+                    // NSLog(@"obj class: %@, obj: %@", [obj class], obj);
+                    CLLocationDegrees latitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
+                    CLLocationDegrees longtitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
+                    annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
+                    annotation.title = (NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
+                    annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
+                    [self addAnnotation:annotation];
+                }
+#if DEBUG
+                NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f",
+                      annotation.title, annotation.subtitle,
+                      annotation.coordinate.latitude, annotation.coordinate.longitude);
+#endif
                 if (i == 0) {
                     [self selectAnnotation:annotation animated:YES];
                 }

@@ -47,8 +47,8 @@
 
 - (void)testReverseGeocodeLocation
 {
-    // San Francisco, Moscone West
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:37.781516 longitude:-122.404955];
+    // Aleksanterinkatu 52, Helsinki, Finland
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
     NSDictionary *geocodedPlacemarkAddressDictionary = [self.geocoder reverseGeocodeLocation:location];
     
     STAssertNotNil(geocodedPlacemarkAddressDictionary, @"Geocoder should be able to find an address");
@@ -56,7 +56,7 @@
 
 - (void)testForwardGeocodeAddress
 {
-    // Stockmann department store, Helsinki, Finland
+    // Aleksanterinkatu 52, Helsinki, Finland
     NSString *address = @"Aleksanterinkatu 52, Helsinki, Finland";
     CLLocation *geocodedPlacemarkLocation = [self.geocoder forwardGeocodeAddress:address];
     

@@ -25,34 +25,35 @@
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readwrite) NSArray *foursquareNotifications;
+@property (nonatomic, strong, readwrite) TAKFoursquareDataController *foursquareDataController;
 
 @end
 
-enum {
-    TAK_BZFoursquareAuthenticationSection = 0,
-    TAK_BZFoursquareEndpointsSection,
-    TAK_BZFoursquareResponsesSection,
-    TAK_BZFoursquareSectionCount
-};
-
-enum {
-    TAK_BZFoursquareAccessTokenRow = 0,
-    TAK_BZFoursquareAuthenticationRowCount
-};
-
-enum {
-    TAK_BZFoursquareSearchVenuesRow = 0,
-    TAK_BZFoursquareCheckInRow,
-    TAK_BZFoursquareAddPhotoRow,
-    TAK_BZFoursquareEndpointsRowCount
-};
-
-enum {
-    TAK_BZFoursquareMetaRow = 0,
-    TAK_BZFoursquareNotificationsRow,
-    TAK_BZFoursquareResponseRow,
-    TAK_BZFoursquareResponsesRowCount
-};
+//enum {
+//    TAK_BZFoursquareAuthenticationSection = 0,
+//    TAK_BZFoursquareEndpointsSection,
+//    TAK_BZFoursquareResponsesSection,
+//    TAK_BZFoursquareSectionCount
+//};
+//
+//enum {
+//    TAK_BZFoursquareAccessTokenRow = 0,
+//    TAK_BZFoursquareAuthenticationRowCount
+//};
+//
+//enum {
+//    TAK_BZFoursquareSearchVenuesRow = 0,
+//    TAK_BZFoursquareCheckInRow,
+//    TAK_BZFoursquareAddPhotoRow,
+//    TAK_BZFoursquareEndpointsRowCount
+//};
+//
+//enum {
+//    TAK_BZFoursquareMetaRow = 0,
+//    TAK_BZFoursquareNotificationsRow,
+//    TAK_BZFoursquareResponseRow,
+//    TAK_BZFoursquareResponsesRowCount
+//};
 
 @implementation TAKFoursquareController
 
@@ -77,6 +78,7 @@ enum {
     _foursquareResponse = nil;
     _foursquareMeta = nil;
     _foursquareNotifications = nil;
+    _foursquareDataController = nil;
 }
 
 #pragma mark - Request handling
@@ -154,12 +156,24 @@ enum {
 {
     @try {
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        if ([appDelegate respondsToSelector:@selector(handleSuccessfulFoursquareAuthorization)]) {
+        if (appDelegate && [appDelegate respondsToSelector:@selector(handleSuccessfulFoursquareAuthorization)]
+            && appDelegate.locationController) {
             [appDelegate handleSuccessfulFoursquareAuthorization];
             NSLog(@"Foursquare authorization was successful.");
             
+            CLLocation *location;
+            NSString *locationString;
+            if (appDelegate.locationController.lastKnownLocation != nil) {
+                location = appDelegate.locationController.lastKnownLocation;
+                double latitude = (double)location.coordinate.latitude;
+                double longitude = (double)location.coordinate.longitude;
+                locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+            } else {
+                locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
+            }
+            
             [self searchFoursquareContentWithPath:@"venues/search"
-                                 searchParameters:[NSDictionary dictionaryWithObjectsAndKeys:@"40.7,-74", @"ll", nil]];
+                                 searchParameters:[NSDictionary dictionaryWithObjectsAndKeys:locationString, @"ll", nil]];
         } else {
             NSLog(@"TAKAppDelegate does not respond to selector \"handleSuccessfulFoursquareAuthorization\"");
         }
@@ -168,6 +182,7 @@ enum {
         NSLog(@"Cannot update the Foursquare view. %@.", exception.description);
     }
 }
+
 - (void)foursquareDidNotAuthorize:(BZFoursquare *)foursquare error:(NSDictionary *)errorInfo
 {
     NSLog(@"%s: %@", __PRETTY_FUNCTION__, errorInfo);
@@ -175,15 +190,7 @@ enum {
 //    [alertView show];
 }
 
-//- (void)searchFoursquareVenues {
-//    [self prepareForFoursquareRequest];
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"40.7,-74", @"ll", nil];
-//    self.foursquareRequest = [self.foursquare requestWithPath:@"venues/search" HTTPMethod:@"GET" parameters:parameters delegate:self];
-//    [self.foursquareRequest start];
-//    [self updateView];
-//    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//}
-//
+
 //- (void)checkInToFoursquarePlace {
 //    [self prepareForFoursquareRequest];
 //    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:@"4d341a00306160fcf0fc6a88", @"venueId", @"public", @"broadcast", nil];
@@ -204,6 +211,7 @@ enum {
 //    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 //}
 
+
 #pragma mark - BZFoursquareRequestDelegate methods
 
 - (void)requestDidStartLoading:(BZFoursquareRequest *)request
@@ -219,6 +227,8 @@ enum {
     self.foursquareNotifications = request.notifications;
     self.foursquareMeta = request.meta;
     self.foursquareRequest = nil;
+    
+    self.foursquareDataController = [[TAKFoursquareDataController alloc] initWithFoursquareData:self.foursquareResponse];
     
     @try {
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -241,10 +251,9 @@ enum {
         } else if ([foursquareViewController respondsToSelector:@selector(updateUI)]) {
             [foursquareViewController updateUI];
         }
-        
 #if DEBUG
-        NSLog(@"Response: %@\nMeta: %@\nNotifications: %@",
-              self.foursquareResponse, self.foursquareMeta, self.foursquareNotifications);
+        // NSLog(@"Response: %@\nMeta: %@\nNotifications: %@",
+        //      self.foursquareResponse, self.foursquareMeta, self.foursquareNotifications);
 #endif
     }
     @catch (NSException *exception) {

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BZFoursquare.h"
 #import "BZFoursquareRequest.h"
+#import "TAKFoursquareDataController.h"
 
 @interface TAKFoursquareController : NSObject <BZFoursquareRequestDelegate, BZFoursquareSessionDelegate>
 
@@ -16,6 +17,7 @@
 @property (nonatomic, copy, readonly) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readonly) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readonly) NSArray *foursquareNotifications;
+@property (nonatomic, strong, readonly) TAKFoursquareDataController *foursquareDataController;
 
 - (void)searchFoursquareContentWithPath:(NSString *)path
                        searchParameters:(NSDictionary *)searchParameters;

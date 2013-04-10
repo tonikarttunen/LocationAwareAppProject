@@ -20,6 +20,6 @@
 - (void)readMapPropertiesFromPlistFile;
 - (void)writeMapPropertiesToPlistFile;
 // - (void)performLocalSearchWithString:(NSString *)searchString;
-- (void)refreshMapAnnotationsWithArray:(NSArray *)array;
+- (void)refreshMapAnnotationsWithArray:(NSArray *)array informationSource:(NSString *)informationSource;
 
 @end

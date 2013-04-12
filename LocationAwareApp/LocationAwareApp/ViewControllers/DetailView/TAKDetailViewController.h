@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Constants.h"
 
-@interface TAKDetailViewController : UITableViewController
+@interface TAKDetailViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property NSUInteger informationSourceType;
+
+- (id)initWithStyle:(UITableViewStyle)style
+  tableViewContents:(NSArray *)tableViewContents;
 
 @end

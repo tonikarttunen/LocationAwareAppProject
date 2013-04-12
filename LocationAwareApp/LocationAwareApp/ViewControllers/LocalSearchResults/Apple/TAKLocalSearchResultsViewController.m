@@ -131,7 +131,8 @@
 - (void)generateTableView
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
-    self.tableView.informationSourceType = TAK_INFORMATION_SOURCE_APPLE;
+    self.tableView.delegate = self;
+    self.tableView.informationSourceType = TAKInformationSourceTypeApple;
     if ((self.localSearchResponse != nil) && (self.localSearchResponse.mapItems.count > 0)) {
         self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
         [self.tableView reloadData];
@@ -228,7 +229,7 @@
 #endif
         self.localSearchResponse = response;
         
-        [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems informationSource:TAK_INFORMATION_SOURCE_APPLE];
+        [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems informationSource:TAKInformationSourceTypeApple];
         
         if (self.tableView != nil) {
             self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
@@ -242,12 +243,31 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MKMapItem *mapItem = [self.tableView.tableViewContents objectAtIndex:indexPath.row];
-    NSString *DVCTitle = mapItem.name;
-    TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    DVC.title = DVCTitle;
-    [self.navigationController pushViewController:DVC animated:YES];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    @try {
+        MKMapItem *mapItem = [self.tableView.tableViewContents objectAtIndex:indexPath.row];
+        NSString *DVCTitle = mapItem.name;
+        NSMutableArray *detailViewContents = [NSMutableArray new];
+        NSString *address = ABCreateStringWithAddressDictionary(mapItem.placemark.addressDictionary, YES);
+        NSString *phone = mapItem.phoneNumber;
+        NSURL *url = mapItem.url;
+        if (address != nil) {
+            [detailViewContents addObject:@[@"Address", address]];
+        }
+        if (phone != nil) {
+            [detailViewContents addObject:@[@"Phone", phone]];
+        }
+        if (url != nil) {
+            [detailViewContents addObject:@[@"URL", url]];
+        }
+        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain
+                                                                    tableViewContents:(NSArray *)detailViewContents];
+        DVC.title = DVCTitle;
+        [self.navigationController pushViewController:DVC animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    }
 }
 
 @end

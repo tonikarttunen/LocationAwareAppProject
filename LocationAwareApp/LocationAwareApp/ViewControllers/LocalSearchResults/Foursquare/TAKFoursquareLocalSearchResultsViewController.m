@@ -118,7 +118,7 @@
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquareDataController) {
             self.venues = [appDelegate.foursquareController.foursquareDataController foursquareDataToArray];
-            [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAK_INFORMATION_SOURCE_FOURSQUARE];
+            [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAKInformationSourceTypeFoursquare];
 #if DEBUG
             // NSLog(@"\nVenues: %@\n", venues);
 #endif
@@ -189,7 +189,7 @@
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
     self.tableView.delegate = self;
-    self.tableView.informationSourceType = TAK_INFORMATION_SOURCE_FOURSQUARE;
+    self.tableView.informationSourceType = TAKInformationSourceTypeFoursquare;
     
     @try {
         if ((self.venues != nil) && (self.venues.count > 0)) {

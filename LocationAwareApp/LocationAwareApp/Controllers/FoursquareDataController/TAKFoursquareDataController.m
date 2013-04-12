@@ -73,16 +73,21 @@
             if (address != nil) {
                 [currentVenueDetails setObject:address forKey:@"Address"];
             } else {
-                NSString *city = [currentVenue objectForKey:@"city"];
-                if (city != nil) {
-                    [currentVenueDetails setObject:city forKey:@"Address"];
+                NSString *crossStreet = [currentVenue objectForKey:@"cc"];
+                if (crossStreet != nil) {
+                    [currentVenueDetails setObject:crossStreet forKey:@"Address"];
                 } else {
-                    NSString *country = [currentVenue objectForKey:@"country"];
-                    if (country != nil) {
-                        [currentVenueDetails setObject:country forKey:@"Address"];
+                    NSString *city = [currentVenue objectForKey:@"city"];
+                    if (city != nil) {
+                        [currentVenueDetails setObject:city forKey:@"Address"];
                     } else {
-                        // [currentVenueDetails addObject:@{@"Address" : @"Unknown address"}];
-                        [currentVenueDetails setObject:@"Unknown address" forKey:@"Address"];
+                        NSString *country = [currentVenue objectForKey:@"country"];
+                        if (country != nil) {
+                            [currentVenueDetails setObject:country forKey:@"Address"];
+                        } else {
+                            // [currentVenueDetails addObject:@{@"Address" : @"Unknown address"}];
+                            [currentVenueDetails setObject:@"Unknown address" forKey:@"Address"];
+                        }
                     }
                 }
             }

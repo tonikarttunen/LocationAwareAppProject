@@ -14,12 +14,13 @@
 
 @property (nonatomic, strong) NSMutableDictionary *mapProperties;
 @property BOOL isLocationAlreadyKnown;
+@property NSUInteger informationSourceType;
 
 - (void)moveCenterPointToLocation:(CLLocation *)location animated:(BOOL)animated;
 - (void)moveCenterPointToCurrentLocationAnimated:(BOOL)animated;
 - (void)readMapPropertiesFromPlistFile;
 - (void)writeMapPropertiesToPlistFile;
 // - (void)performLocalSearchWithString:(NSString *)searchString;
-- (void)refreshMapAnnotationsWithArray:(NSArray *)array informationSource:(NSString *)informationSource;
+- (void)refreshMapAnnotationsWithArray:(NSArray *)array informationSource:(NSUInteger)informationSource;
 
 @end

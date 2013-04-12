@@ -13,12 +13,11 @@
 
 #define TAK_MAP_ANNOTATION_IDENTIFIER   @"TAK_MAP_ANNOTATION_IDENTIFIER"
 
-//@interface TAKMapView ()
-//
-//@property (nonatomic, strong) MKLocalSearch *localSearch;
-//@property (nonatomic, strong) MKLocalSearchResponse *localSearchResponse;
-//
-//@end
+@interface TAKMapView ()
+
+@property (nonatomic, strong) NSMutableArray *mapItems;
+
+@end
 
 @implementation TAKMapView
 
@@ -40,6 +39,7 @@
         self.backgroundColor = [UIColor whiteColor];
         self.opaque = YES;
         [self moveCenterPointToCurrentLocationAnimated:YES];
+        _mapItems = [NSMutableArray new];
     }
     return self;
 }
@@ -47,12 +47,15 @@
 - (void)dealloc
 {
     self.delegate = nil;
-    self.mapProperties = nil;
+    _mapProperties = nil;
+    _mapItems = nil;
+    
 //    if (self.localSearch.isSearching) {
 //        [self.localSearch cancel];
 //    }
 //    self.localSearch = nil;
 //    self.localSearchResponse = nil;
+    
 }
 
 #pragma mark - Custom drawing
@@ -229,35 +232,68 @@
     }
 }
 
-- (void)refreshMapAnnotationsWithArray:(NSArray *)array informationSource:(NSString *)informationSource
+#pragma mark - Refresh the map annotations
+
+- (void)refreshMapAnnotationsWithArray:(NSArray *)array informationSource:(NSUInteger)informationSource
 {
     @try {
         if ((self.annotations != nil) && (self.annotations.count > 0)) {
             [self removeAnnotations:self.annotations];
+            self.mapItems = (NSMutableArray *)array;
         }
 
         if ((array != nil) && (array.count > 0)) {
             for (int i = 0; i < array.count; i++) {
                 MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
                 
-                if ([informationSource isEqualToString:TAK_INFORMATION_SOURCE_APPLE]) {
-                    MKMapItem *mapItem = [array objectAtIndex:i];
-                    MKPlacemark *placemark = mapItem.placemark;
-                    annotation.coordinate = placemark.coordinate;
-                    annotation.title = mapItem.name;
-                    NSLog(@"Annotation title: %@", annotation.title);
-                    annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
-                    [self addAnnotation:annotation];
-                } else { // Foursquare
-                    // id obj = [array objectAtIndex:i];
-                    // NSLog(@"obj class: %@, obj: %@", [obj class], obj);
-                    CLLocationDegrees latitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
-                    CLLocationDegrees longtitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
-                    annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
-                    annotation.title = (NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
-                    annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
-                    [self addAnnotation:annotation];
+                switch (informationSource) {
+                    case TAKInformationSourceTypeApple: {
+                        MKMapItem *mapItem = [array objectAtIndex:i];
+                        MKPlacemark *placemark = mapItem.placemark;
+                        annotation.coordinate = placemark.coordinate;
+                        annotation.title = mapItem.name;
+                        // annotation.tag = i;
+                        NSLog(@"Annotation title: %@", annotation.title);
+                        annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+                        [self addAnnotation:annotation];
+                        break;
+                    }
+                    case TAKInformationSourceTypeFoursquare: {
+                        CLLocationDegrees latitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
+                        CLLocationDegrees longtitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
+                        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
+                        annotation.title = (NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
+                        annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
+                        [self addAnnotation:annotation];
+                        break;
+                    }
+                        
+                    case TAKInformationSourceTypeGoogle: {
+                        break;
+                    }
+                    default:
+                        break;
                 }
+                
+                
+//                if ([informationSource isEqualToString:TAK_INFORMATION_SOURCE_APPLE]) {
+//                    MKMapItem *mapItem = [array objectAtIndex:i];
+//                    MKPlacemark *placemark = mapItem.placemark;
+//                    annotation.coordinate = placemark.coordinate;
+//                    annotation.title = mapItem.name;
+//                    NSLog(@"Annotation title: %@", annotation.title);
+//                    annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+//                    [self addAnnotation:annotation];
+//                } else { // Foursquare
+//                    // id obj = [array objectAtIndex:i];
+//                    // NSLog(@"obj class: %@, obj: %@", [obj class], obj);
+//                    CLLocationDegrees latitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
+//                    CLLocationDegrees longtitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
+//                    annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
+//                    annotation.title = (NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
+//                    annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
+//                    [self addAnnotation:annotation];
+//                }
 #if DEBUG
                 NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f",
                       annotation.title, annotation.subtitle,
@@ -279,7 +315,44 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     @try {
-        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain];
+        NSMutableArray *detailViewContents = [NSMutableArray new];
+        
+        switch (self.informationSourceType) {
+            case TAKInformationSourceTypeApple: {
+                MKMapItem *mapItem;
+                for (int i = 0; i < self.mapItems.count; i++) {
+                    id obj = [self.mapItems objectAtIndex:i];
+                    if (([obj isKindOfClass:[MKMapItem class]]) && ([view.annotation.title isEqual:[obj name]])) {
+                        mapItem = (MKMapItem *)obj;
+                        
+                        NSString *address = ABCreateStringWithAddressDictionary(mapItem.placemark.addressDictionary, YES);
+                        NSString *phone = mapItem.phoneNumber;
+                        NSURL *url = mapItem.url;
+                        if (address != nil) {
+                            [detailViewContents addObject:@[@"Address", address]];
+                        }
+                        if (phone != nil) {
+                            [detailViewContents addObject:@[@"Phone", phone]];
+                        }
+                        if (url != nil) {
+                            [detailViewContents addObject:@[@"URL", url]];
+                        }
+                    }
+                }
+                break;
+            }
+                
+            case TAKInformationSourceTypeFoursquare: {
+#warning Incomplete implementation
+                
+                break;
+            }
+                
+            default:
+                break;
+        }
+        
+        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain tableViewContents:(NSArray *)detailViewContents];
         DVC.title = view.annotation.title;
         UIViewController *viewController = [self findParentViewController];
         [viewController.navigationController pushViewController:DVC animated:YES];

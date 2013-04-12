@@ -14,6 +14,6 @@
 @interface TAKSearchResultsTableView : UITableView <UITableViewDataSource>
 
 @property (nonatomic, strong) NSMutableArray *tableViewContents;
-@property (nonatomic, copy) NSString *informationSourceType;
+@property NSUInteger informationSourceType;
 
 @end

@@ -17,6 +17,7 @@
     self = [super initWithFrame:frame style:UITableViewStylePlain];
     if (self) {
         // Initialization code
+        self.informationSourceType = 0;
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.tableViewContents = [NSMutableArray new];
         // self.delegate = self;
@@ -77,6 +78,31 @@
     
     @try {
         if ((self.tableViewContents != nil) && (self.tableViewContents.count > 0)) {
+            switch (self.informationSourceType) {
+                case TAKInformationSourceTypeApple: {
+                    MKMapItem *mapItem = [self.tableViewContents objectAtIndex:indexPath.row];
+                    MKPlacemark *placemark = mapItem.placemark;
+                    
+                    cell.textLabel.text = mapItem.name;
+                    cell.detailTextLabel.text = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
+                    break;
+                }
+                case TAKInformationSourceTypeFoursquare: {
+                    cell.textLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
+                    cell.detailTextLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
+                    break;
+                }
+                    
+                case TAKInformationSourceTypeGoogle: {
+                    
+                    break;
+                }
+                    
+                default:
+                    break;
+            }
+            
+            /*
             if ((self.informationSourceType != nil) && ([self.informationSourceType isEqualToString:TAK_INFORMATION_SOURCE_APPLE])) {
                 MKMapItem *mapItem = [self.tableViewContents objectAtIndex:indexPath.row];
                 MKPlacemark *placemark = mapItem.placemark;
@@ -87,6 +113,7 @@
                 cell.textLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
                 cell.detailTextLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
             }
+            */
             
         }
     }

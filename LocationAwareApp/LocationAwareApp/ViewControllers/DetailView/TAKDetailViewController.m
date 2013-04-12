@@ -10,15 +10,22 @@
 
 @interface TAKDetailViewController ()
 
+@property (nonatomic, copy) NSArray *tableViewContents;
+
 @end
 
 @implementation TAKDetailViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
+  tableViewContents:(NSArray *)tableViewContents
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        _tableViewContents = [tableViewContents copy];
+        NSLog(@"%@", _tableViewContents);
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
     }
     return self;
 }
@@ -40,28 +47,80 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc
+{
+    _tableViewContents = nil;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.tableViewContents.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier /* forIndexPath:indexPath */];
     
     // Configure the cell...
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+        cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+        cell.textLabel.opaque = NO;
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
+        cell.textLabel.numberOfLines = 1;
+        
+        cell.detailTextLabel.backgroundColor = [UIColor clearColor];
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+        cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+        cell.detailTextLabel.opaque = NO;
+        cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        cell.detailTextLabel.numberOfLines = 1;
+    }
+    
+    @try {
+        switch (self.informationSourceType) {
+            case TAKInformationSourceTypeApple: {
+                if (self.tableViewContents.count > 0) {
+                    cell.textLabel.text = [[self.tableViewContents objectAtIndex:indexPath.row] objectAtIndex:0];
+                    id obj = [[self.tableViewContents objectAtIndex:indexPath.row] objectAtIndex:1];
+                    if ([obj isKindOfClass:[NSURL class]]) {
+                        cell.detailTextLabel.text = [obj absoluteString];
+                    } else {
+                        cell.detailTextLabel.text = (NSString *)obj;
+                    }
+                }
+                break;
+            }
+                
+            case TAKInformationSourceTypeFoursquare: {
+                break;
+            }
+                
+            case TAKInformationSourceTypeGoogle: {
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    }
     
     return cell;
 }

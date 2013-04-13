@@ -7,6 +7,11 @@ Location-aware app for iOS
 1. Obtain the necessary API keys
 2. Add API keys to the APIConstants.h file
 
+## Acknowledgements
+
+[Foursquare API v2 for iOS](https://github.com/baztokyo/foursquare-ios-api)
+was developed by [Ba-Z Communication Inc.](https://github.com/baztokyo).
+
 ## License
 
 Copyright (c) 2013, Toni Antero Karttunen

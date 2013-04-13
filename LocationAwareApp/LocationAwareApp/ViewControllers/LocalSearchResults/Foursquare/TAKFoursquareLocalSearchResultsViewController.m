@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) TAKMapView *mapView;
+@property (nonatomic, strong) UIView *mapViewContainer;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
@@ -59,8 +60,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
-    
+    if (self.tableView != nil) {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    }
 }
 
 - (void)viewDidLoad
@@ -88,6 +90,7 @@
 - (void)dealloc
 {
     _mapView = nil;
+    _mapViewContainer = nil;
     _toolbar = nil;
     _segmentedControl = nil;
     _activityIndicatorView = nil;
@@ -207,9 +210,19 @@
 
 - (void)generateMapView
 {
-    self.mapView = [[TAKMapView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.mapViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.mapViewContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:self.mapViewContainer];
+    
+    self.mapView = [[TAKMapView alloc] initWithFrame:self.mapViewContainer.bounds];
     self.mapView.informationSourceType = TAKInformationSourceTypeFoursquare;
-    [self.view addSubview:self.mapView];
+    [self.mapViewContainer addSubview:self.mapView];
+    
+    UIImageView *foursquareImagView = [[UIImageView alloc] initWithFrame:CGRectMake(42.0f, self.mapViewContainer.frame.size.height - 44.0f, 236.0f, 60.0f)];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
+    foursquareImagView.image = [[UIImage alloc] initWithContentsOfFile:path];
+    foursquareImagView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin; 
+    [self.mapViewContainer addSubview:foursquareImagView];
 }
 
 #pragma mark - Segmented control actions

@@ -7,11 +7,12 @@
 //
 
 #import "TAKDetailViewController.h"
+#import "Constants.h"
 
 @interface TAKDetailViewController ()
 
-@property (nonatomic, copy) NSArray *tableViewContents;
-@property (nonatomic, copy) NSDictionary *tableViewContentDictionary;
+@property (nonatomic, copy) NSArray *tableViewContents; // Apple
+@property (nonatomic, copy) NSDictionary *tableViewContentDictionary; // Foursquare
 
 @end
 
@@ -53,11 +54,28 @@ informationSourceType:(NSUInteger)informationSourceType
 {
     [super viewDidLoad];
     
+    self.tableView.allowsSelection = NO;
+    switch (self.informationSourceType) {
+        case TAKInformationSourceTypeFoursquare: {
+            [self.tableView setBackgroundView:nil];
+            [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.91 alpha:1.0]];
+            break;
+        }
+        default: {
+            self.tableView.backgroundColor = [UIColor whiteColor];
+            break;
+        }
+    }
+    
+    self.view.opaque = YES;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
     NSLog(@"Detail view information source type: %i", self.informationSourceType);
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
         UIBarButtonItem *checkInButton = [[UIBarButtonItem alloc] initWithTitle:@"Check In" style:UIBarButtonItemStyleBordered target:self action:@selector(checkIn)];
         self.navigationItem.rightBarButtonItem = checkInButton;
     }
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -81,13 +99,44 @@ informationSourceType:(NSUInteger)informationSourceType
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    switch (self.informationSourceType) {
+        case TAKInformationSourceTypeApple:
+            return 1;
+            
+        case TAKInformationSourceTypeFoursquare:
+            return self.tableViewContentDictionary.count;
+            
+        default: {
+#warning Incomplete implementation
+            return 1;
+        }
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.tableViewContents.count;
+    switch (self.informationSourceType) {
+        case TAKInformationSourceTypeApple: {
+            return self.tableViewContents.count;
+        }
+            
+        case TAKInformationSourceTypeFoursquare: {
+            NSArray *array;
+            if (section == 0) {
+                array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+            } else if (section == 1) {
+                array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_LOCATION];
+            } else {
+                array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
+            }
+            
+            return array.count;
+        }
+            
+        default:
+            return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -131,10 +180,26 @@ informationSourceType:(NSUInteger)informationSourceType
             }
                 
             case TAKInformationSourceTypeFoursquare: {
+                NSArray *array;
+                if (indexPath.section == 0) {
+                    array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+                } else if (indexPath.section == 1) {
+                    array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_LOCATION];
+                } else {
+                    array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
+                }
+                cell.textLabel.text = (NSString *)[[array objectAtIndex:indexPath.row] objectAtIndex:0];
+                id obj = [[array objectAtIndex:indexPath.row] objectAtIndex:1];
+                if ([obj isKindOfClass:[NSNumber class]]) {
+                    cell.detailTextLabel.text = (NSString *)[obj stringValue];
+                } else {
+                    cell.detailTextLabel.text = (NSString *)obj;
+                }
                 break;
             }
                 
             case TAKInformationSourceTypeGoogle: {
+#warning Incomplete implementation
                 break;
             }
                 
@@ -147,6 +212,20 @@ informationSourceType:(NSUInteger)informationSourceType
     }
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return TAK_FOURSQUARE_BASIC_INFORMATION;
+            
+        case 1:
+            return TAK_FOURSQUARE_LOCATION;
+            
+        default:
+            return TAK_FOURSQUARE_STATISTICS;
+    }
 }
 
 /*
@@ -206,6 +285,8 @@ informationSourceType:(NSUInteger)informationSourceType
 - (BOOL)checkIn
 {
 #warning Incomplete implementation
+    // open a modal view
+    
     return YES;
 }
 

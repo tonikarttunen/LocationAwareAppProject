@@ -7,6 +7,7 @@
 //
 
 #import "NSArray+FoursquareDictionaryProcessor.h"
+#import "Constants.h"
 
 @implementation NSArray (FoursquareDictionaryProcessor)
 
@@ -52,7 +53,7 @@
             // Basic details
             NSString *venueID = [currentVenue objectForKey:@"id"];
             NSString *name = [currentVenue objectForKey:@"name"];
-            [currentVenueDetails setObject:@[ @[@"Name", name], @[@"ID", venueID] ] forKey:@"Basic Information"];
+            [currentVenueDetails setObject:@[ @[@"Name", name], @[@"ID", venueID] ] forKey:TAK_FOURSQUARE_BASIC_INFORMATION];
             
             // Location
             NSDictionary *location = [currentVenue objectForKey:@"location"];
@@ -79,7 +80,7 @@
                                              @[@"Longitude", [NSNumber numberWithDouble:longitude]],
                                              @[@"Distance", [NSNumber numberWithInt:distance]],
                                              @[@"Address", address]
-                                            ] forKey:@"Location"];
+                                            ] forKey:TAK_FOURSQUARE_LOCATION];
             
             // Statistics
             NSDictionary *stats = [currentVenue objectForKey:@"stats"];
@@ -91,7 +92,7 @@
                  @[@"Check-Ins", [NSNumber numberWithInt:checkinsCount]],
                  @[@"Users", [NSNumber numberWithInt:usersCount]],
                  @[@"Tips", [NSNumber numberWithInt:tipsCount]]
-             ] forKey:@"Statistics"];
+             ] forKey:TAK_FOURSQUARE_STATISTICS];
             
             [processed addObject:(NSArray *)currentVenueDetails];
         }

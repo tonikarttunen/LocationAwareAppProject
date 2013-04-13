@@ -90,14 +90,14 @@
                 case TAKInformationSourceTypeFoursquare: {
                     // NSDictionary *allData = [self.tableViewContents objectAtIndex:indexPath.row];
 //                    if (indexPath.section == 0) {
-//                        NSLog(@"Basic Information: %@", [allData objectForKey:@"Basic Information"]);
+//                        NSLog(@"Basic Information: %@", [allData objectForKey:@"TAK_FOURSQUARE_BASIC_INFORMATION"]);
 //                    } else if (indexPath.section == 1) {
-//                         NSLog(@"Location: %@", [allData objectForKey:@"Location"]);
+//                         NSLog(@"Location: %@", [allData objectForKey:TAK_FOURSQUARE_LOCATION]);
 //                    } else {
-//                        NSLog(@"Location: %@", [allData objectForKey:@"Statistics"]);
+//                        NSLog(@"Statistics: %@", [allData objectForKey:TAK_FOURSQUARE_STATISTICS]);
 //                    }
-                    NSArray *locationData = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Location"];
-                    NSArray *basicInformation = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Basic Information"];
+                    NSArray *locationData = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:TAK_FOURSQUARE_LOCATION];
+                    NSArray *basicInformation = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                     
                     cell.textLabel.text = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1]; // (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
                     cell.detailTextLabel.text = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1]; // (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
@@ -105,6 +105,7 @@
                 }
                     
                 case TAKInformationSourceTypeGoogle: {
+#warning Incomplete implementation
                     
                     break;
                 }

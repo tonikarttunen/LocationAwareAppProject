@@ -52,8 +52,8 @@
 		E9DD63881712F933009EEB22 /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD63861712F933009EEB22 /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E9DD638D1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */; };
 		E9DD6390171303EB009EEB22 /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */; };
-		E9DD639417136180009EEB22 /* poweredByFoursquare_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639217136180009EEB22 /* poweredByFoursquare_gray.png */; };
-		E9DD639517136180009EEB22 /* poweredByFoursquare_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639317136180009EEB22 /* poweredByFoursquare_gray@2x.png */; };
+		E9DD639417136180009EEB22 /* poweredByFoursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639217136180009EEB22 /* poweredByFoursquare.png */; };
+		E9DD639517136180009EEB22 /* poweredByFoursquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639317136180009EEB22 /* poweredByFoursquare@2x.png */; };
 		E9F86A9317141ECA00D249AD /* TAKFoursquareController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F86A9217141ECA00D249AD /* TAKFoursquareController.m */; };
 /* End PBXBuildFile section */
 
@@ -133,8 +133,8 @@
 		E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareLocalSearchResultsViewController.m; path = ViewControllers/LocalSearchResults/Foursquare/TAKFoursquareLocalSearchResultsViewController.m; sourceTree = "<group>"; };
 		E9DD638E171303EB009EEB22 /* TAKLocalSearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKLocalSearchResultsViewController.h; path = ViewControllers/LocalSearchResults/Apple/TAKLocalSearchResultsViewController.h; sourceTree = "<group>"; };
 		E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKLocalSearchResultsViewController.m; path = ViewControllers/LocalSearchResults/Apple/TAKLocalSearchResultsViewController.m; sourceTree = "<group>"; };
-		E9DD639217136180009EEB22 /* poweredByFoursquare_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poweredByFoursquare_gray.png; path = Images/poweredByFoursquare_gray.png; sourceTree = "<group>"; };
-		E9DD639317136180009EEB22 /* poweredByFoursquare_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poweredByFoursquare_gray@2x.png"; path = "Images/poweredByFoursquare_gray@2x.png"; sourceTree = "<group>"; };
+		E9DD639217136180009EEB22 /* poweredByFoursquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = poweredByFoursquare.png; path = Images/poweredByFoursquare.png; sourceTree = "<group>"; };
+		E9DD639317136180009EEB22 /* poweredByFoursquare@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "poweredByFoursquare@2x.png"; path = "Images/poweredByFoursquare@2x.png"; sourceTree = "<group>"; };
 		E9F86A9117141ECA00D249AD /* TAKFoursquareController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareController.h; path = Controllers/FoursquareController/TAKFoursquareController.h; sourceTree = "<group>"; };
 		E9F86A9217141ECA00D249AD /* TAKFoursquareController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareController.m; path = Controllers/FoursquareController/TAKFoursquareController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -453,8 +453,8 @@
 		E9DD6391171360F1009EEB22 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E9DD639217136180009EEB22 /* poweredByFoursquare_gray.png */,
-				E9DD639317136180009EEB22 /* poweredByFoursquare_gray@2x.png */,
+				E9DD639217136180009EEB22 /* poweredByFoursquare.png */,
+				E9DD639317136180009EEB22 /* poweredByFoursquare@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -568,8 +568,8 @@
 				E9DA007716FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */,
 				E9DA007A16FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPad.xib in Resources */,
 				E9DA00AF16FD27F000A76D42 /* MapPropertyList.plist in Resources */,
-				E9DD639417136180009EEB22 /* poweredByFoursquare_gray.png in Resources */,
-				E9DD639517136180009EEB22 /* poweredByFoursquare_gray@2x.png in Resources */,
+				E9DD639417136180009EEB22 /* poweredByFoursquare.png in Resources */,
+				E9DD639517136180009EEB22 /* poweredByFoursquare@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

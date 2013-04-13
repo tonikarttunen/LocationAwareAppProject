@@ -37,4 +37,9 @@ typedef enum TAKInformationSourceType : NSUInteger {
 #define TAK_SEGMENTED_CONTROL_HEIGHT    31.0f
 #define TAK_SEGMENTED_CONTROL_WIDTH     308.0f
 
+// Foursquare
+#define TAK_FOURSQUARE_BASIC_INFORMATION    @"Basic Information"
+#define TAK_FOURSQUARE_LOCATION             @"Location"
+#define TAK_FOURSQUARE_STATISTICS           @"Statistics"
+
 #endif

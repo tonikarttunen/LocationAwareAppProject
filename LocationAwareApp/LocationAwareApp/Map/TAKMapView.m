@@ -261,9 +261,9 @@
                     }
                         
                     case TAKInformationSourceTypeFoursquare: {
-                        NSArray *locationData = [[array objectAtIndex:i] objectForKey:@"Location"];
-                        NSLog(@"LocationData: %@", locationData);
-                        NSArray *basicInformation = [[array objectAtIndex:i] objectForKey:@"Basic Information"];
+                        NSArray *locationData = [[array objectAtIndex:i] objectForKey:TAK_FOURSQUARE_LOCATION];
+                        // NSLog(@"locationData: %@", locationData);
+                        NSArray *basicInformation = [[array objectAtIndex:i] objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                         
                         CLLocationDegrees latitude = (CLLocationDegrees)[[[locationData objectAtIndex:0] objectAtIndex:1] doubleValue];
                         //(CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
@@ -327,6 +327,7 @@
 {
     @try {
         NSMutableArray *detailViewContents = [NSMutableArray new];
+        NSDictionary *dictionary;
         
         switch (self.informationSourceType) {
             case TAKInformationSourceTypeApple: {
@@ -348,14 +349,24 @@
                         if (url != nil) {
                             [detailViewContents addObject:@[@"URL", url]];
                         }
+                        break;
                     }
                 }
                 break;
             }
                 
             case TAKInformationSourceTypeFoursquare: {
-#warning Incomplete implementation
-                
+                for (int i = 0; i < self.mapItems.count; i++) {
+                    id obj = [self.mapItems objectAtIndex:i];
+                    if ([obj isKindOfClass:[NSDictionary class]]) {
+                        NSArray *basicInformation = [obj objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+                        NSString *annotationTitle = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1];
+                        if ([view.annotation.title isEqual:annotationTitle]) {
+                            dictionary = (NSDictionary *)obj;
+                            break;
+                        }
+                    }
+                }
                 break;
             }
                 
@@ -367,8 +378,8 @@
         switch (self.informationSourceType) {
             case TAKInformationSourceTypeFoursquare: {
                 DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStyleGrouped
-                                                   tableViewContents:(NSArray *)detailViewContents
-                                               informationSourceType:self.informationSourceType];
+                                          tableViewContentDictionary:dictionary
+                                               informationSourceType:TAKInformationSourceTypeFoursquare];
                 break;
             }
             default: {

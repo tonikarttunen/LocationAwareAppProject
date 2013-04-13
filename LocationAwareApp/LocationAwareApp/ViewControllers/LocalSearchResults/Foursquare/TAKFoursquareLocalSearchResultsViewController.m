@@ -10,6 +10,7 @@
 #import "TAKFoursquareLocalSearchResultsViewController.h"
 #import "TAKFoursquareController.h"
 #import "TAKDetailViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TAKFoursquareLocalSearchResultsViewController ()
 
@@ -254,10 +255,11 @@
 //            [detailViewContents addObject:@[(NSString *)key, [dictionary objectForKey:key]]];
 //        }
         
-        NSString *DVCTitle = (NSString *)[[self.tableView.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
+        NSString *dvcTitle = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+        // NSString *DVCTitle = (NSString *)[[self.tableView.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
         TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStyleGrouped tableViewContentDictionary:dictionary informationSourceType:TAKInformationSourceTypeFoursquare];
         // DVC.informationSourceType = TAKInformationSourceTypeFoursquare;
-        DVC.title = DVCTitle;
+        DVC.title = dvcTitle;
         [self.navigationController pushViewController:DVC animated:YES];
     }
     @catch (NSException *exception) {

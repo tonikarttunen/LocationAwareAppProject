@@ -110,16 +110,17 @@
 
 - (void)updateUI
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"The updateUI method was called.");
 #endif
     
     @try {
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquareDataController) {
-            self.venues = [appDelegate.foursquareController.foursquareDataController foursquareDataToArray];
+        if (appDelegate && appDelegate.foursquareController && /* appDelegate.foursquareController.foursquareDataController */ appDelegate.foursquareController.processedFoursquareData) {
+            // self.venues = [appDelegate.foursquareController.foursquareDataController foursquareDataToArray];
+            self.venues = (NSArray *)appDelegate.foursquareController.processedFoursquareData;
             [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAKInformationSourceTypeFoursquare];
-#if DEBUG
+#ifdef DEBUG
             // NSLog(@"\nVenues: %@\n", venues);
 #endif
         }
@@ -131,13 +132,13 @@
 
 - (void)showActivityIndicator
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"showActivityIndicator was called.");
 #endif
 }
 - (void)removeActivityIndicatorFromView
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"removeActivityIndicatorFromView was called.");
 #endif
 }
@@ -206,6 +207,7 @@
 - (void)generateMapView
 {
     self.mapView = [[TAKMapView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.mapView.informationSourceType = TAKInformationSourceTypeFoursquare;
     [self.view addSubview:self.mapView];
 }
 
@@ -243,10 +245,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *DVCTitle = (NSString *)[[self.tableView.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
-    TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain];
-    DVC.title = DVCTitle;
-    [self.navigationController pushViewController:DVC animated:YES];
+//    NSMutableArray *detailViewContents = [NSMutableArray new];
+    
+    @try {
+        NSDictionary *dictionary = [self.venues objectAtIndex:indexPath.row];
+        
+//        for (id key in [dictionary allKeys]) {
+//            [detailViewContents addObject:@[(NSString *)key, [dictionary objectForKey:key]]];
+//        }
+        
+        NSString *DVCTitle = (NSString *)[[self.tableView.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
+        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStyleGrouped tableViewContentDictionary:dictionary informationSourceType:TAKInformationSourceTypeFoursquare];
+        // DVC.informationSourceType = TAKInformationSourceTypeFoursquare;
+        DVC.title = DVCTitle;
+        [self.navigationController pushViewController:DVC animated:YES];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

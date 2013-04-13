@@ -11,19 +11,38 @@
 @interface TAKDetailViewController ()
 
 @property (nonatomic, copy) NSArray *tableViewContents;
+@property (nonatomic, copy) NSDictionary *tableViewContentDictionary;
 
 @end
 
 @implementation TAKDetailViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-  tableViewContents:(NSArray *)tableViewContents
+- (id)  initWithStyle:(UITableViewStyle)style
+    tableViewContents:(NSArray *)tableViewContents
+informationSourceType:(NSUInteger)informationSourceType
 {
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        _informationSourceType = informationSourceType;
         _tableViewContents = [tableViewContents copy];
         NSLog(@"%@", _tableViewContents);
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+    }
+    return self;
+}
+
+- (id)           initWithStyle:(UITableViewStyle)style
+    tableViewContentDictionary:(NSDictionary *)tableViewContentDictionary
+         informationSourceType:(NSUInteger)informationSourceType
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+        _informationSourceType = informationSourceType;
+        _tableViewContentDictionary = [tableViewContentDictionary copy];
+        NSLog(@"%@", _tableViewContentDictionary);
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
     }
@@ -33,7 +52,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    NSLog(@"Detail view information source type: %i", self.informationSourceType);
+    if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
+        UIBarButtonItem *checkInButton = [[UIBarButtonItem alloc] initWithTitle:@"Check In" style:UIBarButtonItemStyleBordered target:self action:@selector(checkIn)];
+        self.navigationItem.rightBarButtonItem = checkInButton;
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -175,6 +199,14 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+#pragma mark - Foursquare check-in
+
+- (BOOL)checkIn
+{
+#warning Incomplete implementation
+    return YES;
 }
 
 @end

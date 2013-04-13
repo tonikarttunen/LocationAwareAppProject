@@ -143,6 +143,7 @@
 - (void)generateMapView
 {
     self.mapView = [[TAKMapView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.mapView.informationSourceType = TAKInformationSourceTypeApple;
     [self.view addSubview:self.mapView];
 }
 
@@ -217,14 +218,14 @@
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles: nil];
             [alert show];
-#if DEBUG
+#ifdef DEBUG
             NSLog(@"No local search results for place: lat. %f, long. %f.",
                   self.mapView.region.center.latitude,
                   self.mapView.region.center.longitude);
 #endif
             return;
         }
-#if DEBUG
+#ifdef DEBUG
         NSLog(@"%@", response.mapItems.description);
 #endif
         self.localSearchResponse = response;
@@ -260,7 +261,9 @@
             [detailViewContents addObject:@[@"URL", url]];
         }
         TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain
-                                                                    tableViewContents:(NSArray *)detailViewContents];
+                                                                    tableViewContents:(NSArray *)detailViewContents
+                                                                informationSourceType:TAKInformationSourceTypeApple];
+        // DVC.informationSourceType = TAKInformationSourceTypeApple;
         DVC.title = DVCTitle;
         [self.navigationController pushViewController:DVC animated:YES];
         [tableView deselectRowAtIndexPath:indexPath animated:YES];

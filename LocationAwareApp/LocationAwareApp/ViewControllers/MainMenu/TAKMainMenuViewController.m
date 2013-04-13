@@ -168,8 +168,8 @@
 //        }
             
         default: {
-            TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
-            // TAKFoursquareLocalSearchResultsViewController *DVC = [[TAKFoursquareLocalSearchResultsViewController alloc] init];
+            // TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
+            TAKFoursquareLocalSearchResultsViewController *DVC = [[TAKFoursquareLocalSearchResultsViewController alloc] init];
             @try {
                 DVC.title = [self.titleArray objectAtIndex:indexPath.row];
             }

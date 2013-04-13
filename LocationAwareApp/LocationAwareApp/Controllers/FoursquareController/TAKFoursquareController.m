@@ -25,7 +25,8 @@
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readwrite) NSArray *foursquareNotifications;
-@property (nonatomic, strong, readwrite) TAKFoursquareDataController *foursquareDataController;
+// @property (nonatomic, strong, readwrite) TAKFoursquareDataController *foursquareDataController;
+@property (nonatomic, copy, readwrite) NSMutableArray *processedFoursquareData;
 
 @end
 
@@ -78,7 +79,8 @@
     _foursquareResponse = nil;
     _foursquareMeta = nil;
     _foursquareNotifications = nil;
-    _foursquareDataController = nil;
+    // _foursquareDataController = nil;
+    _processedFoursquareData = nil;
 }
 
 #pragma mark - Request handling
@@ -228,7 +230,8 @@
     self.foursquareMeta = request.meta;
     self.foursquareRequest = nil;
     
-    self.foursquareDataController = [[TAKFoursquareDataController alloc] initWithFoursquareData:self.foursquareResponse];
+    // self.foursquareDataController = [[TAKFoursquareDataController alloc] initWithFoursquareData:self.foursquareResponse];
+    self.processedFoursquareData = (NSMutableArray *)[NSArray processFoursquareDictionary:self.foursquareResponse searchPathComponents:@[@"venues"]];
     
     @try {
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -251,7 +254,7 @@
         } else if ([foursquareViewController respondsToSelector:@selector(updateUI)]) {
             [foursquareViewController updateUI];
         }
-#if DEBUG
+#ifdef DEBUG
         // NSLog(@"Response: %@\nMeta: %@\nNotifications: %@",
         //      self.foursquareResponse, self.foursquareMeta, self.foursquareNotifications);
 #endif

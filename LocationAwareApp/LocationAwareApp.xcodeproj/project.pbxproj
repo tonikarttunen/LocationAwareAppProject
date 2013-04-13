@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */; };
 		E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */; };
+		E981327F1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E981327E1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
 		E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
 		E990AD771714B65D007EA467 /* TAKFoursquareDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */; };
@@ -73,6 +74,8 @@
 		E947C5301713991300E8AA3E /* UIView+FindNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FindNextViewController.h"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.h"; sourceTree = "<group>"; };
 		E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FindNextViewController.m"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.m"; sourceTree = "<group>"; };
 		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
+		E981327D1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+FoursquareDictionaryProcessor.h"; path = "Controllers/FoursquareDataController/NSArray+FoursquareDictionaryProcessor.h"; sourceTree = "<group>"; };
+		E981327E1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+FoursquareDictionaryProcessor.m"; path = "Controllers/FoursquareDataController/NSArray+FoursquareDictionaryProcessor.m"; sourceTree = "<group>"; };
 		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
 		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 			children = (
 				E990AD751714B65D007EA467 /* TAKFoursquareDataController.h */,
 				E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */,
+				E981327D1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.h */,
+				E981327E1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m */,
 			);
 			name = FoursquareDataController;
 			sourceTree = "<group>";
@@ -616,6 +621,7 @@
 				E9F86A9317141ECA00D249AD /* TAKFoursquareController.m in Sources */,
 				E990AD771714B65D007EA467 /* TAKFoursquareDataController.m in Sources */,
 				E990AD7B1714F3F5007EA467 /* TAKDetailViewController.m in Sources */,
+				E981327F1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,12 @@
 
 @property NSUInteger informationSourceType;
 
-- (id)initWithStyle:(UITableViewStyle)style
-  tableViewContents:(NSArray *)tableViewContents;
+- (id)  initWithStyle:(UITableViewStyle)style
+    tableViewContents:(NSArray *)tableViewContents
+informationSourceType:(NSUInteger)informationSourceType;
+
+- (id)           initWithStyle:(UITableViewStyle)style
+    tableViewContentDictionary:(NSDictionary *)tableViewContentDictionary
+         informationSourceType:(NSUInteger)informationSourceType;
 
 @end

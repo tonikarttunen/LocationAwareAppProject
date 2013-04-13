@@ -28,8 +28,8 @@
             _venues = [_foursquareData objectForKey:@"venues"];
         }
         // _sortedFoursquareData = [[venues allKeys] sortedArrayUsingSelector:@selector(compare:)];
-#if DEBUG
-        // NSLog(@"foursquareData: %@", _foursquareData);
+#ifdef DEBUG
+        NSLog(@"foursquareData: %@", _foursquareData);
 #endif
     }
     return self;

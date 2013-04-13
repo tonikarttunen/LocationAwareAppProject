@@ -10,6 +10,12 @@
 #import "TAKAppDelegate.h"
 #import "TAKLocalSearchResultsViewController.h"
 
+@interface UIViewController ()
+
+@property (nonatomic, strong) TAKMapView *mapView;
+
+@end
+
 @implementation TAKLocationController
 
 #pragma mark - Lifecycle methods
@@ -43,7 +49,7 @@
         if (self.locationManager == nil) {
             self.locationManager = [[CLLocationManager alloc] init];
             self.locationManager.delegate = self;
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
             self.locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
             self.lastKnownLocation = [[CLLocation alloc] init];
         }
@@ -115,7 +121,7 @@
         appDelegate.isRegionMonitoringActive = YES;
     }
     
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Region monitoring enabled.");
 #endif
     return YES;
@@ -165,7 +171,7 @@
         appDelegate.isRegionMonitoringActive = YES;
     }
     
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Region monitoring enabled.");
 #endif
     return YES;
@@ -174,14 +180,14 @@
 - (BOOL)disableRegionMonitoringForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier
 {
     if (overlay == nil) {
-#if DEBUG
+#ifdef DEBUG
         NSLog(@"Cannot stop region monitoring because the overlay is nil");
 #endif
         return NO;
     }
     
     if (identifier == nil) {
-#if DEBUG
+#ifdef DEBUG
         NSLog(@"Cannot stop region monitoring because the identifier is nil");
 #endif
         return NO;
@@ -191,7 +197,7 @@
         for (CLRegion *monitoredObject in self.locationManager.monitoredRegions) {
             if ([monitoredObject.identifier isEqualToString:identifier]) {
                 [self.locationManager stopMonitoringForRegion:monitoredObject];
-#if DEBUG
+#ifdef DEBUG
                 NSLog(@"Stopped monitoring region: %@", [monitoredObject description]);
 #endif
             }
@@ -228,14 +234,14 @@
 - (BOOL)disableRegionMonitoringForRegion:(CLRegion *)region identifier:(NSString *)identifier
 {
     if (region == nil) {
-#if DEBUG
+#ifdef DEBUG
         NSLog(@"Cannot stop region monitoring because the region is nil");
 #endif
         return NO;
     }
     
     if (identifier == nil) {
-#if DEBUG
+#ifdef DEBUG
         NSLog(@"Cannot stop region monitoring because the identifier is nil");
 #endif
         return NO;
@@ -243,7 +249,7 @@
 
     @try {
         [self.locationManager stopMonitoringForRegion:region];
-#if DEBUG
+#ifdef DEBUG
         NSLog(@"Stopped monitoring region: %@", [region description]);
 #endif
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -274,22 +280,21 @@
             [alertView show];
         }
     }
-    
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Location manager status: %u", status);
 #endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Did enter region: %@", [region description]);
 #endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Did exit region: %@", [region description]);
 #endif
 }
@@ -306,14 +311,14 @@
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Did start monitoring for region: %@", [region description]);
 #endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Did update heading: %@", [newHeading description]);
 #endif
 }
@@ -322,16 +327,23 @@
 {    
     self.lastKnownLocation = [locations lastObject];
     
-#warning TODO Update location on the map
-    /*
-    TAKAppDelegate *myAppDelegate = [[UIApplication sharedApplication] delegate];
-    if ((myAppDelegate.viewController != nil) && (myAppDelegate.viewController.mapView != nil)) {
-        if (!myAppDelegate.viewController.mapView.isLocationAlreadyKnown) {
-            [myAppDelegate.viewController.mapView moveCenterPointToCurrentLocationAnimated:YES];
+    /* 
+     * Uncomment this if you want that the centerpoint of the map is always user's location
+     * (note: you may need to adjust the distance filter and the desired location accuracy in the init method).
+     */ /*
+    @try {
+        UINavigationController *navigationController = (UINavigationController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController];
+        if ((navigationController != nil) && (navigationController.viewControllers != nil) && (navigationController.viewControllers.count > 1)) {
+            UIViewController *viewController = (UIViewController *)[navigationController.viewControllers objectAtIndex:1];
+            if (viewController && [viewController respondsToSelector:@selector(mapView)]) {
+                [[viewController mapView] moveCenterPointToCurrentLocationAnimated:YES];
+            }
         }
     }
-    */
-#if DEBUG
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    } */
+#ifdef DEBUG
     NSLog(@"Did update locations: \ntimestamp: %@, \nlatitude: %f, longitude: %f, \naltitude: %f, speed: %f, course: %f",
           self.lastKnownLocation.timestamp, self.lastKnownLocation.coordinate.latitude,
           self.lastKnownLocation.coordinate.longitude, self.lastKnownLocation.altitude,
@@ -346,14 +358,14 @@
 
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Did pause location updates: %@", [manager description]);
 #endif
 }
 
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
 {
-#if DEBUG
+#ifdef DEBUG
     NSLog(@"Did resume location updates: %@", [manager description]);
 #endif
 }

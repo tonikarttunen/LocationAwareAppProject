@@ -28,6 +28,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _informationSourceType = 0;
         // self.localSearchResponse = [[MKLocalSearchResponse alloc] init];
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.mapProperties = [NSMutableDictionary new];
@@ -258,12 +259,21 @@
                         [self addAnnotation:annotation];
                         break;
                     }
+                        
                     case TAKInformationSourceTypeFoursquare: {
-                        CLLocationDegrees latitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
-                        CLLocationDegrees longtitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
+                        NSArray *locationData = [[array objectAtIndex:i] objectForKey:@"Location"];
+                        NSLog(@"LocationData: %@", locationData);
+                        NSArray *basicInformation = [[array objectAtIndex:i] objectForKey:@"Basic Information"];
+                        
+                        CLLocationDegrees latitude = (CLLocationDegrees)[[[locationData objectAtIndex:0] objectAtIndex:1] doubleValue];
+                        //(CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
+                        CLLocationDegrees longtitude = (CLLocationDegrees)[[[locationData objectAtIndex:1] objectAtIndex:1] doubleValue];
+                        //(CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
                         annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
-                        annotation.title = (NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
-                        annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
+                        annotation.title = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1];
+                        //(NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
+                        annotation.subtitle = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1];
+                        //(NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
                         [self addAnnotation:annotation];
                         break;
                     }
@@ -271,6 +281,7 @@
                     case TAKInformationSourceTypeGoogle: {
                         break;
                     }
+                        
                     default:
                         break;
                 }
@@ -294,7 +305,7 @@
 //                    annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
 //                    [self addAnnotation:annotation];
 //                }
-#if DEBUG
+#ifdef DEBUG
                 NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f",
                       annotation.title, annotation.subtitle,
                       annotation.coordinate.latitude, annotation.coordinate.longitude);
@@ -352,7 +363,21 @@
                 break;
         }
         
-        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain tableViewContents:(NSArray *)detailViewContents];
+        TAKDetailViewController *DVC;
+        switch (self.informationSourceType) {
+            case TAKInformationSourceTypeFoursquare: {
+                DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStyleGrouped
+                                                   tableViewContents:(NSArray *)detailViewContents
+                                               informationSourceType:self.informationSourceType];
+                break;
+            }
+            default: {
+                DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain
+                                                   tableViewContents:(NSArray *)detailViewContents
+                                               informationSourceType:self.informationSourceType];
+                break;
+            }
+        }
         DVC.title = view.annotation.title;
         UIViewController *viewController = [self findParentViewController];
         [viewController.navigationController pushViewController:DVC animated:YES];
@@ -562,7 +587,7 @@
 //                                                  cancelButtonTitle:@"OK"
 //                                                  otherButtonTitles: nil];
 //            [alert show];
-#if DEBUG
+#ifdef DEBUG
             NSLog(@"No local search results for place: lat. %f, long. %f.",
                   self.region.center.latitude,
                   self.region.center.longitude);

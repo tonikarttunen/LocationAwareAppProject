@@ -88,8 +88,19 @@
                     break;
                 }
                 case TAKInformationSourceTypeFoursquare: {
-                    cell.textLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
-                    cell.detailTextLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
+                    // NSDictionary *allData = [self.tableViewContents objectAtIndex:indexPath.row];
+//                    if (indexPath.section == 0) {
+//                        NSLog(@"Basic Information: %@", [allData objectForKey:@"Basic Information"]);
+//                    } else if (indexPath.section == 1) {
+//                         NSLog(@"Location: %@", [allData objectForKey:@"Location"]);
+//                    } else {
+//                        NSLog(@"Location: %@", [allData objectForKey:@"Statistics"]);
+//                    }
+                    NSArray *locationData = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Location"];
+                    NSArray *basicInformation = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Basic Information"];
+                    
+                    cell.textLabel.text = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1]; // (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
+                    cell.detailTextLabel.text = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1]; // (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
                     break;
                 }
                     

@@ -2,6 +2,8 @@
 
 Location-aware app for iOS
 
+Status: alpha (not ready for prime time)
+
 ## Usage instructions
 
 1. Obtain the necessary API keys
@@ -10,7 +12,7 @@ Location-aware app for iOS
 ## Acknowledgements
 
 [Foursquare API v2 for iOS](https://github.com/baztokyo/foursquare-ios-api)
-was developed by [Ba-Z Communication Inc.](https://github.com/baztokyo).
+was developed by [Ba-Z Communication Inc.](https://github.com/baztokyo)
 
 ## License
 

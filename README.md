@@ -2,12 +2,21 @@
 
 Location-aware app for iOS
 
-Status: alpha (not ready for prime time)
+*Status: ALPHA (not ready for prime time)*
 
-## Usage instructions
+## Usage Instructions
 
+*TO DO: Write some usage instructions...*
+ 
 1. Obtain the necessary API keys
 2. Add API keys to the APIConstants.h file
+
+## Build Requirements
+
++ iOS 6.1 or later
++ Xcode 4.4 or later (tested with Xcode 4.6.1)
++ This project uses ARC (automatic reference counting), except for the Foursquare API
+  files.
 
 ## Acknowledgements
 

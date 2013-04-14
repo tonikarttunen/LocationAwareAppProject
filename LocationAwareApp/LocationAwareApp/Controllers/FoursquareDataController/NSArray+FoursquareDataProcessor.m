@@ -1,17 +1,17 @@
 //
-//  NSArray+FoursquareDictionaryProcessor.m
+//  NSArray+FoursquareDataProcessor.m
 //  LocationAwareApp
 //
 //  Created by Toni Antero Karttunen on 4/13/13.
 //  Copyright (c) 2013 Toni Antero Karttunen. All rights reserved.
 //
 
-#import "NSArray+FoursquareDictionaryProcessor.h"
+#import "NSArray+FoursquareDataProcessor.h"
 #import "Constants.h"
 
-@implementation NSArray (FoursquareDictionaryProcessor)
+@implementation NSArray (FoursquareDataProcessor)
 
-+ (NSArray *)processFoursquareDictionary:(NSDictionary *)dictionary searchPathComponents:(NSArray *)components
++ (NSArray *)arrayWithFoursquareData:(NSDictionary *)dictionary searchPathComponents:(NSArray *)components
 {
     // Format:
     // [
@@ -42,7 +42,7 @@
             }
         } else {
 #warning Incomplete implementation
-            NSLog(@"Incomplete implementation: NSArray+FoursquareDictionaryProcessor.m!");
+            NSLog(@"Incomplete implementation: NSArray+FoursquareDataProcessor.m!");
         }
         
         for (int i = 0; i < venues.count; i++) {

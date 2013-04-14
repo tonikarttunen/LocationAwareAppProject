@@ -6,11 +6,10 @@
 //  Copyright (c) 2013 Toni Antero Karttunen. All rights reserved.
 //
 
+#import "NSArray+FoursquareDataProcessor.h"
 #import <Foundation/Foundation.h>
 #import "BZFoursquare.h"
 #import "BZFoursquareRequest.h"
-// #import "TAKFoursquareDataController.h"
-#import "NSArray+FoursquareDictionaryProcessor.h"
 
 @interface TAKFoursquareController : NSObject <BZFoursquareRequestDelegate, BZFoursquareSessionDelegate>
 
@@ -18,7 +17,6 @@
 @property (nonatomic, copy, readonly) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readonly) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readonly) NSArray *foursquareNotifications;
-// @property (nonatomic, strong, readonly) TAKFoursquareDataController *foursquareDataController;
 @property (nonatomic, copy, readonly) NSMutableArray *processedFoursquareData;
 
 - (void)searchFoursquareContentWithPath:(NSString *)path

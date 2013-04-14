@@ -62,6 +62,8 @@ informationSourceType:(NSUInteger)informationSourceType
             break;
         }
         default: {
+#warning Potentially incomplete implementation (Google Places API search results)
+            
             self.tableView.backgroundColor = [UIColor whiteColor];
             break;
         }
@@ -92,6 +94,7 @@ informationSourceType:(NSUInteger)informationSourceType
 - (void)dealloc
 {
     _tableViewContents = nil;
+    _tableViewContentDictionary = nil;
 }
 
 #pragma mark - Table view data source
@@ -102,12 +105,11 @@ informationSourceType:(NSUInteger)informationSourceType
     switch (self.informationSourceType) {
         case TAKInformationSourceTypeApple:
             return 1;
-            
         case TAKInformationSourceTypeFoursquare:
             return self.tableViewContentDictionary.count;
-            
-        default: {
+        default: { // Google
 #warning Incomplete implementation
+            
             return 1;
         }
     }
@@ -130,12 +132,13 @@ informationSourceType:(NSUInteger)informationSourceType
             } else {
                 array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
             }
-            
             return array.count;
         }
             
-        default:
+        default: { // Google
+#warning Incomplete implementation
             return 1;
+        }
     }
 }
 

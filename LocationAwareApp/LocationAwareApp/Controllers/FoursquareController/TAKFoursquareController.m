@@ -25,36 +25,9 @@
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readwrite) NSArray *foursquareNotifications;
-// @property (nonatomic, strong, readwrite) TAKFoursquareDataController *foursquareDataController;
 @property (nonatomic, copy, readwrite) NSMutableArray *processedFoursquareData;
 
 @end
-
-//enum {
-//    TAK_BZFoursquareAuthenticationSection = 0,
-//    TAK_BZFoursquareEndpointsSection,
-//    TAK_BZFoursquareResponsesSection,
-//    TAK_BZFoursquareSectionCount
-//};
-//
-//enum {
-//    TAK_BZFoursquareAccessTokenRow = 0,
-//    TAK_BZFoursquareAuthenticationRowCount
-//};
-//
-//enum {
-//    TAK_BZFoursquareSearchVenuesRow = 0,
-//    TAK_BZFoursquareCheckInRow,
-//    TAK_BZFoursquareAddPhotoRow,
-//    TAK_BZFoursquareEndpointsRowCount
-//};
-//
-//enum {
-//    TAK_BZFoursquareMetaRow = 0,
-//    TAK_BZFoursquareNotificationsRow,
-//    TAK_BZFoursquareResponseRow,
-//    TAK_BZFoursquareResponsesRowCount
-//};
 
 @implementation TAKFoursquareController
 
@@ -79,7 +52,6 @@
     _foursquareResponse = nil;
     _foursquareMeta = nil;
     _foursquareNotifications = nil;
-    // _foursquareDataController = nil;
     _processedFoursquareData = nil;
 }
 
@@ -147,12 +119,6 @@
 }
 
 #pragma mark - BZFoursquareSessionDelegate methods
-
-//- (void)foursquareDidAuthorize:(BZFoursquare *)foursquare {
-//    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:TAK_BZFoursquareAccessTokenRow inSection:TAK_BZFoursquareAuthenticationSection];
-//    NSArray *indexPaths = [NSArray arrayWithObject:indexPath];
-//    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-//}
 
 - (void)foursquareDidAuthorize:(BZFoursquare *)foursquare
 {
@@ -231,7 +197,7 @@
     self.foursquareRequest = nil;
     
     // self.foursquareDataController = [[TAKFoursquareDataController alloc] initWithFoursquareData:self.foursquareResponse];
-    self.processedFoursquareData = (NSMutableArray *)[NSArray processFoursquareDictionary:self.foursquareResponse searchPathComponents:@[@"venues"]];
+    self.processedFoursquareData = (NSMutableArray *)[NSArray arrayWithFoursquareData:self.foursquareResponse searchPathComponents:@[@"venues"]];
     
     @try {
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
@@ -247,6 +213,11 @@
             return;
         }
         
+        if (navigationController.viewControllers.count < 2) {
+            NSLog(@"Foursquare view controller does not exist!");
+            return;
+        }
+        
         TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
         
         if (foursquareViewController == nil) {
@@ -254,10 +225,6 @@
         } else if ([foursquareViewController respondsToSelector:@selector(updateUI)]) {
             [foursquareViewController updateUI];
         }
-#ifdef DEBUG
-        // NSLog(@"Response: %@\nMeta: %@\nNotifications: %@",
-        //      self.foursquareResponse, self.foursquareMeta, self.foursquareNotifications);
-#endif
     }
     @catch (NSException *exception) {
         NSLog(@"Cannot update the Foursquare view. %@.", exception.description);

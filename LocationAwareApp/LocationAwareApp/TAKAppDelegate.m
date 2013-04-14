@@ -123,6 +123,10 @@
         if (navigationController == nil) {
             return NO;
         }
+        if (navigationController.viewControllers.count < 2) {
+            NSLog(@"Foursquare view controller does not exist!");
+            return NO;
+        }
         TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
         if (foursquareViewController == nil) {
             return NO;

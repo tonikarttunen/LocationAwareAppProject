@@ -9,10 +9,9 @@
 /* Begin PBXBuildFile section */
 		E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */; };
 		E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */; };
-		E981327F1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E981327E1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m */; };
+		E981327F1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E981327E1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
 		E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
-		E990AD771714B65D007EA467 /* TAKFoursquareDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */; };
 		E990AD7B1714F3F5007EA467 /* TAKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */; };
 		E9BF224A170E5D8400E928AF /* TAKSearchResultsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BF2249170E5D8400E928AF /* TAKSearchResultsTableView.m */; };
 		E9D1251F16FEA7930057DC74 /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D1251E16FEA7930057DC74 /* TAKGeocoder.m */; };
@@ -74,14 +73,12 @@
 		E947C5301713991300E8AA3E /* UIView+FindNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FindNextViewController.h"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.h"; sourceTree = "<group>"; };
 		E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+FindNextViewController.m"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.m"; sourceTree = "<group>"; };
 		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
-		E981327D1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+FoursquareDictionaryProcessor.h"; path = "Controllers/FoursquareDataController/NSArray+FoursquareDictionaryProcessor.h"; sourceTree = "<group>"; };
-		E981327E1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+FoursquareDictionaryProcessor.m"; path = "Controllers/FoursquareDataController/NSArray+FoursquareDictionaryProcessor.m"; sourceTree = "<group>"; };
+		E981327D1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+FoursquareDataProcessor.h"; path = "Controllers/FoursquareDataController/NSArray+FoursquareDataProcessor.h"; sourceTree = "<group>"; };
+		E981327E1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+FoursquareDataProcessor.m"; path = "Controllers/FoursquareDataController/NSArray+FoursquareDataProcessor.m"; sourceTree = "<group>"; };
 		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
 		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
 		E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKReminderMasterViewController.m; path = ViewControllers/Reminder/TAKReminderMasterViewController.m; sourceTree = "<group>"; };
-		E990AD751714B65D007EA467 /* TAKFoursquareDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareDataController.h; path = Controllers/FoursquareDataController/TAKFoursquareDataController.h; sourceTree = "<group>"; };
-		E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareDataController.m; path = Controllers/FoursquareDataController/TAKFoursquareDataController.m; sourceTree = "<group>"; };
 		E990AD791714F3F5007EA467 /* TAKDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKDetailViewController.h; path = ViewControllers/DetailView/TAKDetailViewController.h; sourceTree = "<group>"; };
 		E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKDetailViewController.m; path = ViewControllers/DetailView/TAKDetailViewController.m; sourceTree = "<group>"; };
 		E9BF2248170E5D8400E928AF /* TAKSearchResultsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKSearchResultsTableView.h; path = TableViews/TAKSearchResultsTableView.h; sourceTree = "<group>"; };
@@ -202,15 +199,13 @@
 			name = Reminder;
 			sourceTree = "<group>";
 		};
-		E990AD711714AF38007EA467 /* FoursquareDataController */ = {
+		E990AD711714AF38007EA467 /* NSArray+FoursquareDataProcessor */ = {
 			isa = PBXGroup;
 			children = (
-				E990AD751714B65D007EA467 /* TAKFoursquareDataController.h */,
-				E990AD761714B65D007EA467 /* TAKFoursquareDataController.m */,
-				E981327D1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.h */,
-				E981327E1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m */,
+				E981327D1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.h */,
+				E981327E1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m */,
 			);
-			name = FoursquareDataController;
+			name = "NSArray+FoursquareDataProcessor";
 			sourceTree = "<group>";
 		};
 		E990AD781714F395007EA467 /* Detail View Controller */ = {
@@ -329,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				E9D1251A16FEA7090057DC74 /* App Delegate */,
+				E990AD711714AF38007EA467 /* NSArray+FoursquareDataProcessor */,
 				E9F86A9417141ED600D249AD /* Controllers */,
 				E9D1251B16FEA7220057DC74 /* View Controllers */,
 				E9F86A9617141F9700D249AD /* Views */,
@@ -465,7 +461,6 @@
 				E9D1251916FEA6F30057DC74 /* Geocoder */,
 				E9DA00A216FA723400A76D42 /* LocationController */,
 				E9F86A9517141EE800D249AD /* FoursquareController */,
-				E990AD711714AF38007EA467 /* FoursquareDataController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -619,9 +614,8 @@
 				E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */,
 				E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */,
 				E9F86A9317141ECA00D249AD /* TAKFoursquareController.m in Sources */,
-				E990AD771714B65D007EA467 /* TAKFoursquareDataController.m in Sources */,
 				E990AD7B1714F3F5007EA467 /* TAKDetailViewController.m in Sources */,
-				E981327F1718DD820046D8C8 /* NSArray+FoursquareDictionaryProcessor.m in Sources */,
+				E981327F1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

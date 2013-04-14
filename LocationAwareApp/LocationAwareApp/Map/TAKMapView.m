@@ -29,7 +29,6 @@
     if (self) {
         // Initialization code
         _informationSourceType = 0;
-        // self.localSearchResponse = [[MKLocalSearchResponse alloc] init];
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.mapProperties = [NSMutableDictionary new];
         [self readMapPropertiesFromPlistFile];
@@ -50,13 +49,6 @@
     self.delegate = nil;
     _mapProperties = nil;
     _mapItems = nil;
-    
-//    if (self.localSearch.isSearching) {
-//        [self.localSearch cancel];
-//    }
-//    self.localSearch = nil;
-//    self.localSearchResponse = nil;
-    
 }
 
 #pragma mark - Custom drawing
@@ -253,7 +245,6 @@
                         MKPlacemark *placemark = mapItem.placemark;
                         annotation.coordinate = placemark.coordinate;
                         annotation.title = mapItem.name;
-                        // annotation.tag = i;
                         NSLog(@"Annotation title: %@", annotation.title);
                         annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
                         [self addAnnotation:annotation];
@@ -262,49 +253,20 @@
                         
                     case TAKInformationSourceTypeFoursquare: {
                         NSArray *locationData = [[array objectAtIndex:i] objectForKey:TAK_FOURSQUARE_LOCATION];
-                        // NSLog(@"locationData: %@", locationData);
                         NSArray *basicInformation = [[array objectAtIndex:i] objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                         
                         CLLocationDegrees latitude = (CLLocationDegrees)[[[locationData objectAtIndex:0] objectAtIndex:1] doubleValue];
-                        //(CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
                         CLLocationDegrees longtitude = (CLLocationDegrees)[[[locationData objectAtIndex:1] objectAtIndex:1] doubleValue];
-                        //(CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
                         annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
                         annotation.title = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1];
-                        //(NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
                         annotation.subtitle = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1];
-                        //(NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
                         [self addAnnotation:annotation];
-                        break;
-                    }
-                        
-                    case TAKInformationSourceTypeGoogle: {
                         break;
                     }
                         
                     default:
                         break;
                 }
-                
-                
-//                if ([informationSource isEqualToString:TAK_INFORMATION_SOURCE_APPLE]) {
-//                    MKMapItem *mapItem = [array objectAtIndex:i];
-//                    MKPlacemark *placemark = mapItem.placemark;
-//                    annotation.coordinate = placemark.coordinate;
-//                    annotation.title = mapItem.name;
-//                    NSLog(@"Annotation title: %@", annotation.title);
-//                    annotation.subtitle = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
-//                    [self addAnnotation:annotation];
-//                } else { // Foursquare
-//                    // id obj = [array objectAtIndex:i];
-//                    // NSLog(@"obj class: %@, obj: %@", [obj class], obj);
-//                    CLLocationDegrees latitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Latitude"] doubleValue];
-//                    CLLocationDegrees longtitude = (CLLocationDegrees)[[[array objectAtIndex:i] objectForKey:@"Longitude"] doubleValue];
-//                    annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
-//                    annotation.title = (NSString *)[[array objectAtIndex:i] objectForKey:@"Name"];
-//                    annotation.subtitle = (NSString *)[[array objectAtIndex:i] objectForKey:@"Address"];
-//                    [self addAnnotation:annotation];
-//                }
 #ifdef DEBUG
                 NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f",
                       annotation.title, annotation.subtitle,
@@ -468,36 +430,6 @@
 }
 */
 
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
-//{
-//    MKPinAnnotationView *pinAnnotationView;
-//    
-////    if (annotation != mapView.userLocation) {
-////        pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
-////        if (!pinAnnotationView) {
-////            pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
-////            
-////        }
-////    }
-//    
-//    if ([annotation isKindOfClass:[MKUserLocation class]]) {
-//        return nil;
-//    }
-//    
-//    if (!pinAnnotationView) {
-//        pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
-//        pinAnnotationView.pinColor = MKPinAnnotationColorGreen;
-//        pinAnnotationView.animatesDrop = YES;
-//        pinAnnotationView.canShowCallout = YES;
-//        
-//        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//        pinAnnotationView.rightCalloutAccessoryView = rightButton;
-//    } else {
-//        pinAnnotationView.annotation = annotation;
-//    }
-//    
-//    return pinAnnotationView;
-//}
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
@@ -512,16 +444,7 @@
         pinView.canShowCallout = YES;
         
         UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        // rightButton.accessibilityHint = [@"More information about " stringByAppendingString:annotation.title];
-//        if ([annotation.title isEqual: MANHATTAN_OFFICE]) {
-//            rightButton.accessibilityHint = @"View more information about the New York office";
-//        }
-//        else if ([annotation.title isEqual: COPENHAGEN_OFFICE]) {
-//            rightButton.accessibilityHint = @"View more information about the Copenhagen office";
-//        }
-//        else {
-//            rightButton.accessibilityHint = @"View more information about the London office";
-//        }
+        rightButton.accessibilityHint = annotation.title;
         pinView.rightCalloutAccessoryView = rightButton;
     } else {
         pinView.annotation = annotation;
@@ -530,86 +453,31 @@
 }
 
 /*
- - (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id < MKOverlay >)overlay
- {
- 
- }
- */
-/*
- - (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
- {
- 
- }
- 
- - (void)mapViewDidStopLocatingUser:(MKMapView *)mapView
- {
- 
- }
- 
- - (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
- {
- 
- }
- 
- - (void)mapViewWillStartLocatingUser:(MKMapView *)mapView
- {
- 
- }
- */
-
-#pragma mark - Local search
-/*
-- (void)performLocalSearchWithString:(NSString *)searchString
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id < MKOverlay >)overlay
 {
-    NSLog(@"Search string: %@", searchString);
-//    if (self.localSearch) {
-//        [self.localSearch cancel];
-//    }
-    
-    MKLocalSearchRequest *localSearchRequest = [MKLocalSearchRequest new];
-    NSLog(@"Region: lat. %f, long. %f.",
-          self.region.center.latitude,
-          self.region.center.longitude);
-    localSearchRequest.region = self.region;
-    localSearchRequest.naturalLanguageQuery = searchString;
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    self.localSearch = [[MKLocalSearch alloc] initWithRequest:localSearchRequest];
-    
-    [self.localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-        if (error != nil) {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Local Search Failed"
-//                                       message:error.description
-//                                      delegate:self
-//                             cancelButtonTitle:@"Dismiss"
-//                             otherButtonTitles: nil];
-//            [alert show];
-            NSLog(@"Local search failed: %@", error.description);
-            return;
-        }
-        
-        if (response.mapItems.count == 0) {
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Search Results"
-//                                                            message:nil
-//                                                           delegate:self
-//                                                  cancelButtonTitle:@"OK"
-//                                                  otherButtonTitles: nil];
-//            [alert show];
-#ifdef DEBUG
-            NSLog(@"No local search results for place: lat. %f, long. %f.",
-                  self.region.center.latitude,
-                  self.region.center.longitude);
-#endif
-            return;
-        }
-        NSLog(@"%@", response.mapItems.description);
-        self.localSearchResponse = response;
-        [self refreshMapAnnotations];
-    }];
+
 }
 */
+/*
+- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
+{
+
+}
+
+- (void)mapViewDidStopLocatingUser:(MKMapView *)mapView
+{
+
+}
+
+- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
+{
+
+}
+
+- (void)mapViewWillStartLocatingUser:(MKMapView *)mapView
+{
+
+}
+ */
 
 @end

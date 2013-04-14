@@ -15,7 +15,7 @@
 
 @interface TAKMapView ()
 
-@property (nonatomic, strong) NSMutableArray *mapItems;
+// @property (nonatomic, strong) NSMutableArray *mapItems;
 
 @end
 
@@ -232,7 +232,9 @@
     @try {
         if ((self.annotations != nil) && (self.annotations.count > 0)) {
             [self removeAnnotations:self.annotations];
+            NSLog(@"ARRAY: %@", array);
             self.mapItems = (NSMutableArray *)array;
+            NSLog(@"SELF.MAPITEMS: %@", self.mapItems);
         }
 
         if ((array != nil) && (array.count > 0)) {
@@ -294,14 +296,21 @@
         switch (self.informationSourceType) {
             case TAKInformationSourceTypeApple: {
                 MKMapItem *mapItem;
+                NSLog(@"SELF.MAPITEMS: %@", self.mapItems);
                 for (int i = 0; i < self.mapItems.count; i++) {
                     id obj = [self.mapItems objectAtIndex:i];
                     if (([obj isKindOfClass:[MKMapItem class]]) && ([view.annotation.title isEqual:[obj name]])) {
                         mapItem = (MKMapItem *)obj;
                         
+                        NSString *name = mapItem.name;
                         NSString *address = ABCreateStringWithAddressDictionary(mapItem.placemark.addressDictionary, YES);
                         NSString *phone = mapItem.phoneNumber;
                         NSURL *url = mapItem.url;
+                        NSString *latitude = [[NSString alloc] initWithFormat:@"%f", mapItem.placemark.coordinate.latitude];
+                        NSString *longitude = [[NSString alloc] initWithFormat:@"%f", mapItem.placemark.coordinate.longitude];
+                        if (name != nil) {
+                            [detailViewContents addObject:@[@"Name", name]];
+                        }
                         if (address != nil) {
                             [detailViewContents addObject:@[@"Address", address]];
                         }
@@ -311,9 +320,16 @@
                         if (url != nil) {
                             [detailViewContents addObject:@[@"URL", url]];
                         }
+                        if (latitude != nil) {
+                            [detailViewContents addObject:@[@"Latitude", latitude]];
+                        }
+                        if (longitude != nil) {
+                            [detailViewContents addObject:@[@"Longitude", longitude]];
+                        }
                         break;
                     }
                 }
+                NSLog(@"DETAIL VIEW CONTENTS: %@", detailViewContents);
                 break;
             }
                 

@@ -201,9 +201,9 @@
     [self.localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        if (error != nil) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Local Search Failed"
-                                       message:error.description
+        if ((error != nil) || (response.mapItems.count == 0)) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Search Results"
+                                       message:@""
                                       delegate:self
                              cancelButtonTitle:@"Dismiss"
                              otherButtonTitles: nil];
@@ -212,26 +212,16 @@
             return;
         }
         
-        if (response.mapItems.count == 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Search Results"
-                                                            message:nil
-                                                           delegate:self
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles: nil];
-            [alert show];
-#ifdef DEBUG
-            NSLog(@"No local search results for place: lat. %f, long. %f.",
-                  self.mapView.region.center.latitude,
-                  self.mapView.region.center.longitude);
-#endif
-            return;
-        }
 #ifdef DEBUG
         NSLog(@"%@", response.mapItems.description);
 #endif
         self.localSearchResponse = response;
         
-        [self.mapView refreshMapAnnotationsWithArray:self.localSearchResponse.mapItems informationSource:TAKInformationSourceTypeApple];
+        NSLog(@"\n\n\n111111111111111: %@\n\n\n", self.localSearchResponse.mapItems);
+        self.mapView.mapItems = (NSMutableArray *)self.localSearchResponse.mapItems;
+        NSLog(@"\n\n\n111111111111112: %@\n\n\n", self.mapView.mapItems);
+        [self.mapView refreshMapAnnotationsWithArray:(NSArray *)self.localSearchResponse.mapItems informationSource:TAKInformationSourceTypeApple];
+        NSLog(@"\n\n\n222222222222222\n\n\n");
         
         if (self.tableView != nil) {
             self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
@@ -252,6 +242,11 @@
         NSString *address = ABCreateStringWithAddressDictionary(mapItem.placemark.addressDictionary, YES);
         NSString *phone = mapItem.phoneNumber;
         NSURL *url = mapItem.url;
+        NSString *latitude = [[NSString alloc] initWithFormat:@"%f", mapItem.placemark.coordinate.latitude];
+        NSString *longitude = [[NSString alloc] initWithFormat:@"%f", mapItem.placemark.coordinate.longitude];
+        if (DVCTitle != nil) {
+            [detailViewContents addObject:@[@"Name", DVCTitle]];
+        }
         if (address != nil) {
             [detailViewContents addObject:@[@"Address", address]];
         }
@@ -260,6 +255,12 @@
         }
         if (url != nil) {
             [detailViewContents addObject:@[@"URL", url]];
+        }
+        if (latitude != nil) {
+            [detailViewContents addObject:@[@"Latitude", latitude]];
+        }
+        if (longitude != nil) {
+            [detailViewContents addObject:@[@"Longitude", longitude]];
         }
         TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain
                                                                     tableViewContents:(NSArray *)detailViewContents

@@ -219,6 +219,9 @@ informationSourceType:(NSUInteger)informationSourceType
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    if (self.informationSourceType != TAKInformationSourceTypeFoursquare) {
+        return @"";
+    }
     switch (section) {
         case 0:
             return TAK_FOURSQUARE_BASIC_INFORMATION;

@@ -7,6 +7,8 @@
 //
 
 #import "TAKMainMenuViewController.h"
+#import "TAKAppDelegate.h"
+#import "TAKSettingsViewController.h"
 
 @interface TAKMainMenuViewController ()
 
@@ -59,7 +61,18 @@
 
 - (void)generateTitleArray
 {
-    self.titleArray = @[TAK_ARCHITECTURE, TAK_ART_MUSEUMS, TAK_BEACH, TAK_COFFEE, TAK_DINNER, TAK_EVENTS, TAK_LUNCH, TAK_MOVIES, TAK_MUSEUMS, TAK_NIGHTLIFE, TAK_SHOPPING, TAK_SPORTS, TAK_THEATRE, TAK_TOURIST_ATTRACTIONS];// @[@"Recommended", @"Everything", @"Weather",
+    self.titleArray = @[@"Everything",
+                        @"Trending",
+                        /* Normal Categories */
+                        @"Athletics & Sports", @"Colleges & Universities", @"Concert Halls", @"Convention Centers",
+                        @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
+                        @"Hotels", @"Libraries", @"Monuments & Landmarks", @"Movie Theaters", @"Museums",
+                        @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
+                        @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops & Services", @"Ski Areas", @"Tech Startups",
+                        @"Travel & Transport"];
+    
+    
+    // self.titleArray = @[TAK_ARCHITECTURE, TAK_ART_MUSEUMS, TAK_BEACH, TAK_COFFEE, TAK_DINNER, TAK_EVENTS, TAK_LUNCH, TAK_MOVIES, TAK_MUSEUMS, TAK_NIGHTLIFE, TAK_SHOPPING, TAK_SPORTS, TAK_THEATRE, TAK_TOURIST_ATTRACTIONS];// @[@"Recommended", @"Everything", @"Weather",
                         //@"Location-Based Reminder", @"Social Media", @"Photos"];
 }
 
@@ -160,16 +173,26 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    switch (indexPath.row) {
-//        case 0: {
-//            TAKViewController *DVC = [[TAKViewController alloc] init];
-//            [self.navigationController pushViewController:DVC animated:YES];
-//            break;
-//        }
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSUInteger currentInfoSource = appDelegate.currentInformationSource;
+    
+    switch (currentInfoSource) {
+        case TAKInformationSourceTypeFoursquare: {
+            NSString *categoryName = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
+            TAKFoursquareLocalSearchResultsViewController *DVC = [[TAKFoursquareLocalSearchResultsViewController alloc]
+                                                                  initWithCategory:categoryName];
+            @try {
+                DVC.title = [self.titleArray objectAtIndex:indexPath.row];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", [exception description]);
+            }
+            [self.navigationController pushViewController:DVC animated:YES];
+            break;
+        }
             
         default: {
-            // TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
-            TAKFoursquareLocalSearchResultsViewController *DVC = [[TAKFoursquareLocalSearchResultsViewController alloc] init];
+            TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
             @try {
                 DVC.title = [self.titleArray objectAtIndex:indexPath.row];
             }
@@ -199,7 +222,10 @@
 
 - (void)presentSettingsViewController
 {
-    
+    TAKSettingsViewController *settings = [[TAKSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:settings];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:NULL];
 }
 
 #pragma mark - UI creation

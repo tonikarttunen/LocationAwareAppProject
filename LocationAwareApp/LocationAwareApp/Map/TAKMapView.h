@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableDictionary *mapProperties;
 @property BOOL isLocationAlreadyKnown;
 @property NSUInteger informationSourceType;
+@property (nonatomic, strong) NSMutableArray *mapItems;
 
 - (void)moveCenterPointToLocation:(CLLocation *)location animated:(BOOL)animated;
 - (void)moveCenterPointToCurrentLocationAnimated:(BOOL)animated;

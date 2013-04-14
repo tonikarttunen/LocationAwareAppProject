@@ -89,7 +89,7 @@
                                                      delegate:self];
     [self.foursquareRequest start];
 
-#warning Potentially incomplete implementation
+#warning Potentially incomplete implementation - show an activity indicator etc 
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
@@ -140,8 +140,35 @@
                 locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
             }
             
-            [self searchFoursquareContentWithPath:@"venues/search"
-                                 searchParameters:@{@"ll" : locationString, @"radius" : @"2000"}];
+            UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+            if (navigationController == nil) {
+                return;
+            }
+            if (navigationController.viewControllers.count < 2) {
+                NSLog(@"Foursquare view controller does not exist!");
+                return;
+            }
+            TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+            if ((foursquareViewController == nil) || (foursquareViewController.category == nil)) {
+                return;
+            }
+            NSString *categoryID = [foursquareViewController foursquareCategoryID];
+            if ([categoryID isEqualToString:@"Everything"]) {
+                [self searchFoursquareContentWithPath:@"venues/search"
+                                     searchParameters:@{@"ll" : locationString,
+                                                    @"radius" : @"2000"}];
+            } else if ([categoryID isEqualToString:@"Trending"]) {
+                [self searchFoursquareContentWithPath:@"venues/trending"
+                                     searchParameters:@{@"ll" : locationString,
+                                                        @"radius" : @"2000"}];
+            } else {
+                [self searchFoursquareContentWithPath:@"venues/search"
+                                     searchParameters:@{@"ll" : locationString,
+                                                        @"radius" : @"2000",
+                                                        @"categoryId" : categoryID}];
+            }
+//            [self searchFoursquareContentWithPath:@"venues/search"
+//                                 searchParameters:@{@"ll" : locationString, @"radius" : @"2000"}];
         } else {
             NSLog(@"TAKAppDelegate does not respond to selector \"handleSuccessfulFoursquareAuthorization\"");
         }

@@ -20,10 +20,13 @@
 
 // @property (nonatomic, strong, readonly) BZFoursquare *foursquare;
 @property (nonatomic, strong) TAKFoursquareAuthorizationView *foursquareAuthorizationView;
+@property (nonatomic, copy, readonly) NSString *category;
 
+- (id)initWithCategory:(NSString *)category;
 - (void)showActivityIndicator;
 - (void)removeActivityIndicatorFromView;
 - (void)generateInitialUI;
 - (void)updateUI;
+- (NSString *)foursquareCategoryID;
 
 @end

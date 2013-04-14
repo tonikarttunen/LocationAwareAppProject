@@ -21,6 +21,7 @@
 @property (nonatomic, strong) UIView *mapViewContainer;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, copy, readwrite) NSString *category;
 
 // Foursquare
 @property (nonatomic, copy) NSArray *venues;
@@ -29,11 +30,11 @@
 
 @implementation TAKFoursquareLocalSearchResultsViewController
 
-- (id)init // WithCoder:(NSCoder *)aDecoder // WithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithCategory:(NSString *)category
 {
-    // self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    self = [super init /* WithCoder:aDecoder */];
+    self = [super init];
     if (self) {
+        self.category = category;
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController) {
             TAKFoursquareController *foursquareController = appDelegate.foursquareController;
@@ -48,9 +49,22 @@
                 } else {
                     locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
                 }
-                [foursquareController searchFoursquareContentWithPath:@"venues/search"
-                                                     searchParameters:@{@"ll" : locationString,
-                                                                        @"radius" : @"2000"}];
+                NSString *categoryID = [self foursquareCategoryID];
+                if ([categoryID isEqualToString:@"Everything"]) {
+                    [foursquareController searchFoursquareContentWithPath:@"venues/search"
+                                                         searchParameters:@{@"ll" : locationString,
+                                                                            @"radius" : @"2000"}];
+                } else if ([categoryID isEqualToString:@"Trending"]) {
+                    [foursquareController searchFoursquareContentWithPath:@"venues/trending"
+                                                         searchParameters:@{@"ll" : locationString,
+                                                               @"radius" : @"2000"}];
+                } else {
+                    [foursquareController searchFoursquareContentWithPath:@"venues/search"
+                                                         searchParameters:@{@"ll" : locationString,
+                                                                            @"radius" : @"2000",
+                                                                            @"categoryId" : categoryID}];
+                }
+                NSLog(@"Category: %@, categoryID%@", self.category, categoryID);
             }
         }
     }
@@ -123,6 +137,7 @@
         if (appDelegate && appDelegate.foursquareController && /* appDelegate.foursquareController.foursquareDataController */ appDelegate.foursquareController.processedFoursquareData) {
             // self.venues = [appDelegate.foursquareController.foursquareDataController foursquareDataToArray];
             self.venues = (NSArray *)appDelegate.foursquareController.processedFoursquareData;
+            self.mapView.mapItems = (NSMutableArray *)self.venues;
             [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAKInformationSourceTypeFoursquare];
 #ifdef DEBUG
             // NSLog(@"\nVenues: %@\n", venues);
@@ -280,6 +295,78 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Convert the name of the selected category to a Foursquare category ID
+
+- (NSString *)foursquareCategoryID
+{
+    NSString *categoryName = self.category;
+    if (!categoryName) {
+        return @"Everything";
+    }
+    
+    if ([categoryName isEqualToString:@"Athletics & Sports"]) {
+        return @"4f4528bc4b90abdf24c9de85";
+    } else if ([categoryName isEqualToString:@"Colleges & Universities"]) {
+        return @"4d4b7105d754a06372d81259";
+    } else if ([categoryName isEqualToString:@"Concert Halls"]) {
+        return @"5032792091d4c4b30a586d5c";
+    } else if ([categoryName isEqualToString:@"Convention Centers"]) {
+        return @"4bf58dd8d48988d1ff931735";
+    } else if ([categoryName isEqualToString:@"Event Spaces"]) {
+        return @"4bf58dd8d48988d171941735";
+    } else if ([categoryName isEqualToString:@"Food"]) {
+        return @"4d4b7105d754a06374d81259";
+    } else if ([categoryName isEqualToString:@"Government Buildings"]) {
+        return @"4bf58dd8d48988d126941735";
+    } else if ([categoryName isEqualToString:@"Historic Sites"]) {
+        return @"4deefb944765f83613cdba6e";
+    } else if ([categoryName isEqualToString:@"Hospitals"]) {
+        return @"4bf58dd8d48988d196941735";
+    } else if ([categoryName isEqualToString:@"Hotels"]) {
+        return @"4bf58dd8d48988d1fa931735";
+    } else if ([categoryName isEqualToString:@"Libraries"]) {
+        return @"4bf58dd8d48988d12f941735";
+    } else if ([categoryName isEqualToString:@"Monuments & Landmarks"]) {
+        return @"4bf58dd8d48988d12d941735";
+    } else if ([categoryName isEqualToString:@"Movie Theaters"]) {
+        return @"4bf58dd8d48988d17f941735";
+    } else if ([categoryName isEqualToString:@"Museums"]) {
+        return @"4bf58dd8d48988d181941735";
+    } else if ([categoryName isEqualToString:@"Neighbourhoods"]) {
+        return @"4f2a25ac4b909258e854f55f";
+    } else if ([categoryName isEqualToString:@"Nightlife"]) {
+        return @"4d4b7105d754a06376d81259";
+    } else if ([categoryName isEqualToString:@"Non-Profits"]) {
+        return @"50328a8e91d4c4b30a586d6c";
+    } else if ([categoryName isEqualToString:@"Offices"]) {
+        return @"4bf58dd8d48988d124941735";
+    } else if ([categoryName isEqualToString:@"Parking"]) {
+        return @"4c38df4de52ce0d596b336e1";
+    } else if ([categoryName isEqualToString:@"Parks"]) {
+        return @"4bf58dd8d48988d163941735";
+    } else if ([categoryName isEqualToString:@"Post Offices"]) {
+        return @"4bf58dd8d48988d172941735";
+    } else if ([categoryName isEqualToString:@"Recidences"]) {
+        return @"4e67e38e036454776db1fb3a";
+    } else if ([categoryName isEqualToString:@"Scenic Lookouts"]) {
+        return @"4bf58dd8d48988d165941735";
+    } else if ([categoryName isEqualToString:@"Schools"]) {
+        return @"4bf58dd8d48988d13b941735";
+    } else if ([categoryName isEqualToString:@"Shops & Services"]) {
+        return @"4d4b7105d754a06378d81259";
+    } else if ([categoryName isEqualToString:@"Ski Areas"]) {
+        return @"4bf58dd8d48988d1e9941735";
+    } else if ([categoryName isEqualToString:@"Tech Startups"]) {
+        return @"4bf58dd8d48988d125941735";
+    } else if ([categoryName isEqualToString:@"Travel & Transport"]) {
+        return @"4d4b7105d754a06379d81259";
+    } else if ([categoryName isEqualToString:@"Trending"]) {
+        return @"Trending";
+    } else {
+        return @"Everything";
+    }
 }
 
 @end

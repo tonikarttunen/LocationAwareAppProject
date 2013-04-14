@@ -7,7 +7,6 @@
 //
 
 #import "TAKAppDelegate.h"
-// #import "TAKViewController.h"
 #import "TAKMainMenuViewController.h"
 #import "TAKFoursquareLocalSearchResultsViewController.h"
 #import "BZFoursquare.h"
@@ -28,9 +27,30 @@
         self.viewController = [[TAKViewController alloc] initWithNibName:@"TAKViewController_iPad" bundle:nil];
     }
     */
+    
+    // Read the value of the location data provider from standard user defaults 
+    @try {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        id infoSource = [userDefaults objectForKey:@"InformationSource"];
+        if ((infoSource != nil) && [infoSource isKindOfClass:[NSNumber class]]) { // a previous info source value exists
+            NSUInteger infoSourceValue = (NSUInteger)[infoSource integerValue];
+            self.currentInformationSource = infoSourceValue;
+            NSLog(@"Current information source: %i", self.currentInformationSource);
+        } else {
+            [userDefaults setValue:[NSNumber numberWithInt:0] forKey:@"InformationSource"]; // Apple
+            NSLog(@"The value of the information source did not exist in the standard user defaults."
+                  @" Setting the value as TAKInformationSourceTypeApple.");
+        }
+    }
+    @catch (NSException *exception) {
+        self.currentInformationSource = TAKInformationSourceTypeApple;
+        NSLog(@"%@", exception.description);
+    }
+    
     self.window.backgroundColor = [UIColor blackColor];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuViewController];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0]];
+    // self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     self.locationController = [[TAKLocationController alloc] init];

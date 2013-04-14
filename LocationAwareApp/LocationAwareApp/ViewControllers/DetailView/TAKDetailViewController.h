@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "Constants.h"
+#import "TAKFoursquareCheckInViewController.h"
 
 @interface TAKDetailViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property NSUInteger informationSourceType;
+@property (nonatomic, strong) TAKFoursquareCheckInViewController *foursquareCheckInViewController;
 
 - (id)  initWithStyle:(UITableViewStyle)style
     tableViewContents:(NSArray *)tableViewContents

@@ -9,10 +9,12 @@
 #import "TAKAppDelegate.h"
 #import "TAKFoursquareController.h"
 #import "TAKFoursquareLocalSearchResultsViewController.h"
+#import "TAKDetailViewController.h"
+#import "TAKFoursquareCheckInViewController.h"
 #import "TAKFoursquareAuthorizationView.h"
 #import "APIConstants.h"
 
-#define TAK_VENUE_ID                @"venueID"
+#define TAK_VENUE_ID                @"venueId"
 #define TAK_PRIVACY_SETTING_VALUE   @"broadcast"
 #define TAK_ADD_CHECK_IN            @"checkins/add"
 #define TAK_HTTP_GET                @"GET"
@@ -26,15 +28,22 @@
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readwrite) NSArray *foursquareNotifications;
 @property (nonatomic, copy, readwrite) NSMutableArray *processedFoursquareData;
+@property NSUInteger currentRequestType;
 
 @end
 
 @implementation TAKFoursquareController
 
+typedef enum TAKFoursquareRequestType : NSUInteger {
+    TAKFoursquareRequestTypeSearchVenues,
+    TAKFoursquareRequestTypeCheckIn
+} TAKFoursquareRequestType;
+
 - (id)init
 {
     self = [super init];
     if (self) {
+        self.currentRequestType = TAKFoursquareRequestTypeSearchVenues;
         self.foursquare = [[BZFoursquare alloc] initWithClientID:TAK_FOURSQUARE_API_KEY callbackURL:TAK_FOURSQUARE_API_REDIRECT_URL];
         self.foursquare.locale = @"en";
         // NSLog(@"LOCALE: %@", [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode]);
@@ -76,6 +85,7 @@
 - (void)searchFoursquareContentWithPath:(NSString *)path
                        searchParameters:(NSDictionary *)searchParameters
 {
+    self.currentRequestType = TAKFoursquareRequestTypeSearchVenues;
     if ((path == nil) || (searchParameters == nil)) {
         NSLog(@"The search path or the search parameter dictionary is nil.");
         return;
@@ -97,6 +107,7 @@
 - (void)checkInToFoursquareVenueWithID:(NSString *)venueID
                    privacySettingValue:(NSString *)privacySettingValue
 {
+    self.currentRequestType = TAKFoursquareRequestTypeCheckIn;
     if ((venueID == nil) || (privacySettingValue == nil)) {
         NSLog(@"The venue ID or the privacy setting value is nil.");
         return;
@@ -106,6 +117,9 @@
     
     NSDictionary *checkInParameters = @{TAK_VENUE_ID : venueID,
                                         TAK_PRIVACY_SETTING_VALUE : privacySettingValue};
+    
+    NSLog(@"venueID: %@, privacy setting value: %@", venueID, privacySettingValue);
+    NSLog(@"checkInParameters: %@", checkInParameters);
     
     self.foursquareRequest = [self.foursquare requestWithPath:TAK_ADD_CHECK_IN
                                                    HTTPMethod:TAK_HTTP_POST
@@ -223,39 +237,115 @@
     self.foursquareMeta = request.meta;
     self.foursquareRequest = nil;
     
+    switch (self.currentRequestType) {
+        case TAKFoursquareRequestTypeCheckIn: {
+            @try {
+                TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                
+                if ((appDelegate == nil) || (appDelegate.window == nil)
+                    || (appDelegate.window.rootViewController == nil)) {
+                    return;
+                }
+                
+                UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+                
+                if (navigationController == nil) {
+                    return;
+                }
+                
+#ifdef DEBUG
+                NSLog(@"navigationController.viewControllers.count: %i", navigationController.viewControllers.count);
+                NSLog(@"navigationController.viewControllers: %@", navigationController.viewControllers);
+#endif
+                if (navigationController.viewControllers.count < 3) {
+                    NSLog(@"Check-in view controller does not exist!");
+                    return;
+                }
+                
+                TAKFoursquareCheckInViewController *checkInViewController = (TAKFoursquareCheckInViewController *)[[navigationController.viewControllers objectAtIndex:2] foursquareCheckInViewController];
+                
+                if (checkInViewController == nil) {
+                    return;
+                }
+                [checkInViewController hideActivityIndicator];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
+            }
+
+            break;
+        }
+            
+        default: { // Search venues...
+            // self.foursquareDataController = [[TAKFoursquareDataController alloc] initWithFoursquareData:self.foursquareResponse];
+            self.processedFoursquareData = (NSMutableArray *)[NSArray arrayWithFoursquareData:self.foursquareResponse searchPathComponents:@[@"venues"]];
+            
+            @try {
+                TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                
+                if ((appDelegate == nil) || (appDelegate.window == nil)
+                    || (appDelegate.window.rootViewController == nil)) {
+                    return;
+                }
+                
+                UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+                
+                if (navigationController == nil) {
+                    return;
+                }
+                
+                if (navigationController.viewControllers.count < 2) {
+                    NSLog(@"Foursquare view controller does not exist!");
+                    return;
+                }
+                
+                TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+                
+                if (foursquareViewController == nil) {
+                    return;
+                } else if ([foursquareViewController respondsToSelector:@selector(updateUI)]) {
+                    [foursquareViewController updateUI];
+                }
+            }
+            @catch (NSException *exception) {
+                NSLog(@"Cannot update the Foursquare view. %@.", exception.description);
+            }
+            break;
+        }
+    }
     // self.foursquareDataController = [[TAKFoursquareDataController alloc] initWithFoursquareData:self.foursquareResponse];
-    self.processedFoursquareData = (NSMutableArray *)[NSArray arrayWithFoursquareData:self.foursquareResponse searchPathComponents:@[@"venues"]];
-    
-    @try {
-        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        
-        if ((appDelegate == nil) || (appDelegate.window == nil)
-            || (appDelegate.window.rootViewController == nil)) {
-            return;
-        }
-        
-        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
-        
-        if (navigationController == nil) {
-            return;
-        }
-        
-        if (navigationController.viewControllers.count < 2) {
-            NSLog(@"Foursquare view controller does not exist!");
-            return;
-        }
-        
-        TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
-        
-        if (foursquareViewController == nil) {
-            return;
-        } else if ([foursquareViewController respondsToSelector:@selector(updateUI)]) {
-            [foursquareViewController updateUI];
-        }
-    }
-    @catch (NSException *exception) {
-        NSLog(@"Cannot update the Foursquare view. %@.", exception.description);
-    }
+//    self.processedFoursquareData = (NSMutableArray *)[NSArray arrayWithFoursquareData:self.foursquareResponse searchPathComponents:@[@"venues"]];
+//    
+//    @try {
+//        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//        
+//        if ((appDelegate == nil) || (appDelegate.window == nil)
+//            || (appDelegate.window.rootViewController == nil)) {
+//            return;
+//        }
+//        
+//        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+//        
+//        if (navigationController == nil) {
+//            return;
+//        }
+//        
+//        if (navigationController.viewControllers.count < 2) {
+//            NSLog(@"Foursquare view controller does not exist!");
+//            return;
+//        }
+//        
+//        TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+//        
+//        if (foursquareViewController == nil) {
+//            return;
+//        } else if ([foursquareViewController respondsToSelector:@selector(updateUI)]) {
+//            [foursquareViewController updateUI];
+//        }
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"Cannot update the Foursquare view. %@.", exception.description);
+//    }
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
@@ -263,12 +353,53 @@
 
 - (void)request:(BZFoursquareRequest *)request didFailWithError:(NSError *)error
 {
-    NSLog(@"FoursquareRequest: didFailWithError.");
+    NSLog(@"FoursquareRequest: didFailWithError. %@", error.description);
     self.foursquareResponse = request.response;
     self.foursquareNotifications = request.notifications;
     self.foursquareMeta = request.meta;
     self.foursquareRequest = nil;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    
+    if (self.currentRequestType == TAKFoursquareRequestTypeCheckIn) {
+        @try {
+            TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            
+            if ((appDelegate == nil) || (appDelegate.window == nil)
+                || (appDelegate.window.rootViewController == nil)) {
+                return;
+            }
+            
+            UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+            
+            if (navigationController == nil) {
+                return;
+            }
+            
+#ifdef DEBUG
+            NSLog(@"navigationController.viewControllers.count: %i", navigationController.viewControllers.count);
+            NSLog(@"navigationController.viewControllers: %@", navigationController.viewControllers);
+#endif
+            if (navigationController.viewControllers.count < 3) {
+                NSLog(@"Check-in view controller does not exist!");
+                return;
+            }
+            
+            TAKFoursquareCheckInViewController *checkInViewController = (TAKFoursquareCheckInViewController *)[[navigationController.viewControllers objectAtIndex:2] foursquareCheckInViewController];
+            
+            if ((checkInViewController == nil) || (checkInViewController.activityIndicatorView == nil)) {
+                return;
+            }
+            
+            [checkInViewController.activityIndicatorView removeFromSuperview];
+            checkInViewController.navigationItem.leftBarButtonItem.enabled = YES;
+            checkInViewController.navigationItem.rightBarButtonItem.enabled = YES;
+            checkInViewController.tableView.allowsSelection = YES;
+            [checkInViewController showAlertWithText:[error localizedDescription]];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
+        }
+    }
 }
 
 @end

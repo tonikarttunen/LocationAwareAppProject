@@ -24,25 +24,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
-//        @try {
-//            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//            id infoSource = [userDefaults objectForKey:@"InformationSource"];
-//            if ((infoSource != nil) && [infoSource isKindOfClass:[NSNumber class]]) { // a previous info source value exists
-//                NSUInteger infoSourceValue = (NSUInteger)[infoSource integerValue];
-//                _currentInformationSource = infoSourceValue;
-//                NSLog(@"Current information source: %i", self.currentInformationSource);
-//            } else {
-//                [userDefaults setValue:[NSNumber numberWithInt:0] forKey:@"InformationSource"]; // Apple
-//                NSLog(@"The value of the information source did not exist in the standard user defaults."
-//                      @" Setting the value as TAKInformationSourceTypeApple.");
-//            }
-//        }
-//        @catch (NSException *exception) {
-//            _currentInformationSource = TAKInformationSourceTypeApple;
-//            NSLog(@"%@", exception.description);
-//        }
-        
+        // Custom initialization        
         [self generateTableViewContentArray];
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -59,8 +41,6 @@
     [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.91 alpha:1.0]];
     self.view.opaque = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    
-    // self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.5 alpha:1.0];
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                 target:self

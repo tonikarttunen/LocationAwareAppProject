@@ -8,6 +8,7 @@
 
 #import "TAKDetailViewController.h"
 #import "Constants.h"
+#import "TAKFoursquareCheckInViewController.h"
 
 @interface TAKDetailViewController ()
 
@@ -74,7 +75,7 @@ informationSourceType:(NSUInteger)informationSourceType
     
     NSLog(@"Detail view information source type: %i", self.informationSourceType);
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
-        UIBarButtonItem *checkInButton = [[UIBarButtonItem alloc] initWithTitle:@"Check In" style:UIBarButtonItemStyleBordered target:self action:@selector(checkIn)];
+        UIBarButtonItem *checkInButton = [[UIBarButtonItem alloc] initWithTitle:@"Check In" style:UIBarButtonItemStyleBordered target:self action:@selector(presentFoursquareCheckInViewController)];
         self.navigationItem.rightBarButtonItem = checkInButton;
     }
     
@@ -95,6 +96,7 @@ informationSourceType:(NSUInteger)informationSourceType
 {
     _tableViewContents = nil;
     _tableViewContentDictionary = nil;
+    _foursquareCheckInViewController = nil;
 }
 
 #pragma mark - Table view data source
@@ -288,12 +290,17 @@ informationSourceType:(NSUInteger)informationSourceType
 
 #pragma mark - Foursquare check-in
 
-- (BOOL)checkIn
+- (void)presentFoursquareCheckInViewController
 {
-#warning Incomplete implementation
-    // open a modal view
-    
-    return YES;
+    NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+    NSString *venueID = (NSString *)[[array objectAtIndex:1] objectAtIndex:1];
+#ifdef DEBUG
+    NSLog(@"Foursquare venue ID: %@", venueID);
+#endif
+    self.foursquareCheckInViewController = [[TAKFoursquareCheckInViewController alloc] initWithStyle:UITableViewStyleGrouped foursquareVenueID:venueID];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.foursquareCheckInViewController];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:NULL];
 }
 
 @end

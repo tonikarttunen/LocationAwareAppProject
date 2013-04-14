@@ -28,7 +28,7 @@
     }
     */
     
-    // Read the value of the location data provider from standard user defaults 
+    // Read the value of the location data provider from the standard user defaults 
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         id infoSource = [userDefaults objectForKey:@"InformationSource"];
@@ -89,6 +89,18 @@
 #warning Save the value of the isRegionMonitoringActive property to NSUserDefaults
     if (self.locationController && (!self.isRegionMonitoringActive)) {
         [self.locationController disableLocationManager];
+    }
+    
+    // Save the value of the location data provider to the standard user defaults
+    @try {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSInteger infoSource = (NSInteger)self.currentInformationSource;
+        [userDefaults setObject:[NSNumber numberWithInteger:infoSource] forKey:@"InformationSource"];
+        [userDefaults synchronize];
+    }
+    @catch (NSException *exception) {
+        self.currentInformationSource = TAKInformationSourceTypeApple;
+        NSLog(@"%@", exception.description);
     }
 }
 

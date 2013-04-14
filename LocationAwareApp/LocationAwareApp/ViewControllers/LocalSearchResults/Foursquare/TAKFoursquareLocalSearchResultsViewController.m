@@ -139,6 +139,11 @@
             self.venues = (NSArray *)appDelegate.foursquareController.processedFoursquareData;
             self.mapView.mapItems = (NSMutableArray *)self.venues;
             [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAKInformationSourceTypeFoursquare];
+            
+            if (self.venues.count == 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+                [alert show];
+            }
 #ifdef DEBUG
             // NSLog(@"\nVenues: %@\n", venues);
 #endif

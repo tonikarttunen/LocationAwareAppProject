@@ -41,8 +41,8 @@
                 return (NSArray *)processed;
             }
         } else {
-#warning Incomplete implementation
-            NSLog(@"Incomplete implementation: NSArray+FoursquareDataProcessor.m!");
+            NSLog(@"Invalid input to NSArray+FoursquareDataProcessor.m!");
+            return @[];
         }
         
         for (int i = 0; i < venues.count; i++) {

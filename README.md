@@ -1,6 +1,9 @@
 # READ ME
 
-Location-aware app for iOS
+This app allows the user to find points of interest nearby. The user can select
+whether to use the new Apple Local Search API or Foursquare API v.2 to find 
+local search results. It is also possible to use this app to check in to 
+Foursquare places. 
 
 *Status: ALPHA (not ready for prime time)*
 
@@ -21,7 +24,7 @@ Location-aware app for iOS
 ## Acknowledgements
 
 [Foursquare API v2 for iOS](https://github.com/baztokyo/foursquare-ios-api)
-was developed by [Ba-Z Communication Inc.](https://github.com/baztokyo)
+was developed by [Ba-Z Communication Inc.](http://www.ba-z.co.jp/)
 
 ## License
 

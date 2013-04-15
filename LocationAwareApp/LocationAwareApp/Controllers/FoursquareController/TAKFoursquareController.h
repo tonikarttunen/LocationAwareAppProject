@@ -17,7 +17,7 @@
 @property (nonatomic, copy, readonly) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readonly) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readonly) NSArray *foursquareNotifications;
-@property (nonatomic, copy, readonly) NSMutableArray *processedFoursquareData;
+@property (nonatomic, strong, readonly) NSMutableArray *processedFoursquareData;
 
 - (void)searchFoursquareContentWithPath:(NSString *)path
                        searchParameters:(NSDictionary *)searchParameters;

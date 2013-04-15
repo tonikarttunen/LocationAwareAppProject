@@ -33,8 +33,31 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(presentSettingsViewController)];
+    // UIBarButtonItem *privacyUIBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Privacy" style:UIBarButtonItemStyleBordered target:self action:@selector(presentPrivacyViewController)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Privacy" style:UIBarButtonItemStyleBordered target:self action:@selector(presentPrivacyViewController)];
+    
+    // UIButton *help = [UIButton buttonWithType:UIButtonTypeInfoLight];
+	// [help addTarget:self action:@selector(presentHelpViewController) forControlEvents:UIControlEventTouchUpInside];
+	// UIBarButtonItem *helpUIBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:help];
+    // UIBarButtonItem *helpUIBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Help" style:UIBarButtonItemStyleBordered target:self action:@selector(presentHelpViewController)];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"SettingsGearCropped17" ofType:@"png"];
+    UIImage *settingsImage = [[UIImage alloc] initWithContentsOfFile:path];
+    UIBarButtonItem *settingsUIBarButtonItem
+        = [[UIBarButtonItem alloc] initWithImage:settingsImage
+                                           style:UIBarButtonItemStyleBordered
+                                          target:self
+                                          action:@selector(presentSettingsViewController)];
+    
+    NSString *helpPath = [[NSBundle mainBundle] pathForResource:@"Help2" ofType:@"png"];
+    UIImage *helpImage = [[UIImage alloc] initWithContentsOfFile:helpPath];
+    UIBarButtonItem *helpItem = [[UIBarButtonItem alloc] initWithImage:helpImage
+                                                                            style:UIBarButtonItemStyleBordered
+                                                                           target:self
+                                                                           action:@selector(presentHelpViewController)];
+    
+    // self.navigationItem.rightBarButtonItems = @[helpUIBarButtonItem, settingsUIBarButtonItem]; // [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(presentSettingsViewController)];
+    self.navigationItem.leftBarButtonItems = @[settingsUIBarButtonItem, helpItem];
     
     [self setViewBasicProperties];
 
@@ -136,7 +159,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor blackColor]; // [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.16 alpha:1.0]; // [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
         cell.textLabel.highlightedTextColor = [UIColor whiteColor];
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
@@ -246,6 +269,13 @@
 #pragma mark - Present the privacy view controller
 
 - (void)presentPrivacyViewController
+{
+    
+}
+
+#pragma mark - Present the help view controller
+
+- (void)presentHelpViewController
 {
     
 }

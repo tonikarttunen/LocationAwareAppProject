@@ -61,7 +61,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.16 alpha:1.0];
         cell.textLabel.highlightedTextColor = [UIColor whiteColor];
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];

@@ -18,8 +18,6 @@ Foursquare places.
 
 + iOS 6.1 or later
 + Xcode 4.4 or later (tested with Xcode 4.6.1)
-+ This project uses ARC (automatic reference counting), except for the Foursquare API
-  files.
 
 ## Acknowledgements
 

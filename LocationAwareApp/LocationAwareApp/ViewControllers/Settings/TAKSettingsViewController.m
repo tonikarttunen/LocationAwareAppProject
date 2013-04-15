@@ -94,7 +94,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor blackColor];
+        cell.textLabel.textColor = [UIColor colorWithWhite:0.16 alpha:1.0];
         cell.textLabel.highlightedTextColor = [UIColor whiteColor];
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];

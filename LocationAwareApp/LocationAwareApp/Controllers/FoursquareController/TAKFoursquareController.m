@@ -27,7 +27,7 @@
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareResponse;
 @property (nonatomic, copy, readwrite) NSDictionary *foursquareMeta;
 @property (nonatomic, copy, readwrite) NSArray *foursquareNotifications;
-@property (nonatomic, copy, readwrite) NSMutableArray *processedFoursquareData;
+@property (nonatomic, strong, readwrite) NSMutableArray *processedFoursquareData;
 @property NSUInteger currentRequestType;
 
 @end

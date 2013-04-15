@@ -8,6 +8,7 @@
 
 #import "TAKFoursquareCheckInViewController.h"
 #import "TAKAppDelegate.h"
+#import "TAKDetailViewController.h"
 #import "TAKFoursquareController.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -17,6 +18,7 @@
 @property NSUInteger currentFoursquarePrivacySetting;
 @property (nonatomic, copy) NSString *venueID;
 @property (nonatomic, strong) UILabel *activityIndicatorLabel;
+@property (setter = setCheckInSuccessful:) BOOL isCheckInSuccessful;
 
 typedef enum TAKFoursquarePrivacySetting : NSUInteger {
     TAKFoursquarePrivacySettingPrivate,
@@ -35,6 +37,7 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
         _currentFoursquarePrivacySetting = TAKFoursquarePrivacySettingPrivate;
         self.venueID = venueID;
         NSLog(@"self.venueID: %@", self.venueID);
+        _isCheckInSuccessful = NO;
     }
     return self;
 }
@@ -288,7 +291,25 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
 
 - (void)dismissView
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    void (^reloadDetailViewContents) (void) = ^{
+        @try {
+            if (self.isCheckInSuccessful) {
+                TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+                if ((navigationController != nil) && (navigationController.viewControllers.count > 2)) {
+                    TAKDetailViewController *detailViewController = [navigationController.viewControllers objectAtIndex:2];
+                    if (detailViewController) {
+                        [detailViewController updateCheckInCount];
+                    }
+                }
+            }
+        }
+        @catch (NSException *exception) {
+            NSLog(@"%@", exception.description);
+        }
+    };
+    
+    [self dismissViewControllerAnimated:YES completion:reloadDetailViewContents];
 }
 
 #pragma mark - Activity indicator
@@ -298,6 +319,8 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
 #ifdef DEBUG
     NSLog(@"SUCCESS");
 #endif
+    
+    self.isCheckInSuccessful = YES;
     
     self.navigationItem.leftBarButtonItem.enabled = NO;
     [self.activityIndicatorView stopAnimating];

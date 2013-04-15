@@ -92,9 +92,9 @@
             int tipsCount = [[stats objectForKey:@"tipsCount"] integerValue];
 
             [currentVenueDetails setObject:@[
-                 @[@"Check-Ins", [NSNumber numberWithInt:checkinsCount]],
-                 @[@"Users", [NSNumber numberWithInt:usersCount]],
-                 @[@"Tips", [NSNumber numberWithInt:tipsCount]]
+                 [NSMutableArray arrayWithObjects:@"Check-Ins", [NSNumber numberWithInt:checkinsCount], nil],
+                 [NSMutableArray arrayWithObjects:@"Users", [NSNumber numberWithInt:usersCount], nil],
+                 [NSMutableArray arrayWithObjects:@"Tips", [NSNumber numberWithInt:tipsCount], nil]
              ] forKey:TAK_FOURSQUARE_STATISTICS];
             
             [processed addObject:(NSArray *)currentVenueDetails];

@@ -14,7 +14,7 @@
 @interface TAKDetailViewController ()
 
 @property (nonatomic, copy) NSArray *tableViewContents; // Apple
-@property (nonatomic, copy) NSDictionary *tableViewContentDictionary; // Foursquare
+@property (nonatomic, strong) NSMutableDictionary *tableViewContentDictionary; // Foursquare
 
 @end
 
@@ -44,7 +44,7 @@ informationSourceType:(NSUInteger)informationSourceType
     if (self) {
         // Custom initialization
         _informationSourceType = informationSourceType;
-        _tableViewContentDictionary = [tableViewContentDictionary copy];
+        _tableViewContentDictionary = (NSMutableDictionary *)tableViewContentDictionary;
         NSLog(@"%@", _tableViewContentDictionary);
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
@@ -367,6 +367,29 @@ informationSourceType:(NSUInteger)informationSourceType
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.foursquareCheckInViewController];
     navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:navigationController animated:YES completion:NULL];
+}
+
+- (void)updateCheckInCount
+{
+    @try {
+        NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
+        
+        int checkIns = [[[array objectAtIndex:0] objectAtIndex:1] integerValue];
+        checkIns += 1;
+        int users = [[[array objectAtIndex:1] objectAtIndex:1] integerValue];
+        users += 1;
+        
+        NSLog(@"New checkInsCount: %i", checkIns);
+        
+        [[[self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS] objectAtIndex:0] replaceObjectAtIndex:1 withObject:[NSNumber numberWithInt:checkIns]];
+        [[[self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS] objectAtIndex:1] replaceObjectAtIndex:1 withObject:[NSNumber numberWithInt:users]];
+        
+        [self.tableView reloadData];
+        NSLog(@"RELOADED THE DATA");
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot update the table view after a Foursquare check-in");
+    }
 }
 
 @end

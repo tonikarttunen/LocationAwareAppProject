@@ -215,7 +215,20 @@
     
     TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.currentInformationSource = (NSUInteger)indexPath.row;
-    NSLog(@"%i", appDelegate.currentInformationSource);
+    NSLog(@"Selected a new infosource, infoSource: %i", appDelegate.currentInformationSource);
+    
+    // Save the value of the location data provider to the standard user defaults
+    @try {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSInteger infoSource = (NSInteger)appDelegate.currentInformationSource;
+        [userDefaults setObject:[NSNumber numberWithInteger:infoSource] forKey:@"InformationSource"];
+        [userDefaults synchronize];
+        NSLog(@"Saved a new infosource to the standard user defaults, infoSource: %i", infoSource);
+    }
+    @catch (NSException *exception) {
+        appDelegate.currentInformationSource = TAKInformationSourceTypeApple;
+        NSLog(@"%@", exception.description);
+    }
 }
 
 #pragma mark - Done button action

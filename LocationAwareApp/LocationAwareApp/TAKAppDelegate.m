@@ -18,7 +18,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
-    self.mainMenuViewController = [TAKMainMenuViewController new];
     /*
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         self.viewController = [[TAKViewController alloc] init];
@@ -28,7 +27,8 @@
     }
     */
     
-    // Read the value of the location data provider from the standard user defaults 
+    // Read the value of the location data provider from the standard user defaults
+    NSLog(@"Reading the value of the location data provider from the standard user defaults...");
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         id infoSource = [userDefaults objectForKey:@"InformationSource"];
@@ -46,6 +46,8 @@
         self.currentInformationSource = TAKInformationSourceTypeApple;
         NSLog(@"%@", exception.description);
     }
+    
+    self.mainMenuViewController = [TAKMainMenuViewController new];
     
     self.window.backgroundColor = [UIColor blackColor];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuViewController];
@@ -103,6 +105,7 @@
         NSInteger infoSource = (NSInteger)self.currentInformationSource;
         [userDefaults setObject:[NSNumber numberWithInteger:infoSource] forKey:@"InformationSource"];
         [userDefaults synchronize];
+        NSLog(@"applicationDidEnterBackground, infoSource: %i", infoSource);
     }
     @catch (NSException *exception) {
         self.currentInformationSource = TAKInformationSourceTypeApple;

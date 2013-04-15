@@ -72,6 +72,7 @@
                                 @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks",
                                 @"Post Offices", @"Recidences", @"Scenic Lookouts", @"Schools", @"Services", @"Shops",
                                 @"Ski Areas", @"Tech Startups", @"Sports", @"Transport", @"Travel", @"Universities"];
+            NSLog(@"Generated a title array (Apple), %i", currentInfoSource);
             break;
         }
             
@@ -86,6 +87,7 @@
                                 @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
                                 @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
                                 @"Travel and Transport"];
+            NSLog(@"Generated a title array (Foursquare), %i", currentInfoSource);
             break;
         }
             
@@ -97,6 +99,7 @@
                                 @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
                                 @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
                                 @"Travel and Transport"];
+            NSLog(@"Generated a title array (Google), %i", currentInfoSource);
             break;
         }
     }

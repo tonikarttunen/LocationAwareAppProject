@@ -12,7 +12,7 @@
 
 @interface TAKMainMenuViewController ()
 
-@property (strong, nonatomic) NSArray *titleArray;
+@property (copy, nonatomic) NSArray *titleArray;
 
 @end
 
@@ -61,16 +61,45 @@
 
 - (void)generateTitleArray
 {
-    self.titleArray = @[@"Everything",
-                        @"Trending",
-                        /* Normal Categories */
-                        @"Athletics & Sports", @"Colleges & Universities", @"Concert Halls", @"Convention Centers",
-                        @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
-                        @"Hotels", @"Libraries", @"Monuments & Landmarks", @"Movie Theaters", @"Museums",
-                        @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
-                        @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops & Services", @"Ski Areas", @"Tech Startups",
-                        @"Travel & Transport"];
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    NSUInteger currentInfoSource = appDelegate.currentInformationSource;
     
+    switch (currentInfoSource) {
+        case TAKInformationSourceTypeApple: {
+            self.titleArray = @[@"Athletics", @"Colleges", @"Concert Halls", @"Convention Centers",
+                                @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
+                                @"Hotels", @"Libraries", @"Monuments", @"Landmarks", @"Movie Theaters", @"Museums",
+                                @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks",
+                                @"Post Offices", @"Recidences", @"Scenic Lookouts", @"Schools", @"Services", @"Shops",
+                                @"Ski Areas", @"Tech Startups", @"Sports", @"Transport", @"Travel", @"Universities"];
+            break;
+        }
+            
+        case TAKInformationSourceTypeFoursquare: {
+            self.titleArray = @[/* Foursquare specials */
+                                @"Everything",
+                                @"Trending",
+                                /* Normal categories */
+                                @"Athletics and Sports", @"Colleges and Universities", @"Concert Halls", @"Convention Centers",
+                                @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
+                                @"Hotels", @"Libraries", @"Monuments and Landmarks", @"Movie Theaters", @"Museums",
+                                @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
+                                @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
+                                @"Travel and Transport"];
+            break;
+        }
+            
+        default: {
+            self.titleArray = @[/* Normal categories */
+                                @"Athletics and Sports", @"Colleges and Universities", @"Concert Halls", @"Convention Centers",
+                                @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
+                                @"Hotels", @"Libraries", @"Monuments and Landmarks", @"Movie Theaters", @"Museums",
+                                @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
+                                @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
+                                @"Travel and Transport"];
+            break;
+        }
+    }
     
     // self.titleArray = @[TAK_ARCHITECTURE, TAK_ART_MUSEUMS, TAK_BEACH, TAK_COFFEE, TAK_DINNER, TAK_EVENTS, TAK_LUNCH, TAK_MOVIES, TAK_MUSEUMS, TAK_NIGHTLIFE, TAK_SHOPPING, TAK_SPORTS, TAK_THEATRE, TAK_TOURIST_ATTRACTIONS];// @[@"Recommended", @"Everything", @"Weather",
                         //@"Location-Based Reminder", @"Social Media", @"Photos"];

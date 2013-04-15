@@ -9,7 +9,7 @@ Location-aware app for iOS
 *TO DO: Write some usage instructions...*
  
 1. Obtain the necessary API keys
-2. Add API keys to the APIConstants.h file
+2. Add the API keys to the APIConstants.h file
 
 ## Build Requirements
 

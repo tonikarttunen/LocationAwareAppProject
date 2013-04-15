@@ -13,4 +13,6 @@
 
 @interface TAKMainMenuViewController : UITableViewController
 
+- (void)generateTitleArray;
+
 @end

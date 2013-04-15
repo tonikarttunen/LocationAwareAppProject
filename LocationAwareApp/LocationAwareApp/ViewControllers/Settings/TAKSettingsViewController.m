@@ -9,6 +9,7 @@
 #import "TAKSettingsViewController.h"
 #import "Constants.h"
 #import "TAKAppDelegate.h"
+#import "TAKMainMenuViewController.h"
 
 @interface TAKSettingsViewController ()
 
@@ -215,15 +216,31 @@
     TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     appDelegate.currentInformationSource = (NSUInteger)indexPath.row;
     NSLog(@"%i", appDelegate.currentInformationSource);
-    
-    // [self.tableView reloadData];
 }
 
 #pragma mark - Done button action
 
 - (void)dismissView
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    void (^reloadTableViewContents) (void) = ^{
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+        if ((navigationController != nil) && (navigationController.viewControllers.count > 0)) {
+            [self dismissViewControllerAnimated:YES completion:NULL];
+            TAKMainMenuViewController *mainMenu = [navigationController.viewControllers objectAtIndex:0];
+            if (mainMenu) {
+                [mainMenu generateTitleArray];
+                [mainMenu.tableView reloadData];
+                NSLog(@"RELOADED THE DATA");
+            } else {
+                return;
+            }
+        } else {
+            return;
+        }
+    };
+    
+    [self dismissViewControllerAnimated:YES completion:reloadTableViewContents];
 }
 
 @end

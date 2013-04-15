@@ -331,9 +331,9 @@
         return @"Everything";
     }
     
-    if ([categoryName isEqualToString:@"Athletics & Sports"]) {
+    if ([categoryName isEqualToString:@"Athletics and Sports"]) {
         return @"4f4528bc4b90abdf24c9de85";
-    } else if ([categoryName isEqualToString:@"Colleges & Universities"]) {
+    } else if ([categoryName isEqualToString:@"Colleges and Universities"]) {
         return @"4d4b7105d754a06372d81259";
     } else if ([categoryName isEqualToString:@"Concert Halls"]) {
         return @"5032792091d4c4b30a586d5c";
@@ -353,7 +353,7 @@
         return @"4bf58dd8d48988d1fa931735";
     } else if ([categoryName isEqualToString:@"Libraries"]) {
         return @"4bf58dd8d48988d12f941735";
-    } else if ([categoryName isEqualToString:@"Monuments & Landmarks"]) {
+    } else if ([categoryName isEqualToString:@"Monuments and Landmarks"]) {
         return @"4bf58dd8d48988d12d941735";
     } else if ([categoryName isEqualToString:@"Movie Theaters"]) {
         return @"4bf58dd8d48988d17f941735";
@@ -379,13 +379,13 @@
         return @"4bf58dd8d48988d165941735";
     } else if ([categoryName isEqualToString:@"Schools"]) {
         return @"4bf58dd8d48988d13b941735";
-    } else if ([categoryName isEqualToString:@"Shops & Services"]) {
+    } else if ([categoryName isEqualToString:@"Shops and Services"]) {
         return @"4d4b7105d754a06378d81259";
     } else if ([categoryName isEqualToString:@"Ski Areas"]) {
         return @"4bf58dd8d48988d1e9941735";
     } else if ([categoryName isEqualToString:@"Tech Startups"]) {
         return @"4bf58dd8d48988d125941735";
-    } else if ([categoryName isEqualToString:@"Travel & Transport"]) {
+    } else if ([categoryName isEqualToString:@"Travel and Transport"]) {
         return @"4d4b7105d754a06379d81259";
     } else if ([categoryName isEqualToString:@"Trending"]) {
         return @"Trending";

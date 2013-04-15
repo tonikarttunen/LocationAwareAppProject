@@ -69,6 +69,9 @@
                 address = [currentVenue objectForKey:@"city"];
             }
             if (address == nil) {
+                address = [currentVenue objectForKey:@"state"];
+            }
+            if (address == nil) {
                 address = [currentVenue objectForKey:@"country"];
             }
             if (address == nil) {

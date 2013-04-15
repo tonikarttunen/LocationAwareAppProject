@@ -130,23 +130,11 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
         case 0: {
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"Private (Only Me)";
-                    break;
-                    
-                case 1:
-                    cell.textLabel.text = @"Friends";
-                    break;
-                    
-                case 2:
-                    cell.textLabel.text = @"Friends + Facebook";
-                    break;
-                    
-                case 3:
-                    cell.textLabel.text = @"Friends + Twitter";
+                    cell.textLabel.text = @"Private";
                     break;
                     
                 default:
-                    cell.textLabel.text = @"Friends + Facebook + Twitter";
+                    cell.textLabel.text = @"Public";
                     break;
             }
             
@@ -176,7 +164,7 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
         }
             
         default:
-            cell.textLabel.text = @"· Avoid checking in near home\n· Tip 2...";
+            cell.textLabel.text = @"· Avoid checking in near home\n· Tip 2\n· Tip 3\n· Tip 4";
             break;
     }
     

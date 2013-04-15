@@ -96,7 +96,10 @@
 - (void)generateToolbar
 {
     self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, TAK_STANDARD_TOOLBAR_HEIGHT)];
-    self.toolbar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+    self.toolbar.tintColor = [UIColor colorWithRed:0.325 green:0.325 blue:0.325 alpha:1];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ToolbarBackground" ofType:@"png"];
+    UIImage *toolbarImage = [[UIImage alloc] initWithContentsOfFile:path];
+    [self.toolbar setBackgroundImage:toolbarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.toolbar.barStyle = UIBarStyleDefault;
     [self.view addSubview:self.toolbar];
@@ -217,11 +220,11 @@
 #endif
         self.localSearchResponse = response;
         
-        NSLog(@"\n\n\n111111111111111: %@\n\n\n", self.localSearchResponse.mapItems);
         self.mapView.mapItems = (NSMutableArray *)self.localSearchResponse.mapItems;
-        NSLog(@"\n\n\n111111111111112: %@\n\n\n", self.mapView.mapItems);
+#ifdef DEBUG
+        NSLog(@"%@", self.mapView.mapItems);
+#endif
         [self.mapView refreshMapAnnotationsWithArray:(NSArray *)self.localSearchResponse.mapItems informationSource:TAKInformationSourceTypeApple];
-        NSLog(@"\n\n\n222222222222222\n\n\n");
         
         if (self.tableView != nil) {
             self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
@@ -273,6 +276,11 @@
     @catch (NSException *exception) {
         NSLog(@"%@", exception.description);
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
 }
 
 @end

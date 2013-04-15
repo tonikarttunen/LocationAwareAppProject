@@ -61,18 +61,16 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor colorWithRed:0.059 green:0.498 blue:0.353 alpha:1] /*#0f7f5a*/;
-        cell.textLabel.opaque = NO;
+        cell.textLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         cell.textLabel.highlightedTextColor = [UIColor whiteColor];
-        
-        cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18.0]; // Default: 18pt
-        // cell.textLabel.numberOfLines = 2;
+        cell.textLabel.opaque = NO;
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
-        cell.detailTextLabel.textColor = [UIColor darkTextColor];
-        cell.detailTextLabel.opaque = NO;
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
         cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
-        cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0]; // Default: 14pt
+        cell.detailTextLabel.opaque = NO;
+        cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
         
     }
     

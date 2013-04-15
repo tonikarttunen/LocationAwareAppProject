@@ -49,8 +49,14 @@
     
     self.window.backgroundColor = [UIColor blackColor];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.mainMenuViewController];
-    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0]];
-    // self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"NavBar" ofType:@"png"];
+    UIImage *navBarImage = [[UIImage alloc] initWithContentsOfFile:path];
+    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"TopGradient" ofType:@"png"];
+    UIImage *navBarShadowImage = [[UIImage alloc] initWithContentsOfFile:path2];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:0.251 green:0.573 blue:0.8 alpha:1.0]];
+    [[UINavigationBar appearance] setBackgroundImage:navBarImage forBarMetrics:UIBarMetricsDefault];
+    [[UINavigationBar appearance] setShadowImage:navBarShadowImage];
+    [[UIToolbar appearance] setShadowImage:navBarShadowImage forToolbarPosition:UIToolbarPositionAny];
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
     self.locationController = [[TAKLocationController alloc] init];

@@ -140,6 +140,18 @@
             self.mapView.mapItems = (NSMutableArray *)self.venues;
             [self.mapView refreshMapAnnotationsWithArray:self.venues informationSource:TAKInformationSourceTypeFoursquare];
             
+            if (self.tableView != nil) {
+                @try {
+                    if ((self.venues != nil) && (self.venues.count > 0)) {
+                        self.tableView.tableViewContents = (NSMutableArray *)self.venues;
+                        [self.tableView reloadData];
+                    }
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"Cannot create a table view: %@", exception. description);
+                }
+            }
+            
             if (self.venues.count == 0) {
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
                 [alert show];
@@ -177,7 +189,10 @@
 - (void)generateToolbar
 {
     self.toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, TAK_STANDARD_TOOLBAR_HEIGHT)];
-    self.toolbar.tintColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+    self.toolbar.tintColor = [UIColor colorWithRed:0.325 green:0.325 blue:0.325 alpha:1];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ToolbarBackground" ofType:@"png"];
+    UIImage *toolbarImage = [[UIImage alloc] initWithContentsOfFile:path];
+    [self.toolbar setBackgroundImage:toolbarImage forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
     self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     self.toolbar.barStyle = UIBarStyleDefault;
     [self.view addSubview:self.toolbar];
@@ -300,6 +315,11 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
 }
 
 #pragma mark - Convert the name of the selected category to a Foursquare category ID

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E942F9CF171B7C7E00F0E194 /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9CD171B7C7E00F0E194 /* NavBar.png */; };
+		E942F9D0171B7C7E00F0E194 /* NavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9CE171B7C7E00F0E194 /* NavBar@2x.png */; };
+		E942F9D3171B7D5100F0E194 /* ToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D1171B7D5100F0E194 /* ToolbarBackground.png */; };
+		E942F9D4171B7D5100F0E194 /* ToolbarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D2171B7D5100F0E194 /* ToolbarBackground@2x.png */; };
+		E942F9DB171B80EC00F0E194 /* TopGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D9171B80EC00F0E194 /* TopGradient.png */; };
+		E942F9DC171B80EC00F0E194 /* TopGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DA171B80EC00F0E194 /* TopGradient@2x.png */; };
 		E947C52F17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */; };
 		E947C5321713991300E8AA3E /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E947C5311713991300E8AA3E /* UIView+FindNextViewController.m */; };
 		E981327F1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E981327E1718DD820046D8C8 /* NSArray+FoursquareDataProcessor.m */; };
@@ -70,6 +76,12 @@
 
 /* Begin PBXFileReference section */
 		E92899F8170E42B600BC4AD0 /* APIConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APIConstants.h; path = LocationAwareApp/APIConstants.h; sourceTree = "<group>"; };
+		E942F9CD171B7C7E00F0E194 /* NavBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NavBar.png; path = Images/NavBar.png; sourceTree = "<group>"; };
+		E942F9CE171B7C7E00F0E194 /* NavBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "NavBar@2x.png"; path = "Images/NavBar@2x.png"; sourceTree = "<group>"; };
+		E942F9D1171B7D5100F0E194 /* ToolbarBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ToolbarBackground.png; path = Images/ToolbarBackground.png; sourceTree = "<group>"; };
+		E942F9D2171B7D5100F0E194 /* ToolbarBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ToolbarBackground@2x.png"; path = "Images/ToolbarBackground@2x.png"; sourceTree = "<group>"; };
+		E942F9D9171B80EC00F0E194 /* TopGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TopGradient.png; path = Images/TopGradient.png; sourceTree = "<group>"; };
+		E942F9DA171B80EC00F0E194 /* TopGradient@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TopGradient@2x.png"; path = "Images/TopGradient@2x.png"; sourceTree = "<group>"; };
 		E947C52D17138B3300E8AA3E /* TAKFoursquareAuthorizationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareAuthorizationView.h; path = FoursquareAuthorizationView/TAKFoursquareAuthorizationView.h; sourceTree = "<group>"; };
 		E947C52E17138B3300E8AA3E /* TAKFoursquareAuthorizationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareAuthorizationView.m; path = FoursquareAuthorizationView/TAKFoursquareAuthorizationView.m; sourceTree = "<group>"; };
 		E947C5301713991300E8AA3E /* UIView+FindNextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+FindNextViewController.h"; path = "FoursquareAuthorizationView/UIView+FindNextViewController.h"; sourceTree = "<group>"; };
@@ -475,6 +487,12 @@
 		E9DD6391171360F1009EEB22 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E942F9CD171B7C7E00F0E194 /* NavBar.png */,
+				E942F9CE171B7C7E00F0E194 /* NavBar@2x.png */,
+				E942F9D1171B7D5100F0E194 /* ToolbarBackground.png */,
+				E942F9D2171B7D5100F0E194 /* ToolbarBackground@2x.png */,
+				E942F9D9171B80EC00F0E194 /* TopGradient.png */,
+				E942F9DA171B80EC00F0E194 /* TopGradient@2x.png */,
 				E9DD639217136180009EEB22 /* poweredByFoursquare.png */,
 				E9DD639317136180009EEB22 /* poweredByFoursquare@2x.png */,
 			);
@@ -591,6 +609,12 @@
 				E9DA00AF16FD27F000A76D42 /* MapPropertyList.plist in Resources */,
 				E9DD639417136180009EEB22 /* poweredByFoursquare.png in Resources */,
 				E9DD639517136180009EEB22 /* poweredByFoursquare@2x.png in Resources */,
+				E942F9CF171B7C7E00F0E194 /* NavBar.png in Resources */,
+				E942F9D0171B7C7E00F0E194 /* NavBar@2x.png in Resources */,
+				E942F9D3171B7D5100F0E194 /* ToolbarBackground.png in Resources */,
+				E942F9D4171B7D5100F0E194 /* ToolbarBackground@2x.png in Resources */,
+				E942F9DB171B80EC00F0E194 /* TopGradient.png in Resources */,
+				E942F9DC171B80EC00F0E194 /* TopGradient@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +793,7 @@
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				INFOPLIST_FILE = "LocationAwareApp/LocationAwareApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -780,6 +805,7 @@
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				INFOPLIST_FILE = "LocationAwareApp/LocationAwareApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

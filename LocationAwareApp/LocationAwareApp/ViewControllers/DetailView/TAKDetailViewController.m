@@ -9,6 +9,7 @@
 #import "TAKDetailViewController.h"
 #import "Constants.h"
 #import "TAKFoursquareCheckInViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TAKDetailViewController ()
 
@@ -155,17 +156,17 @@ informationSourceType:(NSUInteger)informationSourceType
         cell.accessoryType = UITableViewCellAccessoryNone;
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
-        cell.textLabel.textColor = [UIColor colorWithRed:0.2 green:0.5 blue:0.5 alpha:1.0];
+        cell.textLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
         cell.textLabel.highlightedTextColor = [UIColor whiteColor];
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
         cell.textLabel.numberOfLines = 1;
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
-        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1.0];
+        cell.detailTextLabel.textColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
         cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
         cell.detailTextLabel.opaque = NO;
-        cell.detailTextLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+        cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
         cell.detailTextLabel.numberOfLines = 1;
     }
     
@@ -178,7 +179,12 @@ informationSourceType:(NSUInteger)informationSourceType
                     if ([obj isKindOfClass:[NSURL class]]) {
                         cell.detailTextLabel.text = [obj absoluteString];
                     } else {
-                        cell.detailTextLabel.text = (NSString *)obj;
+                        if (([cell.textLabel.text isEqualToString:@"Latitude"])
+                            || ([cell.textLabel.text isEqualToString:@"Longitude"])) {
+                            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@°", (NSString *)obj];
+                        } else {
+                            cell.detailTextLabel.text = (NSString *)obj;
+                        }
                     }
                 }
                 break;
@@ -196,7 +202,14 @@ informationSourceType:(NSUInteger)informationSourceType
                 cell.textLabel.text = (NSString *)[[array objectAtIndex:indexPath.row] objectAtIndex:0];
                 id obj = [[array objectAtIndex:indexPath.row] objectAtIndex:1];
                 if ([obj isKindOfClass:[NSNumber class]]) {
-                    cell.detailTextLabel.text = (NSString *)[obj stringValue];
+                    if (([cell.textLabel.text isEqualToString:@"Latitude"])
+                        || ([cell.textLabel.text isEqualToString:@"Longitude"])) {
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@°", (NSString *)[obj stringValue]];
+                    } else if ([cell.textLabel.text isEqualToString:@"Distance"]) {
+                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@m", (NSString *)[obj stringValue]];
+                    } else {
+                        cell.detailTextLabel.text = (NSString *)[obj stringValue];
+                    }
                 } else {
                     cell.detailTextLabel.text = (NSString *)obj;
                 }
@@ -219,6 +232,19 @@ informationSourceType:(NSUInteger)informationSourceType
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor whiteColor];
+    
+//    if (indexPath.row == 0 || indexPath.row == [tableView numberOfRowsInSection:indexPath.section]-1) {
+//        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+//        view.layer.cornerRadius = 4;
+//        view.backgroundColor = [UIColor redColor];
+//        cell.backgroundView = view;
+//        //cell.backgroundColor = [UIColor clearColor];
+//    }
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (self.informationSourceType != TAKInformationSourceTypeFoursquare) {
@@ -235,6 +261,41 @@ informationSourceType:(NSUInteger)informationSourceType
             return TAK_FOURSQUARE_STATISTICS;
     }
 }
+
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+//    
+//    NSString *sectionTitle;
+//    
+//    if (self.informationSourceType != TAKInformationSourceTypeFoursquare) {
+//        return nil;
+//    }
+//    switch (section) {
+//        case 0:
+//            sectionTitle = TAK_FOURSQUARE_BASIC_INFORMATION;
+//            break;
+//            
+//        case 1:
+//            sectionTitle = TAK_FOURSQUARE_LOCATION;
+//            break;
+//            
+//        default:
+//            sectionTitle = TAK_FOURSQUARE_STATISTICS;
+//            break;
+//    }
+//    
+//    UILabel *headerTitleLabel = [[UILabel alloc] init];
+//    headerTitleLabel.text = sectionTitle;
+//    headerTitleLabel.frame = CGRectMake(17.0f, 0.0f, 284.0f - 17.0f, 21.0f);
+//    headerTitleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:18];
+//    headerTitleLabel.textColor = [UIColor blackColor];
+//    
+//    headerTitleLabel.backgroundColor = [UIColor clearColor];
+//    
+//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 270.0f, 100.0f)];
+//    [headerView addSubview:headerTitleLabel];
+//    
+//    return headerView;
+//}
 
 /*
 // Override to support conditional editing of the table view.
@@ -286,6 +347,11 @@ informationSourceType:(NSUInteger)informationSourceType
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
 }
 
 #pragma mark - Foursquare check-in

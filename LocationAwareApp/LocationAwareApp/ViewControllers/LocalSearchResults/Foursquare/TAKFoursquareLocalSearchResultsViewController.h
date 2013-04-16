@@ -24,7 +24,6 @@
 
 - (id)initWithCategory:(NSString *)category;
 - (void)showActivityIndicator;
-- (void)removeActivityIndicatorFromView;
 - (void)generateInitialUI;
 - (void)updateUI;
 - (NSString *)foursquareCategoryID;

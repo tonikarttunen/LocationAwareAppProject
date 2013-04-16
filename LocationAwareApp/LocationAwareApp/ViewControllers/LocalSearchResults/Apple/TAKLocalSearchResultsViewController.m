@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) TAKMapView *mapView;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -84,6 +85,11 @@
     [self setViewBasicProperties];
     [self generateToolbar];
     [self generateMapView];
+    if (!self.activityIndicatorView) {
+        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
 }
 
 - (void)setViewBasicProperties
@@ -203,6 +209,8 @@
     
     [self.localSearch startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.activityIndicatorView stopAnimating];
+        self.activityIndicatorView.hidden = YES;
         
         if ((error != nil) || (response.mapItems.count == 0)) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Search Results"
@@ -230,7 +238,6 @@
             self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
             [self.tableView reloadData];
         }
-        
     }];
 }
 

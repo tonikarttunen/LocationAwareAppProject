@@ -124,6 +124,11 @@
     [self setViewBasicProperties];
     [self generateToolbar];
     [self generateMapView];
+    if (!self.activityIndicatorView) {
+        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
+    [self.activityIndicatorView startAnimating];
 }
 
 - (void)updateUI
@@ -164,6 +169,8 @@
     @catch (NSException *exception) {
         NSLog(@"Cannot update the UI: %@", exception.description);
     }
+    
+    [self hideActivityIndicator];
 }
 
 - (void)showActivityIndicator
@@ -172,10 +179,12 @@
     NSLog(@"showActivityIndicator was called.");
 #endif
 }
-- (void)removeActivityIndicatorFromView
+- (void)hideActivityIndicator
 {
+    [self.activityIndicatorView stopAnimating];
+    self.activityIndicatorView.hidden = YES;
 #ifdef DEBUG
-    NSLog(@"removeActivityIndicatorFromView was called.");
+    NSLog(@"hideActivityIndicator was called.");
 #endif
 }
 

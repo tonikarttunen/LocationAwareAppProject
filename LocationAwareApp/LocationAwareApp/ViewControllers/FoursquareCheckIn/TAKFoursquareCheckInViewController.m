@@ -291,25 +291,25 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
 
 - (void)dismissView
 {
-    void (^reloadDetailViewContents) (void) = ^{
-        @try {
-            if (self.isCheckInSuccessful) {
-                TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-                UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
-                if ((navigationController != nil) && (navigationController.viewControllers.count > 2)) {
-                    TAKDetailViewController *detailViewController = [navigationController.viewControllers objectAtIndex:2];
-                    if (detailViewController) {
-                        [detailViewController updateCheckInCount];
-                    }
-                }
-            }
-        }
-        @catch (NSException *exception) {
-            NSLog(@"%@", exception.description);
-        }
-    };
+//    void (^reloadDetailViewContents) (void) = ^{
+//        @try {
+//            if (self.isCheckInSuccessful) {
+//                TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//                UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+//                if ((navigationController != nil) && (navigationController.viewControllers.count > 2)) {
+//                    TAKDetailViewController *detailViewController = [navigationController.viewControllers objectAtIndex:2];
+//                    if (detailViewController) {
+//                        [detailViewController updateCheckInCount];
+//                    }
+//                }
+//            }
+//        }
+//        @catch (NSException *exception) {
+//            NSLog(@"%@", exception.description);
+//        }
+//    };
     
-    [self dismissViewControllerAnimated:YES completion:reloadDetailViewContents];
+    [self dismissViewControllerAnimated:YES completion:NULL /* reloadDetailViewContents */];
 }
 
 #pragma mark - Activity indicator

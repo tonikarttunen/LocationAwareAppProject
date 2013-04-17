@@ -27,7 +27,7 @@
 {
     self = [super init];
     if (self) {
-        self.localSearchResponse = [[MKLocalSearchResponse alloc] init];
+        _localSearchResponse = [[MKLocalSearchResponse alloc] init];
     }
     return self;
 }
@@ -68,14 +68,16 @@
 
 - (void)dealloc
 {
-    self.mapView = nil;
-    if (self.localSearch.isSearching) {
-        [self.localSearch cancel];
+    if (_localSearch.isSearching) {
+        [_localSearch cancel];
     }
-    self.localSearch = nil;
-    self.localSearchResponse = nil;
-    self.toolbar = nil;
-    self.segmentedControl = nil;
+    _localSearch = nil;
+    _localSearchResponse = nil;
+    _toolbar = nil;
+    _segmentedControl = nil;
+    _mapView.delegate = nil;
+    _mapView = nil;
+    _activityIndicatorView = nil;
 }
 
 #pragma mark - UI

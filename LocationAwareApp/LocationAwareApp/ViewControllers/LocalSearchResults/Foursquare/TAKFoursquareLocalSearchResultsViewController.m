@@ -34,7 +34,7 @@
 {
     self = [super init];
     if (self) {
-        self.category = category;
+        _category = [category copy];
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController) {
             TAKFoursquareController *foursquareController = appDelegate.foursquareController;
@@ -64,7 +64,7 @@
                                                                             @"radius" : @"2000",
                                                                             @"categoryId" : categoryID}];
                 }
-                NSLog(@"Category: %@, categoryID%@", self.category, categoryID);
+                NSLog(@"Category: %@, categoryID%@", _category, categoryID);
             }
         }
     }
@@ -103,12 +103,13 @@
 
 - (void)dealloc
 {
-    _mapView = nil;
-    _mapViewContainer = nil;
     _toolbar = nil;
     _segmentedControl = nil;
-    _activityIndicatorView = nil;
+    _mapView.delegate = nil;
+    _mapView = nil;
     _venues = nil;
+    _mapViewContainer = nil;
+    _activityIndicatorView = nil;
 }
 
 #pragma mark - UI

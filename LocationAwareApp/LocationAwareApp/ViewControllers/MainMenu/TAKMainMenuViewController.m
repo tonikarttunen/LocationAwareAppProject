@@ -9,6 +9,7 @@
 #import "TAKMainMenuViewController.h"
 #import "TAKAppDelegate.h"
 #import "TAKSettingsViewController.h"
+#import "TAKGoogleViewController.h"
 
 @interface TAKMainMenuViewController ()
 
@@ -116,14 +117,15 @@
             break;
         }
             
-        default: {
-            self.titleArray = @[/* Normal categories */
-                                @"Athletics and Sports", @"Colleges and Universities", @"Concert Halls", @"Convention Centers",
-                                @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
-                                @"Hotels", @"Libraries", @"Monuments and Landmarks", @"Movie Theaters", @"Museums",
-                                @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
-                                @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
-                                @"Travel and Transport"];
+        default: { // Google
+            self.titleArray = @[@"Education", @"Establishments", @"Food"];
+            /* Normal categories */
+//                                @"Athletics and Sports", @"Colleges and Universities", @"Concert Halls", @"Convention Centers",
+//                                @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
+//                                @"Hotels", @"Libraries", @"Monuments and Landmarks", @"Movie Theaters", @"Museums",
+//                                @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
+//                                @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
+//                                @"Travel and Transport"];
             NSLog(@"Generated a title array (Google), %i", currentInfoSource);
             break;
         }
@@ -248,7 +250,7 @@
             break;
         }
             
-        default: {
+        case TAKInformationSourceTypeApple: {
             TAKLocalSearchResultsViewController *DVC = [[TAKLocalSearchResultsViewController alloc] init];
             @try {
                 DVC.title = [self.titleArray objectAtIndex:indexPath.row];
@@ -257,6 +259,18 @@
                 NSLog(@"%@", [exception description]);
             }
             [self.navigationController pushViewController:DVC animated:YES];
+            break;
+        }
+            
+        default: {
+            @try {
+                TAKGoogleViewController *DVC = [[TAKGoogleViewController alloc] initWithCategory:[self.titleArray objectAtIndex:indexPath.row]];
+                DVC.title = [self.titleArray objectAtIndex:indexPath.row];
+                [self.navigationController pushViewController:DVC animated:YES];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", [exception description]);
+            }
             break;
         }
     }

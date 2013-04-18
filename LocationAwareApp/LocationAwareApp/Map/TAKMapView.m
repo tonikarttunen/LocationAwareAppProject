@@ -87,7 +87,7 @@
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 2.0;
+        double mapKilometers = 3.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;
@@ -127,7 +127,7 @@
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
-        double mapKilometers = 5.0;
+        double mapKilometers = 3.0;
         double mapScalingFactor = ABS(cos(M_PI * 2 * currentUserLocation.coordinate.latitude / 360.0));
         double kilometersPerOneDegreeOfLatitude = 111.0; // Approximately; http://en.wikipedia.org/wiki/Longitude
         coordinateSpan.latitudeDelta = 3.0 / kilometersPerOneDegreeOfLatitude;

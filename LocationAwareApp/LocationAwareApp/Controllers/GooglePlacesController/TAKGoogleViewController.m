@@ -38,21 +38,26 @@
     if (self) {
         _category = [category copy];
         
-        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-
-        CLLocation *location;
-        double latitude;
-        double longitude;
-        if (appDelegate && appDelegate.locationController.lastKnownLocation != nil) {
-            location = appDelegate.locationController.lastKnownLocation;
-            latitude = (double)location.coordinate.latitude;
-            longitude = (double)location.coordinate.longitude;
-        } else { // Aleksanterinkatu 52, Helsinki, Finland
-            latitude = 60.168824;
-            longitude = 24.942422;
-        }
-
-        [self searchNearbyGooglePlacesWithParameters:@{@"Types" : [category lowercaseString], @"Latitude" : [NSNumber numberWithDouble:latitude], @"Longitude" : [NSNumber numberWithDouble:longitude], @"Radius" : [NSNumber numberWithInt:3000]}];
+//        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//
+//        CLLocation *location;
+//        double latitude;
+//        double longitude;
+//        if (appDelegate && appDelegate.locationController.lastKnownLocation != nil) {
+//            location = appDelegate.locationController.lastKnownLocation;
+//            latitude = (double)location.coordinate.latitude;
+//            longitude = (double)location.coordinate.longitude;
+//        } else { // Aleksanterinkatu 52, Helsinki, Finland
+//            latitude = 60.168824;
+//            longitude = 24.942422;
+//        }
+//
+//        [self searchNearbyGooglePlacesWithParameters:@{
+//             @"Types" : [self googlePlaceTypeWithHumanReadableString:category],
+//             @"Latitude" : [NSNumber numberWithDouble:latitude],
+//             @"Longitude" : [NSNumber numberWithDouble:longitude],
+//             @"Radius" : [NSNumber numberWithInt:3000]
+//         }];
     }
     return self;
 }
@@ -80,6 +85,27 @@
 {
     [super viewDidLoad];
     self.title = self.category;
+    
+    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    CLLocation *location;
+    double latitude;
+    double longitude;
+    if (appDelegate && appDelegate.locationController.lastKnownLocation != nil) {
+        location = appDelegate.locationController.lastKnownLocation;
+        latitude = (double)location.coordinate.latitude;
+        longitude = (double)location.coordinate.longitude;
+    } else { // Aleksanterinkatu 52, Helsinki, Finland
+        latitude = 60.168824;
+        longitude = 24.942422;
+    }
+    
+    [self searchNearbyGooglePlacesWithParameters:@{
+         @"Types" : [self googlePlaceTypeWithHumanReadableString:self.category],
+         @"Latitude" : [NSNumber numberWithDouble:latitude],
+         @"Longitude" : [NSNumber numberWithDouble:longitude],
+         @"Radius" : [NSNumber numberWithInt:3000]
+     }];
     
     [self generateInitialUI];
 }
@@ -153,14 +179,13 @@
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
     self.tableView.delegate = self;
-    self.tableView.informationSourceType = TAKInformationSourceTypeApple;
+    self.tableView.informationSourceType = TAKInformationSourceTypeGoogle;
     
-#warning Incomplete implementation
+    if ((self.searchResponse != nil) && (self.searchResponse.count > 0)) {
+        self.tableView.tableViewContents = (NSMutableArray *)[self.searchResponse objectForKey:@"results"];
+        [self.tableView reloadData];
+    }
     
-//    if ((self.localSearchResponse != nil) && (self.localSearchResponse.mapItems.count > 0)) {
-//        self.tableView.tableViewContents = (NSMutableArray *)self.localSearchResponse.mapItems;
-//        [self.tableView reloadData];
-//    }
     [self.view addSubview:self.tableView];
 }
 
@@ -223,11 +248,18 @@
     self.searchResponse = response;
     
     @try {
-        [self.mapView refreshMapAnnotationsWithArray:(NSArray *)[self.searchResponse objectForKey:@"results"] informationSource:TAKInformationSourceTypeGoogle];
+        NSArray *searchResults = [self.searchResponse objectForKey:@"results"];
+        
+        [self.mapView refreshMapAnnotationsWithArray:(NSArray *)searchResults informationSource:TAKInformationSourceTypeGoogle];
         
         if (self.tableView != nil) {
-            self.tableView.tableViewContents = (NSMutableArray *)[self.searchResponse objectForKey:@"results"];
+            self.tableView.tableViewContents = (NSMutableArray *)searchResults;
             [self.tableView reloadData];
+        }
+        
+        if (searchResults.count < 1) {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+            [alert show];
         }
     }
     @catch (NSException *exception) {
@@ -246,6 +278,7 @@
     // Required: key, location, radius, sensor
     // Optional: keyword, language, minprice and maxprice, name, opennow, rankby (prominence | distance),
     //           types, pagetoken, zagatselected (only for Places API enterpise customers)
+    // Supported types: https://developers.google.com/places/documentation/supported_types
     //
     
     @try {
@@ -260,7 +293,7 @@
         NSString *types = [parameters objectForKey:@"Types"];
         // NSString *openNow = [parameters objectForKey:@"Open Now"];
         
-        NSString *searchURLString = [NSString stringWithFormat:@"%@key=%@&location=%f,%f&radius=%i&types%@&sensor=true",
+        NSString *searchURLString = [NSString stringWithFormat:@"%@key=%@&location=%f,%f&radius=%i&types=%@&sensor=true",
                                      TAK_GOOGLE_PLACES_BASE_URL,
                                      TAK_GOOGLE_PLACES_API_KEY,
                                      latitude,
@@ -271,7 +304,7 @@
         NSURL * searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
         
 #ifdef DEBUG
-        NSLog(@"URL: %@", searchURL);
+        NSLog(@"Google Places search URL: %@", searchURL);
 #endif
         
         // Download the data asynchronously
@@ -339,5 +372,65 @@
     return 60.0f;
 }
 
+- (NSString *)googlePlaceTypeWithHumanReadableString:(NSString *)string
+{
+    if ([string isEqualToString:@"Accounting"]) {
+        return @"accounting";
+    } else if ([string isEqualToString:@"Airports"]) {
+        return @"airport";
+    } else if ([string isEqualToString:@"Art Galleries"]) {
+        return @"art_gallery";
+    } else if ([string isEqualToString:@"Bakeries"]) {
+        return @"bakery";
+    } else if ([string isEqualToString:@"Banks"]) {
+        return @"bank";
+    } else if ([string isEqualToString:@"Cafés"]) {
+        return @"cafe";
+    } else if ([string isEqualToString:@"Department Stores"]) {
+        return @"department_store";
+    } else if ([string isEqualToString:@"Finance"]) {
+        return @"finance";
+    } else if ([string isEqualToString:@"Food"]) {
+        return @"food";
+    } else if ([string isEqualToString:@"Gyms"]) {
+        return @"gym";
+    } else if ([string isEqualToString:@"Hospitals"]) {
+        return @"hospital";
+    } else if ([string isEqualToString:@"Lawyers"]) {
+        return @"lawyer";
+    } else if ([string isEqualToString:@"Libraries"]) {
+        return @"library";
+    } else if ([string isEqualToString:@"Local Government Offices"]) {
+        return @"local_government_office";
+    } else if ([string isEqualToString:@"Movie Theaters"]) {
+        return @"movie_theater";
+    } else if ([string isEqualToString:@"Museums"]) {
+        return @"museum";
+    } else if ([string isEqualToString:@"Nightclubs"]) {
+        return @"nightclub";
+    } else if ([string isEqualToString:@"Parks"]) {
+        return @"park";
+    } else if ([string isEqualToString:@"Parking"]) {
+        return @"parking";
+    } else if ([string isEqualToString:@"Post Offices"]) {
+        return @"post_office";
+    } else if ([string isEqualToString:@"Restaurants"]) {
+        return @"restaurant";
+    } else if ([string isEqualToString:@"Schools"]) {
+        return @"school";
+    } else if ([string isEqualToString:@"Stores"]) {
+            return @"store";
+    } else if ([string isEqualToString:@"Subway Stations"]) {
+        return @"subway_station";
+    } else if ([string isEqualToString:@"Train Stations"]) {
+        return @"train_station";
+    } else if ([string isEqualToString:@"Travel Agencies"]) {
+        return @"travel_agency";
+    } else if ([string isEqualToString:@"Universities"]) {
+        return @"university";
+    } else {
+        return @"zoo";
+    }
+}
 
 @end

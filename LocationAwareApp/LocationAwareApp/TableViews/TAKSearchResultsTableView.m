@@ -85,15 +85,8 @@
                     cell.detailTextLabel.text = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
                     break;
                 }
+                    
                 case TAKInformationSourceTypeFoursquare: {
-                    // NSDictionary *allData = [self.tableViewContents objectAtIndex:indexPath.row];
-//                    if (indexPath.section == 0) {
-//                        NSLog(@"Basic Information: %@", [allData objectForKey:@"TAK_FOURSQUARE_BASIC_INFORMATION"]);
-//                    } else if (indexPath.section == 1) {
-//                         NSLog(@"Location: %@", [allData objectForKey:TAK_FOURSQUARE_LOCATION]);
-//                    } else {
-//                        NSLog(@"Statistics: %@", [allData objectForKey:TAK_FOURSQUARE_STATISTICS]);
-//                    }
                     NSArray *locationData = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:TAK_FOURSQUARE_LOCATION];
                     NSArray *basicInformation = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                     
@@ -102,29 +95,21 @@
                     break;
                 }
                     
-                case TAKInformationSourceTypeGoogle: {
-#warning Incomplete implementation
+                default:  { // Google
+//                    NSLog(@"GOOGLE!");
+//                    NSLog(@"tableViewContents class: %@, %@",
+//                          [self.tableViewContents class],
+//                          self.tableViewContents);
                     
+                    NSDictionary *placeInformation = [self.tableViewContents objectAtIndex:indexPath.row];
+                    cell.textLabel.text = (NSString *)[placeInformation objectForKey:@"name"];
+                    cell.detailTextLabel.text = (NSString*)[placeInformation objectForKey:@"vicinity"];
+//#ifdef DEBUG
+//                    NSLog(@"placeInformation: %@", placeInformation);
+//#endif
                     break;
                 }
-                    
-                default:
-                    break;
             }
-            
-            /*
-            if ((self.informationSourceType != nil) && ([self.informationSourceType isEqualToString:TAK_INFORMATION_SOURCE_APPLE])) {
-                MKMapItem *mapItem = [self.tableViewContents objectAtIndex:indexPath.row];
-                MKPlacemark *placemark = mapItem.placemark;
-                
-                cell.textLabel.text = mapItem.name;
-                cell.detailTextLabel.text = ABCreateStringWithAddressDictionary(placemark.addressDictionary, YES);
-            } else if ((self.informationSourceType != nil) && ([self.informationSourceType isEqualToString:TAK_INFORMATION_SOURCE_FOURSQUARE])) {
-                cell.textLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
-                cell.detailTextLabel.text = (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
-            }
-            */
-            
         }
     }
     @catch (NSException *exception) {

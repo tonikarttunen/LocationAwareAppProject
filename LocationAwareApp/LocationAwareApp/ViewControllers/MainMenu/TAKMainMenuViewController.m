@@ -118,14 +118,11 @@
         }
             
         default: { // Google
-            self.titleArray = @[@"Education", @"Establishments", @"Food"];
-            /* Normal categories */
-//                                @"Athletics and Sports", @"Colleges and Universities", @"Concert Halls", @"Convention Centers",
-//                                @"Event Spaces", @"Food", @"Government Buildings", @"Historic Sites", @"Hospitals",
-//                                @"Hotels", @"Libraries", @"Monuments and Landmarks", @"Movie Theaters", @"Museums",
-//                                @"Neighbourhoods", @"Nightlife", @"Non-Profits", @"Offices", @"Parking", @"Parks", @"Post Offices",
-//                                @"Recidences", @"Scenic Lookouts", @"Schools", @"Shops and Services", @"Ski Areas", @"Tech Startups",
-//                                @"Travel and Transport"];
+            self.titleArray = @[@"Accounting", @"Airports", @"Art Galleries", @"Bakeries", @"Banks", @"Cafés",
+                                @"Department Stores", @"Finance", @"Food", @"Gyms", @"Hospitals", @"Lawyers",
+                                @"Libraries", @"Local Government Offices", @"Movie Theaters", @"Museums",
+                                @"Nightclubs", @"Parks", @"Parking", @"Post Offices", @"Restaurants", @"Schools",
+                                @"Stores", @"Subway Stations", @"Train Stations", @"Travel Agencies", @"Universities", @"Zoos"];
             NSLog(@"Generated a title array (Google), %i", currentInfoSource);
             break;
         }

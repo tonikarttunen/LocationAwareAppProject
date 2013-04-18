@@ -266,8 +266,18 @@
                         break;
                     }
                         
-                    default:
+                    default: { // Google
+                        NSDictionary *placeInformation = [array objectAtIndex:i];
+                        NSDictionary *locationData = [[placeInformation objectForKey:@"geometry"] objectForKey:@"location"];
+                        
+                        CLLocationDegrees latitude = (CLLocationDegrees)[[locationData objectForKey:@"lat"] doubleValue];
+                        CLLocationDegrees longtitude = (CLLocationDegrees)[[locationData objectForKey:@"lng"] doubleValue];
+                        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
+                        annotation.title = (NSString *)[placeInformation objectForKey:@"name"];
+                        annotation.subtitle = (NSString*)[placeInformation objectForKey:@"vicinity"];
+                        [self addAnnotation:annotation];
                         break;
+                    }
                 }
 #ifdef DEBUG
                 NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f",
@@ -449,10 +459,11 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
+    if (([annotation isKindOfClass:[MKUserLocation class]]) || (annotation == self.userLocation)) {
+        return nil;
+    }
+    
     if (!pinView) {
-        if ([annotation isKindOfClass:[MKUserLocation class]]) {
-            return nil;
-        }
         pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                   reuseIdentifier:TAK_MAP_ANNOTATION_IDENTIFIER];
         pinView.pinColor = MKPinAnnotationColorRed;

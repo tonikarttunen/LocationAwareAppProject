@@ -90,8 +90,8 @@
                     NSArray *locationData = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:TAK_FOURSQUARE_LOCATION];
                     NSArray *basicInformation = [[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                     
-                    cell.textLabel.text = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1]; // (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Name"];
-                    cell.detailTextLabel.text = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1]; // (NSString *)[[self.tableViewContents objectAtIndex:indexPath.row] objectForKey:@"Address"];
+                    cell.textLabel.text = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1];
+                    cell.detailTextLabel.text = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1];
                     break;
                 }
                     

@@ -22,6 +22,12 @@ informationSourceType:(NSUInteger)informationSourceType;
 - (id)           initWithStyle:(UITableViewStyle)style
     tableViewContentDictionary:(NSDictionary *)tableViewContentDictionary
          informationSourceType:(NSUInteger)informationSourceType;
-- (void)updateCheckInCount;
+
+- (id)           initWithStyle:(UITableViewStyle)style
+    tableViewContentDictionary:(NSDictionary *)tableViewContentDictionary
+informationSourceType:(NSUInteger)informationSourceType
+                   referenceID:(NSString *)referenceID;
+
+// - (void)updateCheckInCount;
 
 @end

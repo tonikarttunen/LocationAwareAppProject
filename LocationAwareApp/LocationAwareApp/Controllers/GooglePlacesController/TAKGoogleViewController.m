@@ -236,6 +236,7 @@
     
     if (error) {
         NSLog(@"Error: %@", [error localizedDescription]);
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         return;
     }
     
@@ -325,42 +326,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     @try {
+        NSDictionary *placeInformation = [self.tableView.tableViewContents objectAtIndex:indexPath.row];
+        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStyleGrouped tableViewContentDictionary:[NSMutableDictionary new] informationSourceType:TAKInformationSourceTypeGoogle referenceID:(NSString *)[placeInformation objectForKey:@"reference"]];
+        DVC.title = (NSString *)[placeInformation objectForKey:@"name"];
         
-#warning Incomplete implementation
-        
-//        MKMapItem *mapItem = [self.tableView.tableViewContents objectAtIndex:indexPath.row];
-//        NSString *DVCTitle = mapItem.name;
-//        NSMutableArray *detailViewContents = [NSMutableArray new];
-//        NSString *address = ABCreateStringWithAddressDictionary(mapItem.placemark.addressDictionary, YES);
-//        NSString *phone = mapItem.phoneNumber;
-//        NSURL *url = mapItem.url;
-//        NSString *latitude = [[NSString alloc] initWithFormat:@"%f", mapItem.placemark.coordinate.latitude];
-//        NSString *longitude = [[NSString alloc] initWithFormat:@"%f", mapItem.placemark.coordinate.longitude];
-//        if (DVCTitle != nil) {
-//            [detailViewContents addObject:@[@"Name", DVCTitle]];
-//        }
-//        if (address != nil) {
-//            [detailViewContents addObject:@[@"Address", address]];
-//        }
-//        if (phone != nil) {
-//            [detailViewContents addObject:@[@"Phone", phone]];
-//        }
-//        if (url != nil) {
-//            [detailViewContents addObject:@[@"URL", url]];
-//        }
-//        if (latitude != nil) {
-//            [detailViewContents addObject:@[@"Latitude", latitude]];
-//        }
-//        if (longitude != nil) {
-//            [detailViewContents addObject:@[@"Longitude", longitude]];
-//        }
-//        TAKDetailViewController *DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStylePlain
-//                                                                    tableViewContents:(NSArray *)detailViewContents
-//                                                                informationSourceType:TAKInformationSourceTypeApple];
-//        // DVC.informationSourceType = TAKInformationSourceTypeApple;
-//        DVC.title = DVCTitle;
-//        [self.navigationController pushViewController:DVC animated:YES];
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        [self.navigationController pushViewController:DVC animated:YES];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     @catch (NSException *exception) {
         NSLog(@"%@", exception.description);

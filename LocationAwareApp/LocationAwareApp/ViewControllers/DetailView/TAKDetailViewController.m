@@ -10,16 +10,23 @@
 #import "Constants.h"
 #import "TAKFoursquareCheckInViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "APIConstants.h"
+
+#define TAK_GOOGLE_PLACE_DETAILS_BASE_URL @"https://maps.googleapis.com/maps/api/place/details/json?"
 
 @interface TAKDetailViewController ()
 
 @property (nonatomic, copy) NSArray *tableViewContents; // Apple
-@property (nonatomic, strong) NSMutableDictionary *tableViewContentDictionary; // Foursquare
+@property (nonatomic, strong) NSMutableDictionary *tableViewContentDictionary; // Foursquare and Google
+@property (nonatomic, copy) NSString *referenceID; // Google
+@property (nonatomic, strong) NSMutableDictionary *searchResponse; // Google
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView; // Google
 
 @end
 
 @implementation TAKDetailViewController
 
+// Apple
 - (id)  initWithStyle:(UITableViewStyle)style
     tableViewContents:(NSArray *)tableViewContents
 informationSourceType:(NSUInteger)informationSourceType
@@ -36,6 +43,7 @@ informationSourceType:(NSUInteger)informationSourceType
     return self;
 }
 
+// Foursquare
 - (id)           initWithStyle:(UITableViewStyle)style
     tableViewContentDictionary:(NSDictionary *)tableViewContentDictionary
          informationSourceType:(NSUInteger)informationSourceType
@@ -52,6 +60,28 @@ informationSourceType:(NSUInteger)informationSourceType
     return self;
 }
 
+// Google
+- (id)           initWithStyle:(UITableViewStyle)style
+    tableViewContentDictionary:(NSDictionary *)tableViewContentDictionary
+         informationSourceType:(NSUInteger)informationSourceType
+                   referenceID:(NSString *)referenceID
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        // Custom initialization
+        _referenceID = [referenceID copy];
+        _informationSourceType = informationSourceType;
+        _tableViewContentDictionary = (NSMutableDictionary *)tableViewContentDictionary;
+        NSLog(@"%@", _tableViewContentDictionary);
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+#ifdef DEBUG
+        NSLog(@" Google Places reference ID: %@", _referenceID);
+#endif
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -63,9 +93,21 @@ informationSourceType:(NSUInteger)informationSourceType
             [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.91 alpha:1.0]];
             break;
         }
-        default: {
-#warning Potentially incomplete implementation (Google Places API search results)
             
+        case TAKInformationSourceTypeGoogle: {
+            [self.tableView setBackgroundView:nil];
+            [self.tableView setBackgroundColor:[UIColor colorWithWhite:0.91 alpha:1.0]];
+            
+            if (!self.activityIndicatorView) {
+                self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            }
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
+            [self.activityIndicatorView startAnimating];
+            
+            break;
+        }
+            
+        default: { // Apple
             self.tableView.backgroundColor = [UIColor whiteColor];
             break;
         }
@@ -73,6 +115,10 @@ informationSourceType:(NSUInteger)informationSourceType
     
     self.view.opaque = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    if (self.informationSourceType == TAKInformationSourceTypeGoogle) {
+        [self searchPlaceDetails];
+    }
     
     NSLog(@"Detail view information source type: %i", self.informationSourceType);
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
@@ -106,14 +152,17 @@ informationSourceType:(NSUInteger)informationSourceType
 {
     // Return the number of sections.
     switch (self.informationSourceType) {
-        case TAKInformationSourceTypeApple:
+        case TAKInformationSourceTypeApple: {
             return 1;
-        case TAKInformationSourceTypeFoursquare:
-            return self.tableViewContentDictionary.count;
-        default: { // Google
-#warning Incomplete implementation
+        }
             
-            return 1;
+        case TAKInformationSourceTypeFoursquare: {
+            return self.tableViewContentDictionary.count;
+            break;
+        }
+            
+        default: { // Google
+            return 5;
         }
     }
 }
@@ -140,7 +189,19 @@ informationSourceType:(NSUInteger)informationSourceType
             
         default: { // Google
 #warning Incomplete implementation
-            return 1;
+            switch (section) {
+                case 0:
+                    return 2;
+                    
+                case 1:
+                    return 3;
+                    
+                // reviews
+                    
+                    
+                default:
+                    return 3;
+            }
         }
     }
 }
@@ -217,7 +278,54 @@ informationSourceType:(NSUInteger)informationSourceType
             }
                 
             case TAKInformationSourceTypeGoogle: {
-#warning Incomplete implementation
+// #warning Incomplete implementation
+                switch (indexPath.section) {
+                    case 0: {
+                        if (indexPath.row == 1) {
+                            cell.textLabel.text = @"Copyright text";
+                        } else {
+                            cell.textLabel.text = @" ";
+                        }
+                        break;
+                    }
+                        
+                    case 1: {
+                        if (indexPath.row == 0) {
+                            cell.textLabel.text = @"Name";
+                            cell.detailTextLabel.text = self.title;
+                        } else if (indexPath.row == 1) {
+                            cell.textLabel.text = @"Website";
+                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"website"];
+                        } else if (indexPath.row == 2) {
+                            cell.textLabel.text = @"Phone Number";
+                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"formatted_phone_number"];
+                        } else {
+                            cell.textLabel.text = @"Rating";
+                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"rating"];
+                        }
+                        break;
+                    }
+                        
+                    case 2: {
+                        if (indexPath.row == 0) {
+                            cell.textLabel.text = @"Address";
+                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"vicinity"];
+                        } else if (indexPath.row == 1) {
+                            cell.textLabel.text = @"Latitude";
+                            cell.detailTextLabel.text = [[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] stringValue];
+                        } else {
+                            cell.textLabel.text = @"Longitude";
+                            cell.detailTextLabel.text = [[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] stringValue];
+                        }
+                        break;
+                    }
+                        
+                    default: {
+                        cell.textLabel.text = @" ";
+                        cell.detailTextLabel.text = @" ";
+                        break;
+                    }
+                }
                 break;
             }
                 
@@ -246,19 +354,43 @@ informationSourceType:(NSUInteger)informationSourceType
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if (self.informationSourceType != TAKInformationSourceTypeFoursquare) {
-        return @"";
-    }
-    switch (section) {
-        case 0:
-            return TAK_FOURSQUARE_BASIC_INFORMATION;
+{    
+    switch (self.informationSourceType) {
+        case TAKInformationSourceTypeApple: {
+            return @"";
+        }
+        
+        case TAKInformationSourceTypeFoursquare: {
+            switch (section) {
+                case 0:
+                    return TAK_FOURSQUARE_BASIC_INFORMATION;
+                    
+                case 1:
+                    return TAK_FOURSQUARE_LOCATION;
+                    
+                default:
+                    return TAK_FOURSQUARE_STATISTICS;
+            }
+        }
             
-        case 1:
-            return TAK_FOURSQUARE_LOCATION;
-            
-        default:
-            return TAK_FOURSQUARE_STATISTICS;
+        default: {
+            switch (section) {
+                case 0:
+                    return @"Photo";
+                
+                case 1:
+                    return @"Basic Information";
+                    
+                case 2:
+                    return @"Location";
+                    
+                case 3:
+                    return @"Opening Hours";
+                    
+                default:
+                    return @"";
+            }
+        }
     }
 }
 
@@ -296,45 +428,6 @@ informationSourceType:(NSUInteger)informationSourceType
 //    
 //    return headerView;
 //}
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
@@ -391,5 +484,91 @@ informationSourceType:(NSUInteger)informationSourceType
 //        NSLog(@"Cannot update the table view after a Foursquare check-in");
 //    }
 //}
+
+#pragma mark - Google Places: place details
+
+- (void)handleRequestData:(NSData *)data
+{
+    NSError *error;
+    
+    id response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    
+    if (error) {
+        NSLog(@"Error: %@", [error localizedDescription]);
+        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        return;
+    }
+    
+    NSLog(@"Google Places JSON response: %@", response);
+    
+    if ([response isKindOfClass:[NSNull class]]) {
+        return;
+    }
+    
+    self.searchResponse = response;
+    
+    @try {
+        NSDictionary *searchResult = [self.searchResponse objectForKey:@"result"];
+        
+        if (self.tableView != nil) {
+            self.tableViewContentDictionary = (NSMutableDictionary *)searchResult;
+            NSLog(@"searchResult: %@", searchResult);
+            [self.tableView reloadData];
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    }
+    
+    [self.activityIndicatorView stopAnimating];
+    self.activityIndicatorView.hidden = YES;
+}
+
+- (void)searchPlaceDetails
+{
+    //
+    // Documentation: https://developers.google.com/places/documentation/search
+    // URL format: https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+    // Required: key, location, radius, sensor
+    // Optional: keyword, language, minprice and maxprice, name, opennow, rankby (prominence | distance),
+    //           types, pagetoken, zagatselected (only for Places API enterpise customers)
+    // Supported types: https://developers.google.com/places/documentation/supported_types
+    //
+    
+    @try {
+//        if ((parameters == nil) || (parameters.count == 0)) {
+//            NSLog(@"No parameters were given!");
+//            return;
+//        }
+        
+//        double latitude = [[parameters objectForKey:@"Latitude"] doubleValue];
+//        double longitude = [[parameters objectForKey:@"Longitude"] doubleValue];
+//        int radius = [[parameters objectForKey:@"Radius"] integerValue];
+//        NSString *types = [parameters objectForKey:@"Types"];
+        // NSString *openNow = [parameters objectForKey:@"Open Now"];
+        
+        NSString *searchURLString = [NSString stringWithFormat:@"%@key=%@&reference=%@&sensor=true",
+                                     TAK_GOOGLE_PLACE_DETAILS_BASE_URL,
+                                     TAK_GOOGLE_PLACES_API_KEY,
+                                     self.referenceID];
+        NSString *searchURLStringWithPercentEscapes = [searchURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL * searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
+        
+#ifdef DEBUG
+        NSLog(@"Google Places search URL: %@", searchURL);
+#endif
+        
+        // Download the data asynchronously
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSData *requestData = [NSData dataWithContentsOfURL:searchURL];
+            [self performSelectorOnMainThread:@selector(handleRequestData:) withObject:requestData waitUntilDone:YES];
+        });
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+        [self.activityIndicatorView stopAnimating];
+        self.activityIndicatorView.hidden = YES;
+    }
+}
 
 @end

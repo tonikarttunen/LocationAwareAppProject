@@ -346,6 +346,39 @@ typedef enum TAKFoursquareRequestType : NSUInteger {
                         NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
                     }
                 }
+            } else {
+                @try {
+                    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                    
+                    if ((appDelegate == nil) || (appDelegate.window == nil)
+                        || (appDelegate.window.rootViewController == nil)) {
+                        return;
+                    }
+                    
+                    UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+                    
+                    if (navigationController == nil) {
+                        return;
+                    }
+                    
+#ifdef DEBUG
+                    NSLog(@"navigationController.viewControllers.count: %i", navigationController.viewControllers.count);
+                    NSLog(@"navigationController.viewControllers: %@", navigationController.viewControllers);
+#endif
+                    if (navigationController.viewControllers.count < 3) {
+                        NSLog(@"Detail view controller does not exist!");
+                        return;
+                    }
+                    
+                    if (([[navigationController.viewControllers objectAtIndex:2] isKindOfClass:[TAKDetailViewController class]])
+                        && ([navigationController.viewControllers objectAtIndex:2] != nil)) {
+                        [(TAKDetailViewController *)[navigationController.viewControllers objectAtIndex:2] showNoPhotosLabel];
+                    }
+                    
+                }
+                @catch (NSException *exception) {
+                    NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
+                }
             }
             break;
         }

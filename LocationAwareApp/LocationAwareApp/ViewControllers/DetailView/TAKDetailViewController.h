@@ -10,7 +10,7 @@
 #import "Constants.h"
 #import "TAKFoursquareCheckInViewController.h"
 
-@interface TAKDetailViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface TAKDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property NSUInteger informationSourceType;
 @property (nonatomic, strong) TAKFoursquareCheckInViewController *foursquareCheckInViewController;
@@ -29,6 +29,7 @@ informationSourceType:(NSUInteger)informationSourceType
                    referenceID:(NSString *)referenceID;
 
 - (void)sendFoursquarePhotoContentRequestWithURLString:(NSString *)URLString;
+- (void)showNoPhotosLabel;
 
 // - (void)updateCheckInCount;
 

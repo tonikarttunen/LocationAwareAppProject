@@ -258,8 +258,8 @@
                         NSArray *basicInformation = [[array objectAtIndex:i] objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                         
                         CLLocationDegrees latitude = (CLLocationDegrees)[[[locationData objectAtIndex:0] objectAtIndex:1] doubleValue];
-                        CLLocationDegrees longtitude = (CLLocationDegrees)[[[locationData objectAtIndex:1] objectAtIndex:1] doubleValue];
-                        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longtitude);
+                        CLLocationDegrees longitude = (CLLocationDegrees)[[[locationData objectAtIndex:1] objectAtIndex:1] doubleValue];
+                        annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
                         annotation.title = (NSString *)[[basicInformation objectAtIndex:0] objectAtIndex:1];
                         annotation.subtitle = (NSString *)[[locationData objectAtIndex:3] objectAtIndex:1];
                         [self addAnnotation:annotation];
@@ -470,9 +470,12 @@
         pinView.animatesDrop = YES;
         pinView.canShowCallout = YES;
         
-        UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        rightButton.accessibilityHint = annotation.title;
-        pinView.rightCalloutAccessoryView = rightButton;
+        id viewController = [self findParentViewController];
+        if (![viewController isKindOfClass:[TAKDetailViewController class]]) {
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            rightButton.accessibilityHint = annotation.title;
+            pinView.rightCalloutAccessoryView = rightButton;
+        }
     } else {
         pinView.annotation = annotation;
     }

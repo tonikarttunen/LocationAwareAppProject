@@ -53,16 +53,19 @@
                 if ([categoryID isEqualToString:@"Everything"]) {
                     [foursquareController searchFoursquareContentWithPath:@"venues/search"
                                                          searchParameters:@{@"ll" : locationString,
-                                                                            @"radius" : @"2000"}];
+                                                                            @"radius" : @"3000",
+                                                                            @"intent" : @"browse"}];
                 } else if ([categoryID isEqualToString:@"Trending"]) {
                     [foursquareController searchFoursquareContentWithPath:@"venues/trending"
                                                          searchParameters:@{@"ll" : locationString,
-                                                               @"radius" : @"2000"}];
+                                                                            @"radius" : @"3000",
+                                                                            @"intent" : @"browse"}];
                 } else {
                     [foursquareController searchFoursquareContentWithPath:@"venues/search"
                                                          searchParameters:@{@"ll" : locationString,
-                                                                            @"radius" : @"2000",
-                                                                            @"categoryId" : categoryID}];
+                                                                            @"radius" : @"3000",
+                                                                            @"categoryId" : categoryID,
+                                                                            @"intent" : @"browse"}];
                 }
                 NSLog(@"Category: %@, categoryID%@", _category, categoryID);
             }
@@ -83,6 +86,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.title = self.category;
     
     TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquare) {

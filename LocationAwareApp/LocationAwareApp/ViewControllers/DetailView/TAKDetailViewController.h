@@ -28,6 +28,8 @@ informationSourceType:(NSUInteger)informationSourceType;
 informationSourceType:(NSUInteger)informationSourceType
                    referenceID:(NSString *)referenceID;
 
+- (void)sendFoursquarePhotoContentRequestWithURLString:(NSString *)URLString;
+
 // - (void)updateCheckInCount;
 
 @end

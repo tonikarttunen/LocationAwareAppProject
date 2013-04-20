@@ -53,36 +53,89 @@
             // Basic details
             NSString *venueID = [currentVenue objectForKey:@"id"];
             NSString *name = [currentVenue objectForKey:@"name"];
-            [currentVenueDetails setObject:@[ @[@"Name", name], @[@"ID", venueID] ] forKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+            double rating = [[currentVenue objectForKey:@"rating"] doubleValue];
+            NSString *phone = [[currentVenue objectForKey:@"contact"] objectForKey:@"formattedPhone"];
+            if (phone == nil) {
+                phone = @"N/A";
+            }
+            NSString *website = [currentVenue objectForKey:@"url"];
+            if (website == nil) {
+                website = @"N/A";
+            }
+            NSString *twitter = [[currentVenue objectForKey:@"contact"] objectForKey:@"twitter"];
+            if (twitter == nil) {
+                twitter = @"N/A";
+            }
+            [currentVenueDetails setObject:@[@[@"Name", name],
+                                             @[@"ID", venueID],
+                                             @[@"Phone", phone],
+                                             @[@"Website", website],
+                                             @[@"Twitter", twitter],
+                                             @[@"Rating", [NSNumber numberWithDouble:rating]]]
+                                    forKey:TAK_FOURSQUARE_BASIC_INFORMATION];
             
             // Location
             NSDictionary *location = [currentVenue objectForKey:@"location"];
             double latitude = [[location objectForKey:@"lat"] doubleValue];
             double longitude = [[location objectForKey:@"lng"] doubleValue];
             int distance = [[location objectForKey:@"distance"] integerValue];
-            NSString *address = [location objectForKey:@"address"];
+            NSMutableString *address = [location objectForKey:@"address"];
             
+            // If a street name isn't available, check if the cross street is known
             if (address == nil) {
-                address = [currentVenue objectForKey:@"cc"];
+                address = (NSMutableString *)[location objectForKey:@"crossStreet"];
             }
+            
+            // Postal code
+            NSMutableString *postalCode = (NSMutableString *)[location objectForKey:@"postalCode"];
             if (address == nil) {
-                address = [currentVenue objectForKey:@"city"];
+                address = postalCode;
+            } else {
+                if (postalCode != nil) {
+                    address = (NSMutableString *)[NSMutableString stringWithFormat:@"%@, %@", address, postalCode];
+                }
             }
+            
+            // City
+            NSMutableString *city = (NSMutableString *)[location objectForKey:@"city"];
             if (address == nil) {
-                address = [currentVenue objectForKey:@"state"];
+                address = city;
+            } else {
+                if (city != nil) {
+                    address = (NSMutableString *)[NSMutableString stringWithFormat:@"%@ %@", address, city];
+                }
             }
+            
+            // State
+            NSMutableString *state = (NSMutableString *)[location objectForKey:@"state"];
             if (address == nil) {
-                address = [currentVenue objectForKey:@"country"];
+                address = state;
+            } else {
+                if (state != nil) {
+                    address = (NSMutableString *)[NSMutableString stringWithFormat:@"%@, %@", address, state];
+                }
             }
+            
+            // Country
+            NSMutableString *country = (NSMutableString *)[location objectForKey:@"country"];
             if (address == nil) {
-                address = @"Unknown address";
+                address = country;
+            } else {
+                if (country != nil) {
+                    address = (NSMutableString *)[NSMutableString stringWithFormat:@"%@, %@", address, country];
+                }
+            }
+            
+            // Unknown address
+            if (address == nil) {
+                address = (NSMutableString *)@"N/A";
             }
             
             [currentVenueDetails setObject:@[
                                              @[@"Latitude", [NSNumber numberWithDouble:latitude]],
                                              @[@"Longitude", [NSNumber numberWithDouble:longitude]],
                                              @[@"Distance", [NSNumber numberWithInt:distance]],
-                                             @[@"Address", address]
+                                             @[@"Address", (NSString *)address]
                                             ] forKey:TAK_FOURSQUARE_LOCATION];
             
             // Statistics
@@ -90,12 +143,23 @@
             int checkinsCount = [[stats objectForKey:@"checkinsCount"] integerValue];
             int usersCount = [[stats objectForKey:@"usersCount"] integerValue];
             int tipsCount = [[stats objectForKey:@"tipsCount"] integerValue];
+            int hereNow = [[[currentVenue objectForKey:@"hereNow"] objectForKey:@"count"] integerValue];
+            
+            // Likes
+            NSDictionary *likes = [currentVenue objectForKey:@"likes"];
+            int likesCount = [[likes objectForKey:@"count"] integerValue];
 
             [currentVenueDetails setObject:@[
                  [NSMutableArray arrayWithObjects:@"Check-Ins", [NSNumber numberWithInt:checkinsCount], nil],
                  [NSMutableArray arrayWithObjects:@"Users", [NSNumber numberWithInt:usersCount], nil],
-                 [NSMutableArray arrayWithObjects:@"Tips", [NSNumber numberWithInt:tipsCount], nil]
+                 [NSMutableArray arrayWithObjects:@"Here Now", [NSNumber numberWithInt:hereNow], nil],
+                 [NSMutableArray arrayWithObjects:@"Tips", [NSNumber numberWithInt:tipsCount], nil],
+                 [NSMutableArray arrayWithObjects:@"Likes", [NSNumber numberWithInt:likesCount], nil]
              ] forKey:TAK_FOURSQUARE_STATISTICS];
+            
+            NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
+            UIImage *image = [[UIImage alloc] initWithContentsOfFile:path];
+            [currentVenueDetails setObject:[NSMutableArray arrayWithObjects:@"", image, nil] forKey:@"Image"];
             
             [processed addObject:(NSArray *)currentVenueDetails];
         }

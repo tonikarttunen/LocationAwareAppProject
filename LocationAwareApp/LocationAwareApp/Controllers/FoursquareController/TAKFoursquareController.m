@@ -16,6 +16,8 @@
 
 #define TAK_VENUE_ID                @"venueId"
 #define TAK_PRIVACY_SETTING_VALUE   @"broadcast"
+#define TAK_LIMIT                   @"limit"
+#define TAK_GROUP                   @"group"
 #define TAK_ADD_CHECK_IN            @"checkins/add"
 #define TAK_HTTP_GET                @"GET"
 #define TAK_HTTP_POST               @"POST"
@@ -36,7 +38,8 @@
 
 typedef enum TAKFoursquareRequestType : NSUInteger {
     TAKFoursquareRequestTypeSearchVenues,
-    TAKFoursquareRequestTypeCheckIn
+    TAKFoursquareRequestTypeCheckIn,
+    TAKFoursquareRequestTypePhotoRequest
 } TAKFoursquareRequestType;
 
 - (id)init
@@ -98,8 +101,6 @@ typedef enum TAKFoursquareRequestType : NSUInteger {
                                                    parameters:searchParameters
                                                      delegate:self];
     [self.foursquareRequest start];
-
-#warning Potentially incomplete implementation - show an activity indicator etc 
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
@@ -127,7 +128,33 @@ typedef enum TAKFoursquareRequestType : NSUInteger {
                                                      delegate:self];
     [self.foursquareRequest start];
     
-#warning Potentially incomplete implementation
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)searchFoursquarePhotosWithID:(NSString *)venueID
+                               limit:(NSString *)limit
+                               group:(NSString *)group
+{
+    self.currentRequestType = TAKFoursquareRequestTypePhotoRequest;
+    if ((venueID == nil) || (limit == nil) || (group == nil)) {
+        NSLog(@"The venue ID, the privacy setting value or the group is nil.");
+        return;
+    }
+    
+    [self deleteOldFoursquareRequestData];
+    
+    NSDictionary *checkInParameters = @{TAK_VENUE_ID : venueID,
+                                        TAK_LIMIT : limit,
+                                        TAK_GROUP : group};
+    
+    NSLog(@"venueID: %@, limit: %@, group: %@", venueID, limit, group);
+    NSLog(@"checkInParameters: %@", checkInParameters);
+    
+    self.foursquareRequest = [self.foursquare requestWithPath:[NSString stringWithFormat:@"venues/%@/photos", venueID]
+                                                   HTTPMethod:TAK_HTTP_GET
+                                                   parameters:checkInParameters
+                                                     delegate:self];
+    [self.foursquareRequest start];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
@@ -273,6 +300,53 @@ typedef enum TAKFoursquareRequestType : NSUInteger {
                 NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
             }
 
+            break;
+        }
+            
+        case TAKFoursquareRequestTypePhotoRequest: {
+            NSLog(@"%@", self.foursquareResponse);
+            int photoCount = (int)[[[self.foursquareResponse objectForKey:@"photos"] objectForKey:@"count"] integerValue];
+            NSLog(@"Photo count: %i", photoCount);
+            if (photoCount > 0) {
+                id photoURL = [[[[self.foursquareResponse objectForKey:@"photos"] objectForKey:@"items"] objectAtIndex:0] objectForKey:@"url"];
+                NSLog(@"URL: %@, %@", [photoURL class], photoURL);
+                if (([photoURL isKindOfClass:[NSString class]]) && (photoURL != nil) && ([(NSString *)photoURL length] > 0)) {
+                    NSString *photoURLString = (NSString *)photoURL;
+                    
+                    @try {
+                        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                        
+                        if ((appDelegate == nil) || (appDelegate.window == nil)
+                            || (appDelegate.window.rootViewController == nil)) {
+                            return;
+                        }
+                        
+                        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+                        
+                        if (navigationController == nil) {
+                            return;
+                        }
+                        
+#ifdef DEBUG
+                        NSLog(@"navigationController.viewControllers.count: %i", navigationController.viewControllers.count);
+                        NSLog(@"navigationController.viewControllers: %@", navigationController.viewControllers);
+#endif
+                        if (navigationController.viewControllers.count < 3) {
+                            NSLog(@"Detail view controller does not exist!");
+                            return;
+                        }
+                        
+                        if (([[navigationController.viewControllers objectAtIndex:2] isKindOfClass:[TAKDetailViewController class]])
+                            && ([navigationController.viewControllers objectAtIndex:2] != nil)) {
+                            [(TAKDetailViewController *)[navigationController.viewControllers objectAtIndex:2] sendFoursquarePhotoContentRequestWithURLString:photoURLString];
+                        }
+                        
+                    }
+                    @catch (NSException *exception) {
+                        NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
+                    }
+                }
+            }
             break;
         }
             

@@ -11,8 +11,10 @@
 #import "TAKFoursquareCheckInViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "APIConstants.h"
+#import "TAKAppDelegate.h"
 
 #define TAK_GOOGLE_PLACE_DETAILS_BASE_URL @"https://maps.googleapis.com/maps/api/place/details/json?"
+#define TAK_IMAGE_VIEW_TAG 50
 
 @interface TAKDetailViewController ()
 
@@ -25,6 +27,11 @@
 @end
 
 @implementation TAKDetailViewController
+{
+    CGFloat _imageHeight;
+    CGFloat _imageWidth;
+    CGFloat _rowHeight;
+}
 
 // Apple
 - (id)  initWithStyle:(UITableViewStyle)style
@@ -34,6 +41,9 @@ informationSourceType:(NSUInteger)informationSourceType
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        _imageWidth = 236.0f;
+        _imageHeight = 60.0f;
+        _rowHeight = 60.0f;
         _informationSourceType = informationSourceType;
         _tableViewContents = [tableViewContents copy];
         NSLog(@"%@", _tableViewContents);
@@ -56,6 +66,7 @@ informationSourceType:(NSUInteger)informationSourceType
         NSLog(@"%@", _tableViewContentDictionary);
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
+        [self sendFoursquarePhotoRequest];
     }
     return self;
 }
@@ -181,8 +192,10 @@ informationSourceType:(NSUInteger)informationSourceType
                 array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
             } else if (section == 1) {
                 array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_LOCATION];
-            } else {
+            } else if (section == 2) {
                 array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
+            } else { // Photo
+                return 1;
             }
             return array.count;
         }
@@ -214,6 +227,8 @@ informationSourceType:(NSUInteger)informationSourceType
     // Configure the cell...
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+//        [[cell.contentView viewWithTag:5] removeFromSuperview];
+//        [[cell.contentView viewWithTag:6] removeFromSuperview];
         cell.accessoryType = UITableViewCellAccessoryNone;
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
@@ -222,6 +237,7 @@ informationSourceType:(NSUInteger)informationSourceType
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
         cell.textLabel.numberOfLines = 1;
+        cell.textLabel.tag = 5;
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
@@ -229,6 +245,9 @@ informationSourceType:(NSUInteger)informationSourceType
         cell.detailTextLabel.opaque = NO;
         cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
         cell.detailTextLabel.numberOfLines = 1;
+        cell.detailTextLabel.tag = 6;
+    } else {
+        [[cell.contentView viewWithTag:TAK_IMAGE_VIEW_TAG] removeFromSuperview];
     }
     
     @try {
@@ -257,23 +276,53 @@ informationSourceType:(NSUInteger)informationSourceType
                     array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
                 } else if (indexPath.section == 1) {
                     array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_LOCATION];
-                } else {
+                } else if (indexPath.section == 2) {
                     array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
+                } else {
+                    array = [self.tableViewContentDictionary objectForKey:@"Image"];
                 }
-                cell.textLabel.text = (NSString *)[[array objectAtIndex:indexPath.row] objectAtIndex:0];
-                id obj = [[array objectAtIndex:indexPath.row] objectAtIndex:1];
-                if ([obj isKindOfClass:[NSNumber class]]) {
-                    if (([cell.textLabel.text isEqualToString:@"Latitude"])
-                        || ([cell.textLabel.text isEqualToString:@"Longitude"])) {
-                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@°", (NSString *)[obj stringValue]];
-                    } else if ([cell.textLabel.text isEqualToString:@"Distance"]) {
-                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@m", (NSString *)[obj stringValue]];
+                
+                if (indexPath.section != 3) {
+                    cell.textLabel.text = (NSString *)[[array objectAtIndex:indexPath.row] objectAtIndex:0];
+                    id obj = [[array objectAtIndex:indexPath.row] objectAtIndex:1];
+                    if ([obj isKindOfClass:[NSNumber class]]) {
+                        if (([cell.textLabel.text isEqualToString:@"Latitude"])
+                            || ([cell.textLabel.text isEqualToString:@"Longitude"])) {
+                            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@°", (NSString *)[obj stringValue]];
+                        } else if ([cell.textLabel.text isEqualToString:@"Distance"]) {
+                            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@m", (NSString *)[obj stringValue]];
+                        } else {
+                            cell.detailTextLabel.text = (NSString *)[obj stringValue];
+                        }
                     } else {
-                        cell.detailTextLabel.text = (NSString *)[obj stringValue];
+                        cell.detailTextLabel.text = (NSString *)obj;
                     }
                 } else {
-                    cell.detailTextLabel.text = (NSString *)obj;
+                    // cell.detailTextLabel.text = @"";
+                    id obj = [array objectAtIndex:1];
+                    UIImageView *imageView = [[UIImageView alloc] initWithImage:(UIImage *)obj];
+                    if (isnan(_rowHeight)) {
+                        cell.contentView.frame = CGRectMake(0.0f, 0.0f, 300.0f, 60.0f);
+                    } else {
+                        cell.contentView.frame = CGRectMake(0.0f, 0.0f, 300.0f, _rowHeight);
+                        NSLog(@"cell.contentview...height: %f", _rowHeight);
+                    }
+                    imageView.frame = CGRectMake(0.0f, 0.0f, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
+                    imageView.tag = TAK_IMAGE_VIEW_TAG;
+                
+                    cell.imageView.layer.masksToBounds = YES;
+                    cell.imageView.layer.opaque = NO;
+                    imageView.layer.cornerRadius = 20;
+                    cell.contentView.layer.cornerRadius = 20;
+                    cell.contentView.layer.masksToBounds = YES;
+                    cell.contentView.layer.opaque = NO;
+                    [cell.contentView addSubview:imageView];
+                    cell.layer.cornerRadius = 20;
+                    cell.layer.masksToBounds = YES;
+                    cell.layer.opaque = NO;
                 }
+                
+                
                 break;
             }
                 
@@ -368,8 +417,11 @@ informationSourceType:(NSUInteger)informationSourceType
                 case 1:
                     return TAK_FOURSQUARE_LOCATION;
                     
-                default:
+                case 2:
                     return TAK_FOURSQUARE_STATISTICS;
+                    
+                default:
+                    return @"Photo";
             }
         }
             
@@ -444,7 +496,29 @@ informationSourceType:(NSUInteger)informationSourceType
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0f;
+    switch (self.informationSourceType) {
+        case TAKInformationSourceTypeFoursquare:
+            switch (indexPath.section) {
+                case 3: {
+                    _rowHeight = (300.0f * _imageHeight / _imageWidth);
+                    NSLog(@"ROW HEIGHT: %f", _rowHeight);
+                    if (isnan(_rowHeight)) {
+                        return 60.0f;
+                    } else {
+                        return (300.0f * _imageHeight / _imageWidth);
+                    }
+                }
+                    
+                default: {
+                    return 60.0f;
+                }
+            }
+            break;
+            
+        default: {
+            return 60.0f;
+        }
+    }
 }
 
 #pragma mark - Foursquare check-in
@@ -484,6 +558,107 @@ informationSourceType:(NSUInteger)informationSourceType
 //        NSLog(@"Cannot update the table view after a Foursquare check-in");
 //    }
 //}
+
+#pragma mark - Foursquare photos
+
+- (void)sendFoursquarePhotoContentRequestWithURLString:(NSString *)URLString
+{
+    @try {
+        NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+        NSString *venueID = (NSString *)[[array objectAtIndex:1] objectAtIndex:1];
+#ifdef DEBUG
+        NSLog(@"Foursquare venue ID: %@", venueID);
+#endif
+        NSString *requestURLString = [URLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *requestURL = [NSURL URLWithString:requestURLString];
+#ifdef DEBUG
+        NSLog(@"Foursquare photo request URL: %@", requestURL);
+#endif
+        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:requestURL];
+        [urlRequest setHTTPMethod:@"GET"];
+        [urlRequest setTimeoutInterval:30.0f];
+
+        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+
+        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                           queue:queue
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+        {
+            if ((error == nil) && ([data length] > 0))
+            {
+                UIImage *image = [UIImage imageWithData:data];
+                _imageHeight = image.size.height;
+                _imageWidth = image.size.width;
+                [[self.tableViewContentDictionary objectForKey:@"Image"] replaceObjectAtIndex:1 withObject:image];
+                [self.tableView reloadData];
+            }
+        }];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot download the Foursquare venue photo: %@", exception.description);
+    }
+}
+
+- (void)sendFoursquarePhotoRequest
+{
+    @try {
+//        NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+//        NSString *venueID = (NSString *)[[array objectAtIndex:1] objectAtIndex:1];
+//#ifdef DEBUG
+//        NSLog(@"Foursquare venue ID: %@", venueID);
+//#endif
+//        NSString *requestURLString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos?group=venue&limit=1&oauth_token=%@&v=20130420", venueID, TAK_FOURSQUARE_API_KEY];
+//        NSURL *requestURL = [NSURL URLWithString:requestURLString];
+//#ifdef DEBUG
+//        NSLog(@"Foursquare photo request URL: %@", requestURL);
+//#endif
+//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:requestURL];
+//        [urlRequest setHTTPMethod:@"GET"];
+//        [urlRequest setTimeoutInterval:30.0f];
+//        
+//        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//        
+//        [NSURLConnection sendAsynchronousRequest:urlRequest
+//                                           queue:queue
+//                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+//        {
+//            if ((error == nil) && ([data length] > 0))
+//            {
+//                id responseJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//                
+//                if (error) {
+//                    NSLog(@"An error occurred while downloading the image: %@", error.description);
+//                }
+//                
+//                if ([responseJSON isKindOfClass:[NSNull class]]) {
+//                    NSLog(@"No data!");
+//                }
+//                
+//                if ([responseJSON isKindOfClass:[NSDictionary class]]) {
+//                    NSDictionary *response = [responseJSON objectForKey:@"response"];
+//                    NSLog(@"response: %@", response);
+//                    
+//                }
+//            }
+//        }];
+        
+        
+        ////
+        
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquare) {
+            NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
+            NSString *venueID = (NSString *)[[array objectAtIndex:1] objectAtIndex:1];
+#ifdef DEBUG
+            NSLog(@"Foursquare venue ID: %@", venueID);
+#endif
+            [appDelegate.foursquareController searchFoursquarePhotosWithID:venueID limit:@"1" group:@"venue"];
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"Cannot download the Foursquare venue photo: %@", exception.description);
+    }
+}
 
 #pragma mark - Google Places: place details
 
@@ -552,7 +727,7 @@ informationSourceType:(NSUInteger)informationSourceType
                                      TAK_GOOGLE_PLACES_API_KEY,
                                      self.referenceID];
         NSString *searchURLStringWithPercentEscapes = [searchURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSURL * searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
+        NSURL *searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
         
 #ifdef DEBUG
         NSLog(@"Google Places search URL: %@", searchURL);

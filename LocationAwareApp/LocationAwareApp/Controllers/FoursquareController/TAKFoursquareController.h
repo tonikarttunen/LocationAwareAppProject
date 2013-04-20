@@ -23,6 +23,9 @@
                        searchParameters:(NSDictionary *)searchParameters;
 - (void)checkInToFoursquareVenueWithID:(NSString *)venueID
                    privacySettingValue:(NSString *)privacySettingValue;
+- (void)searchFoursquarePhotosWithID:(NSString *)venueID
+                               limit:(NSString *)limit
+                               group:(NSString *)group;
 - (void)cancelFoursquareRequest;
 - (void)deleteOldFoursquareRequestData;
 

@@ -1,18 +1,26 @@
 # READ ME
 
-This app allows the user to find points of interest nearby. The user can select
-whether to use the new Apple Local Search API or Foursquare API v.2 to find 
-local search results. It is also possible to use this app to check in to 
+This app allows the user to find points of interest nearby. You can select
+whether to use the new Apple Local Search API, Foursquare API v.2 or Google Places API 
+to find local search results. It is also possible to use this app to check in to 
 Foursquare places. 
 
-*Status: ALPHA (not ready for prime time)*
+**Status: ALPHA (not ready for prime time)**
 
 ## Usage Instructions
 
-*TO DO: Write some usage instructions...*
+### Getting the Required API Keys
+
+**TO DO: Write some usage instructions...**
  
 1. Obtain the necessary API keys
 2. Add the API keys to the APIConstants.h file
+
+### Building and Running the App
+
+Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below. You have three options: Foursquare, Google and Apple.
+
+![Figure 1. Choosing a build scheme.](/DocumentationImages/BuildSettings.png "Figure 1. Choosing a build scheme.")
 
 ## Build Requirements
 

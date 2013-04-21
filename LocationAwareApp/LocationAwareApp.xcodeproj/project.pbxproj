@@ -130,6 +130,26 @@
 		E95F28C61724ABF100032B78 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E95F28C51724ABF100032B78 /* GoogleMaps.bundle */; };
 		E95F28C71724ABF100032B78 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E95F28C51724ABF100032B78 /* GoogleMaps.bundle */; };
 		E95F28C81724ABF100032B78 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E95F28C51724ABF100032B78 /* GoogleMaps.bundle */; };
+		E95F28C91724AF6700032B78 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A317248CC2003F87FC /* AVFoundation.framework */; };
+		E95F28CA1724AF7100032B78 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A517248CCC003F87FC /* CoreData.framework */; };
+		E95F28CB1724AF7A00032B78 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A717248CE7003F87FC /* CoreText.framework */; };
+		E95F28CC1724AF8200032B78 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A917248CF1003F87FC /* GLKit.framework */; };
+		E95F28CD1724AF8B00032B78 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AB17248CFD003F87FC /* ImageIO.framework */; };
+		E95F28CE1724AF9C00032B78 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AD17248D10003F87FC /* libc++.dylib */; };
+		E95F28CF1724AFA700032B78 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AF17248D23003F87FC /* libicucore.dylib */; };
+		E95F28D01724AFAF00032B78 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B117248D34003F87FC /* libz.dylib */; };
+		E95F28D11724AFB800032B78 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B317248D3D003F87FC /* OpenGLES.framework */; };
+		E95F28D21724AFCD00032B78 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B517248D4F003F87FC /* SystemConfiguration.framework */; };
+		E95F28D31724AFDC00032B78 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A317248CC2003F87FC /* AVFoundation.framework */; };
+		E95F28D41724AFE400032B78 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A517248CCC003F87FC /* CoreData.framework */; };
+		E95F28D51724AFED00032B78 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A717248CE7003F87FC /* CoreText.framework */; };
+		E95F28D61724AFF800032B78 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A917248CF1003F87FC /* GLKit.framework */; };
+		E95F28D71724B00100032B78 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AB17248CFD003F87FC /* ImageIO.framework */; };
+		E95F28D81724B00E00032B78 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AD17248D10003F87FC /* libc++.dylib */; };
+		E95F28D91724B01700032B78 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AF17248D23003F87FC /* libicucore.dylib */; };
+		E95F28DA1724B01F00032B78 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B117248D34003F87FC /* libz.dylib */; };
+		E95F28DB1724B02600032B78 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B317248D3D003F87FC /* OpenGLES.framework */; };
+		E95F28DC1724B03100032B78 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B517248D4F003F87FC /* SystemConfiguration.framework */; };
 		E96375A417248CC2003F87FC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A317248CC2003F87FC /* AVFoundation.framework */; };
 		E96375A617248CCC003F87FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A517248CCC003F87FC /* CoreData.framework */; };
 		E96375A817248CE7003F87FC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A717248CE7003F87FC /* CoreText.framework */; };
@@ -324,6 +344,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95F28DC1724B03100032B78 /* SystemConfiguration.framework in Frameworks */,
+				E95F28DB1724B02600032B78 /* OpenGLES.framework in Frameworks */,
+				E95F28DA1724B01F00032B78 /* libz.dylib in Frameworks */,
+				E95F28D91724B01700032B78 /* libicucore.dylib in Frameworks */,
+				E95F28D81724B00E00032B78 /* libc++.dylib in Frameworks */,
+				E95F28D71724B00100032B78 /* ImageIO.framework in Frameworks */,
+				E95F28D61724AFF800032B78 /* GLKit.framework in Frameworks */,
+				E95F28D51724AFED00032B78 /* CoreText.framework in Frameworks */,
+				E95F28D41724AFE400032B78 /* CoreData.framework in Frameworks */,
+				E95F28D31724AFDC00032B78 /* AVFoundation.framework in Frameworks */,
 				E95B75331724825900E9D60D /* MobileCoreServices.framework in Frameworks */,
 				E95B75341724825900E9D60D /* Foundation.framework in Frameworks */,
 				E95B75351724825900E9D60D /* AddressBookUI.framework in Frameworks */,
@@ -340,6 +370,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E95F28D21724AFCD00032B78 /* SystemConfiguration.framework in Frameworks */,
+				E95F28D11724AFB800032B78 /* OpenGLES.framework in Frameworks */,
+				E95F28D01724AFAF00032B78 /* libz.dylib in Frameworks */,
+				E95F28CF1724AFA700032B78 /* libicucore.dylib in Frameworks */,
+				E95F28CE1724AF9C00032B78 /* libc++.dylib in Frameworks */,
+				E95F28CD1724AF8B00032B78 /* ImageIO.framework in Frameworks */,
+				E95F28CC1724AF8200032B78 /* GLKit.framework in Frameworks */,
+				E95F28CB1724AF7A00032B78 /* CoreText.framework in Frameworks */,
+				E95F28CA1724AF7100032B78 /* CoreData.framework in Frameworks */,
+				E95F28C91724AF6700032B78 /* AVFoundation.framework in Frameworks */,
 				E9DD63801712F58C009EEB22 /* MobileCoreServices.framework in Frameworks */,
 				E9DA005D16FA3B4F00A76D42 /* Foundation.framework in Frameworks */,
 				E9D1252A16FEC0250057DC74 /* AddressBookUI.framework in Frameworks */,
@@ -1172,6 +1212,7 @@
 		E95B75501724825900E9D60D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1193,6 +1234,7 @@
 		E95B75511724825900E9D60D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1273,6 +1315,7 @@
 		E9DA009316FA3B5000A76D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1294,6 +1337,7 @@
 		E9DA009416FA3B5000A76D42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1312,6 +1356,7 @@
 		E9DA009616FA3B5000A76D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Foursquare.app/Foursquare";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
@@ -1329,6 +1374,7 @@
 		E9DA009716FA3B5000A76D42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Foursquare.app/Foursquare";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",

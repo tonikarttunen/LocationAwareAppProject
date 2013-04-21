@@ -124,6 +124,23 @@
 		E95B754C1724825900E9D60D /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E8171C5C1400F0E194 /* Help2.png */; };
 		E95B754D1724825900E9D60D /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E9171C5C1400F0E194 /* Help2@2x.png */; };
 		E95B754E1724825900E9D60D /* MapPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93BD85D1720D6D4008A752D /* MapPropertyList.plist */; };
+		E95F28C21724ABBD00032B78 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95F28C11724ABBD00032B78 /* GoogleMaps.framework */; };
+		E95F28C31724ABBD00032B78 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95F28C11724ABBD00032B78 /* GoogleMaps.framework */; };
+		E95F28C41724ABBD00032B78 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E95F28C11724ABBD00032B78 /* GoogleMaps.framework */; };
+		E95F28C61724ABF100032B78 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E95F28C51724ABF100032B78 /* GoogleMaps.bundle */; };
+		E95F28C71724ABF100032B78 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E95F28C51724ABF100032B78 /* GoogleMaps.bundle */; };
+		E95F28C81724ABF100032B78 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E95F28C51724ABF100032B78 /* GoogleMaps.bundle */; };
+		E96375A417248CC2003F87FC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A317248CC2003F87FC /* AVFoundation.framework */; };
+		E96375A617248CCC003F87FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A517248CCC003F87FC /* CoreData.framework */; };
+		E96375A817248CE7003F87FC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A717248CE7003F87FC /* CoreText.framework */; };
+		E96375AA17248CF1003F87FC /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A917248CF1003F87FC /* GLKit.framework */; };
+		E96375AC17248CFD003F87FC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AB17248CFD003F87FC /* ImageIO.framework */; };
+		E96375AE17248D10003F87FC /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AD17248D10003F87FC /* libc++.dylib */; };
+		E96375B017248D23003F87FC /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375AF17248D23003F87FC /* libicucore.dylib */; };
+		E96375B217248D34003F87FC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B117248D34003F87FC /* libz.dylib */; };
+		E96375B417248D3D003F87FC /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B317248D3D003F87FC /* OpenGLES.framework */; };
+		E96375B617248D4F003F87FC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375B517248D4F003F87FC /* SystemConfiguration.framework */; };
+		E96375B717248ECF003F87FC /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009A16FA3D5200A76D42 /* MapKit.framework */; };
 		E9813283171A37020046D8C8 /* TAKSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813282171A37020046D8C8 /* TAKSettingsViewController.m */; };
 		E9813287171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813286171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
@@ -218,6 +235,18 @@
 		E95B751B1724822B00E9D60D /* Foursquare copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Foursquare copy-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/Foursquare copy-Info.plist"; sourceTree = "<absolute>"; };
 		E95B75521724825900E9D60D /* Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Apple.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E95B75531724825900E9D60D /* Foursquare copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Foursquare copy2-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/Foursquare copy2-Info.plist"; sourceTree = "<absolute>"; };
+		E95F28C11724ABBD00032B78 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		E95F28C51724ABF100032B78 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
+		E96375A317248CC2003F87FC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E96375A517248CCC003F87FC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E96375A717248CE7003F87FC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		E96375A917248CF1003F87FC /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		E96375AB17248CFD003F87FC /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		E96375AD17248D10003F87FC /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		E96375AF17248D23003F87FC /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		E96375B117248D34003F87FC /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		E96375B317248D3D003F87FC /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		E96375B517248D4F003F87FC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E9813281171A37020046D8C8 /* TAKSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKSettingsViewController.h; path = ViewControllers/Settings/TAKSettingsViewController.h; sourceTree = "<group>"; };
 		E9813282171A37020046D8C8 /* TAKSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKSettingsViewController.m; path = ViewControllers/Settings/TAKSettingsViewController.m; sourceTree = "<group>"; };
 		E9813285171A89E50046D8C8 /* TAKFoursquareCheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareCheckInViewController.h; path = ViewControllers/FoursquareCheckIn/TAKFoursquareCheckInViewController.h; sourceTree = "<group>"; };
@@ -229,7 +258,7 @@
 		E990AD791714F3F5007EA467 /* TAKDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKDetailViewController.h; path = ViewControllers/DetailView/TAKDetailViewController.h; sourceTree = "<group>"; };
 		E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKDetailViewController.m; path = ViewControllers/DetailView/TAKDetailViewController.m; sourceTree = "<group>"; };
 		E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
-		E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationAwareApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9DA005716FA3B4F00A76D42 /* Foursquare.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Foursquare.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DA005A16FA3B4F00A76D42 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E9DA005C16FA3B4F00A76D42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -269,6 +298,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E96375B717248ECF003F87FC /* MapKit.framework in Frameworks */,
+				E96375B617248D4F003F87FC /* SystemConfiguration.framework in Frameworks */,
+				E96375B417248D3D003F87FC /* OpenGLES.framework in Frameworks */,
+				E96375B217248D34003F87FC /* libz.dylib in Frameworks */,
+				E96375B017248D23003F87FC /* libicucore.dylib in Frameworks */,
+				E96375AE17248D10003F87FC /* libc++.dylib in Frameworks */,
+				E96375AC17248CFD003F87FC /* ImageIO.framework in Frameworks */,
+				E96375AA17248CF1003F87FC /* GLKit.framework in Frameworks */,
+				E96375A817248CE7003F87FC /* CoreText.framework in Frameworks */,
+				E96375A617248CCC003F87FC /* CoreData.framework in Frameworks */,
+				E96375A417248CC2003F87FC /* AVFoundation.framework in Frameworks */,
 				E95B74FB1724822A00E9D60D /* MobileCoreServices.framework in Frameworks */,
 				E95B74FC1724822A00E9D60D /* Foundation.framework in Frameworks */,
 				E95B74FD1724822A00E9D60D /* AddressBookUI.framework in Frameworks */,
@@ -276,6 +316,7 @@
 				E95B75001724822A00E9D60D /* CoreLocation.framework in Frameworks */,
 				E95B75011724822A00E9D60D /* UIKit.framework in Frameworks */,
 				E95B75021724822A00E9D60D /* CoreGraphics.framework in Frameworks */,
+				E95F28C31724ABBD00032B78 /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +332,7 @@
 				E95B75381724825900E9D60D /* CoreLocation.framework in Frameworks */,
 				E95B75391724825900E9D60D /* UIKit.framework in Frameworks */,
 				E95B753A1724825900E9D60D /* CoreGraphics.framework in Frameworks */,
+				E95F28C41724ABBD00032B78 /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +348,7 @@
 				E9DA009916FA3D4700A76D42 /* CoreLocation.framework in Frameworks */,
 				E9DA005B16FA3B4F00A76D42 /* UIKit.framework in Frameworks */,
 				E9DA005F16FA3B4F00A76D42 /* CoreGraphics.framework in Frameworks */,
+				E95F28C21724ABBD00032B78 /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +403,13 @@
 				E93BD85B1720D6C4008A752D /* TAKFoursquareAuthorizationView.m */,
 			);
 			name = "Foursquare Authorization View";
+			sourceTree = "<group>";
+		};
+		E95428591724A7BF0087FF1F /* Indexing */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Indexing;
 			sourceTree = "<group>";
 		};
 		E95D529C171F76A400C41110 /* Google */ = {
@@ -502,17 +552,13 @@
 				E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */,
 				E9DA005916FA3B4F00A76D42 /* Frameworks */,
 				E9DA005816FA3B4F00A76D42 /* Products */,
-				E95B74AB17247F4C00E9D60D /* LocationAwareApp copy-Info.plist */,
-				E95B74E317247F7000E9D60D /* LocationAwareApp copy2-Info.plist */,
-				E95B751B1724822B00E9D60D /* Foursquare copy-Info.plist */,
-				E95B75531724825900E9D60D /* Foursquare copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		E9DA005816FA3B4F00A76D42 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */,
+				E9DA005716FA3B4F00A76D42 /* Foursquare.app */,
 				E9DA008016FA3B5000A76D42 /* FoursquareTests.octest */,
 				E95B751A1724822A00E9D60D /* Google.app */,
 				E95B75521724825900E9D60D /* Apple.app */,
@@ -523,6 +569,19 @@
 		E9DA005916FA3B4F00A76D42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E95F28C51724ABF100032B78 /* GoogleMaps.bundle */,
+				E95F28C11724ABBD00032B78 /* GoogleMaps.framework */,
+				E95428591724A7BF0087FF1F /* Indexing */,
+				E96375B517248D4F003F87FC /* SystemConfiguration.framework */,
+				E96375B317248D3D003F87FC /* OpenGLES.framework */,
+				E96375B117248D34003F87FC /* libz.dylib */,
+				E96375AF17248D23003F87FC /* libicucore.dylib */,
+				E96375AD17248D10003F87FC /* libc++.dylib */,
+				E96375AB17248CFD003F87FC /* ImageIO.framework */,
+				E96375A917248CF1003F87FC /* GLKit.framework */,
+				E96375A717248CE7003F87FC /* CoreText.framework */,
+				E96375A517248CCC003F87FC /* CoreData.framework */,
+				E96375A317248CC2003F87FC /* AVFoundation.framework */,
 				E9DD63821712F933009EEB22 /* BZFoursquare */,
 				E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */,
 				E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */,
@@ -556,6 +615,10 @@
 		E9DA006116FA3B4F00A76D42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E95B74AB17247F4C00E9D60D /* LocationAwareApp copy-Info.plist */,
+				E95B74E317247F7000E9D60D /* LocationAwareApp copy2-Info.plist */,
+				E95B751B1724822B00E9D60D /* Foursquare copy-Info.plist */,
+				E95B75531724825900E9D60D /* Foursquare copy2-Info.plist */,
 				E9DA006216FA3B4F00A76D42 /* LocationAwareApp-Info.plist */,
 				E9DA006316FA3B4F00A76D42 /* InfoPlist.strings */,
 				E9DA006616FA3B4F00A76D42 /* main.m */,
@@ -762,7 +825,7 @@
 			);
 			name = Foursquare;
 			productName = LocationAwareApp;
-			productReference = E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */;
+			productReference = E9DA005716FA3B4F00A76D42 /* Foursquare.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E9DA007F16FA3B5000A76D42 /* FoursquareTests */ = {
@@ -838,6 +901,7 @@
 				E95B75141724822A00E9D60D /* Help2.png in Resources */,
 				E95B75151724822A00E9D60D /* Help2@2x.png in Resources */,
 				E95B75161724822A00E9D60D /* MapPropertyList.plist in Resources */,
+				E95F28C71724ABF100032B78 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,6 +928,7 @@
 				E95B754C1724825900E9D60D /* Help2.png in Resources */,
 				E95B754D1724825900E9D60D /* Help2@2x.png in Resources */,
 				E95B754E1724825900E9D60D /* MapPropertyList.plist in Resources */,
+				E95F28C81724ABF100032B78 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -890,6 +955,7 @@
 				E942F9EA171C5C1400F0E194 /* Help2.png in Resources */,
 				E942F9EB171C5C1400F0E194 /* Help2@2x.png in Resources */,
 				E93BD85E1720D6D4008A752D /* MapPropertyList.plist in Resources */,
+				E95F28C61724ABF100032B78 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,6 +1127,13 @@
 		E95B75181724822A00E9D60D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LocationAwareApp/Frameworks\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../Libraries/iOS/Google/Maps SDK for iOS/GoogleMaps-iOS-1.1.2\"",
+					"\"$(SRCROOT)/LocationAwareApp\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -1070,6 +1143,7 @@
 				INFOPLIST_FILE = "Foursquare copy-Info.plist";
 				PRODUCT_NAME = Google;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1077,12 +1151,20 @@
 		E95B75191724822A00E9D60D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/LocationAwareApp/Frameworks\"",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/../../../../Libraries/iOS/Google/Maps SDK for iOS/GoogleMaps-iOS-1.1.2\"",
+					"\"$(SRCROOT)/LocationAwareApp\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "TAK_GOOGLE=1";
 				INFOPLIST_FILE = "Foursquare copy-Info.plist";
 				PRODUCT_NAME = Google;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(BUILD_ROOT)/../IntermediateBuildFilesPath/UninstalledProducts";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1090,6 +1172,11 @@
 		E95B75501724825900E9D60D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/LocationAwareApp\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -1106,6 +1193,11 @@
 		E95B75511724825900E9D60D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/LocationAwareApp\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "TAK_APPLE=1";
@@ -1120,6 +1212,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1143,6 +1236,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1152,6 +1246,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1168,6 +1263,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1177,6 +1273,11 @@
 		E9DA009316FA3B5000A76D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/LocationAwareApp\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
@@ -1193,6 +1294,11 @@
 		E9DA009416FA3B5000A76D42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/LocationAwareApp\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "TAK_FOURSQUARE=1";

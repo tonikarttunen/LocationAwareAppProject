@@ -6,13 +6,18 @@
 //  Copyright (c) 2013 Toni Antero Karttunen. All rights reserved.
 //
 
+
 #import "TAKGoogleViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "TAKAppDelegate.h"
 #import "APIConstants.h"
-#import "TAKMapView.h"
+// #import "TAKMapView.h"
 #import "TAKSearchResultsTableView.h"
 #import "TAKDetailViewController.h"
+#import <GoogleMaps/GoogleMaps.h>
+//#ifdef TAK_GOOGLE
+//#import <GoogleMaps/GoogleMaps.h>
+//#endif
 
 #define TAK_GOOGLE_PLACES_BASE_URL @"https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
 
@@ -22,7 +27,7 @@
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
-@property (nonatomic, strong) TAKMapView *mapView;
+@property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
@@ -107,7 +112,7 @@
          @"Radius" : [NSNumber numberWithInt:3000]
      }];
     
-    [self generateInitialUI];
+    [self generateInitialUIWithLatitude:latitude longitude:longitude];
 }
 
 - (void)didReceiveMemoryWarning
@@ -117,11 +122,11 @@
 
 #pragma mark - UI
 
-- (void)generateInitialUI
+- (void)generateInitialUIWithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
 {
     [self setViewBasicProperties];
     [self generateToolbar];
-    [self generateMapView];
+    [self generateMapViewWithLatitude:latitude longitude:longitude];
     if (!self.activityIndicatorView) {
         self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     }
@@ -189,11 +194,17 @@
     [self.view addSubview:self.tableView];
 }
 
-- (void)generateMapView
+- (void)generateMapViewWithLatitude:(CLLocationDegrees)latitude longitude:(CLLocationDegrees)longitude
 {
-    self.mapView = [[TAKMapView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
-    self.mapView.informationSourceType = TAKInformationSourceTypeApple;
+#ifdef TAK_GOOGLE
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude
+                                                            longitude:longitude
+                                                                 zoom:11];
+    self.mapView = [[GMSMapView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.mapView.camera = camera;
+    self.mapView.myLocationEnabled = YES;
     [self.view addSubview:self.mapView];
+#endif
 }
 
 #pragma mark - Segmented control actions
@@ -203,10 +214,25 @@
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0: {
             // Swap the view if necessary
+#ifdef TAK_GOOGLE
             if (self.mapView == nil) {
-                [self generateMapView];
+                TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+                
+                CLLocation *location;
+                double latitude;
+                double longitude;
+                if (appDelegate && appDelegate.locationController.lastKnownLocation != nil) {
+                    location = appDelegate.locationController.lastKnownLocation;
+                    latitude = (double)location.coordinate.latitude;
+                    longitude = (double)location.coordinate.longitude;
+                } else { // Aleksanterinkatu 52, Helsinki, Finland
+                    latitude = 60.168824;
+                    longitude = 24.942422;
+                }
+                [self generateMapViewWithLatitude:latitude longitude:longitude];
             }
             self.mapView.hidden = NO;
+#endif
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;
             }
@@ -218,9 +244,11 @@
                 [self generateTableView];
             }
             self.tableView.hidden = NO;
+#ifdef TAK_GOOGLE
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
             }
+#endif
             break;
         }
     }
@@ -251,16 +279,32 @@
     @try {
         NSArray *searchResults = [self.searchResponse objectForKey:@"results"];
         
-        [self.mapView refreshMapAnnotationsWithArray:(NSArray *)searchResults informationSource:TAKInformationSourceTypeGoogle];
-        
         if (self.tableView != nil) {
             self.tableView.tableViewContents = (NSMutableArray *)searchResults;
             [self.tableView reloadData];
         }
         
-        if (searchResults.count < 1) {
+        if ((searchResults == nil) || (searchResults.count < 1)) {
             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"No Results" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
             [alert show];
+        } else {
+            if (searchResults.count > 0) {
+                for (int i = 0; i < searchResults.count; i++) {
+                    
+#ifdef TAK_GOOGLE
+                    NSDictionary *placeInformation = [searchResults objectAtIndex:i];
+                    
+                    GMSMarker *marker = [[GMSMarker alloc] init];
+                    CLLocationDegrees latitude = (CLLocationDegrees)[[[[placeInformation objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+                    CLLocationDegrees longitude = (CLLocationDegrees)[[[[placeInformation objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+                    marker.position = CLLocationCoordinate2DMake(latitude, longitude);
+                    marker.title = (NSString *)[placeInformation objectForKey:@"name"];
+                    marker.snippet = (NSString*)[placeInformation objectForKey:@"vicinity"];
+                    marker.map = self.mapView;
+                    NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f", marker.title, marker.snippet, latitude, longitude);
+#endif
+                }
+            }
         }
     }
     @catch (NSException *exception) {

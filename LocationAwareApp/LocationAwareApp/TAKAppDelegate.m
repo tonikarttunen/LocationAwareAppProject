@@ -10,6 +10,10 @@
 #import "TAKMainMenuViewController.h"
 #import "TAKFoursquareLocalSearchResultsViewController.h"
 #import "BZFoursquare.h"
+#ifdef TAK_GOOGLE
+#import <GoogleMaps/GoogleMaps.h>
+#import "APIConstants.h"
+#endif
 
 @implementation TAKAppDelegate
 
@@ -32,6 +36,7 @@
     self.currentInformationSource = TAKInformationSourceTypeFoursquare;
 #elif defined TAK_GOOGLE
     NSLog(@"Running the Google version of the app...");
+    [GMSServices provideAPIKey:TAK_GOOGLE_MAPS_API_KEY];
     self.currentInformationSource = TAKInformationSourceTypeGoogle;
 #elif defined TAK_APPLE
     NSLog(@"Running the Apple version of the app...");

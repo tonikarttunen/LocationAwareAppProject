@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#ifndef TAK_GOOGLE
 #import <MapKit/MapKit.h>
+#endif
 #import "TAKLocationController.h"
 #import "TAKFoursquareController.h"
 

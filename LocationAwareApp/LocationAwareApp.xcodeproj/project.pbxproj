@@ -31,6 +31,99 @@
 		E942F9E0171C520800F0E194 /* SettingsGearCropped17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DE171C520800F0E194 /* SettingsGearCropped17@2x.png */; };
 		E942F9EA171C5C1400F0E194 /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E8171C5C1400F0E194 /* Help2.png */; };
 		E942F9EB171C5C1400F0E194 /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E9171C5C1400F0E194 /* Help2@2x.png */; };
+		E95B74E61724822A00E9D60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
+		E95B74E71724822A00E9D60D /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
+		E95B74E81724822A00E9D60D /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
+		E95B74E91724822A00E9D60D /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
+		E95B74EA1724822A00E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */; };
+		E95B74EB1724822A00E9D60D /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */; };
+		E95B74EC1724822A00E9D60D /* TAKFoursquareController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F86A9217141ECA00D249AD /* TAKFoursquareController.m */; };
+		E95B74ED1724822A00E9D60D /* TAKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */; };
+		E95B74EE1724822A00E9D60D /* TAKSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813282171A37020046D8C8 /* TAKSettingsViewController.m */; };
+		E95B74EF1724822A00E9D60D /* TAKFoursquareCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813286171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m */; };
+		E95B74F01724822A00E9D60D /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8451720D5A9008A752D /* TAKGeocoder.m */; };
+		E95B74F11724822A00E9D60D /* TAKLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8481720D5BE008A752D /* TAKLocationController.m */; };
+		E95B74F21724822A00E9D60D /* BZFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD84B1720D607008A752D /* BZFoursquare.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E95B74F31724822A00E9D60D /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD84D1720D607008A752D /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E95B74F41724822A00E9D60D /* NSArray+FoursquareDataProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8511720D620008A752D /* NSArray+FoursquareDataProcessor.m */; };
+		E95B74F51724822A00E9D60D /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8551720D65D008A752D /* UIView+FindNextViewController.m */; };
+		E95B74F61724822A00E9D60D /* TAKGoogleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8581720D685008A752D /* TAKGoogleViewController.m */; };
+		E95B74F71724822A00E9D60D /* TAKFoursquareAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD85B1720D6C4008A752D /* TAKFoursquareAuthorizationView.m */; };
+		E95B74F81724822A00E9D60D /* TAKMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8601720D6E7008A752D /* TAKMapView.m */; };
+		E95B74F91724822A00E9D60D /* TAKSearchResultsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8631720D6F4008A752D /* TAKSearchResultsTableView.m */; };
+		E95B74FB1724822A00E9D60D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */; };
+		E95B74FC1724822A00E9D60D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005C16FA3B4F00A76D42 /* Foundation.framework */; };
+		E95B74FD1724822A00E9D60D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */; };
+		E95B74FE1724822A00E9D60D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */; };
+		E95B75001724822A00E9D60D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009816FA3D4700A76D42 /* CoreLocation.framework */; };
+		E95B75011724822A00E9D60D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005A16FA3B4F00A76D42 /* UIKit.framework */; };
+		E95B75021724822A00E9D60D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */; };
+		E95B75041724822A00E9D60D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006316FA3B4F00A76D42 /* InfoPlist.strings */; };
+		E95B75051724822A00E9D60D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006C16FA3B4F00A76D42 /* Default.png */; };
+		E95B75061724822A00E9D60D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006E16FA3B4F00A76D42 /* Default@2x.png */; };
+		E95B75071724822A00E9D60D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */; };
+		E95B75081724822A00E9D60D /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007516FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPhone.xib */; };
+		E95B75091724822A00E9D60D /* TAKLocalSearchResultsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007816FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPad.xib */; };
+		E95B750A1724822A00E9D60D /* poweredByFoursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639217136180009EEB22 /* poweredByFoursquare.png */; };
+		E95B750B1724822A00E9D60D /* poweredByFoursquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639317136180009EEB22 /* poweredByFoursquare@2x.png */; };
+		E95B750C1724822A00E9D60D /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9CD171B7C7E00F0E194 /* NavBar.png */; };
+		E95B750D1724822A00E9D60D /* NavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9CE171B7C7E00F0E194 /* NavBar@2x.png */; };
+		E95B750E1724822A00E9D60D /* ToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D1171B7D5100F0E194 /* ToolbarBackground.png */; };
+		E95B750F1724822A00E9D60D /* ToolbarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D2171B7D5100F0E194 /* ToolbarBackground@2x.png */; };
+		E95B75101724822A00E9D60D /* TopGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D9171B80EC00F0E194 /* TopGradient.png */; };
+		E95B75111724822A00E9D60D /* TopGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DA171B80EC00F0E194 /* TopGradient@2x.png */; };
+		E95B75121724822A00E9D60D /* SettingsGearCropped17.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DD171C520800F0E194 /* SettingsGearCropped17.png */; };
+		E95B75131724822A00E9D60D /* SettingsGearCropped17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DE171C520800F0E194 /* SettingsGearCropped17@2x.png */; };
+		E95B75141724822A00E9D60D /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E8171C5C1400F0E194 /* Help2.png */; };
+		E95B75151724822A00E9D60D /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E9171C5C1400F0E194 /* Help2@2x.png */; };
+		E95B75161724822A00E9D60D /* MapPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93BD85D1720D6D4008A752D /* MapPropertyList.plist */; };
+		E95B751E1724825900E9D60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
+		E95B751F1724825900E9D60D /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
+		E95B75201724825900E9D60D /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
+		E95B75211724825900E9D60D /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
+		E95B75221724825900E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */; };
+		E95B75231724825900E9D60D /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */; };
+		E95B75241724825900E9D60D /* TAKFoursquareController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F86A9217141ECA00D249AD /* TAKFoursquareController.m */; };
+		E95B75251724825900E9D60D /* TAKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */; };
+		E95B75261724825900E9D60D /* TAKSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813282171A37020046D8C8 /* TAKSettingsViewController.m */; };
+		E95B75271724825900E9D60D /* TAKFoursquareCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813286171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m */; };
+		E95B75281724825900E9D60D /* TAKGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8451720D5A9008A752D /* TAKGeocoder.m */; };
+		E95B75291724825900E9D60D /* TAKLocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8481720D5BE008A752D /* TAKLocationController.m */; };
+		E95B752A1724825900E9D60D /* BZFoursquare.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD84B1720D607008A752D /* BZFoursquare.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E95B752B1724825900E9D60D /* BZFoursquareRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD84D1720D607008A752D /* BZFoursquareRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E95B752C1724825900E9D60D /* NSArray+FoursquareDataProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8511720D620008A752D /* NSArray+FoursquareDataProcessor.m */; };
+		E95B752D1724825900E9D60D /* UIView+FindNextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8551720D65D008A752D /* UIView+FindNextViewController.m */; };
+		E95B752E1724825900E9D60D /* TAKGoogleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8581720D685008A752D /* TAKGoogleViewController.m */; };
+		E95B752F1724825900E9D60D /* TAKFoursquareAuthorizationView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD85B1720D6C4008A752D /* TAKFoursquareAuthorizationView.m */; };
+		E95B75301724825900E9D60D /* TAKMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8601720D6E7008A752D /* TAKMapView.m */; };
+		E95B75311724825900E9D60D /* TAKSearchResultsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E93BD8631720D6F4008A752D /* TAKSearchResultsTableView.m */; };
+		E95B75331724825900E9D60D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DD637F1712F58C009EEB22 /* MobileCoreServices.framework */; };
+		E95B75341724825900E9D60D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005C16FA3B4F00A76D42 /* Foundation.framework */; };
+		E95B75351724825900E9D60D /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */; };
+		E95B75361724825900E9D60D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009C16FA3D5E00A76D42 /* QuartzCore.framework */; };
+		E95B75371724825900E9D60D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009A16FA3D5200A76D42 /* MapKit.framework */; };
+		E95B75381724825900E9D60D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA009816FA3D4700A76D42 /* CoreLocation.framework */; };
+		E95B75391724825900E9D60D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005A16FA3B4F00A76D42 /* UIKit.framework */; };
+		E95B753A1724825900E9D60D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA005E16FA3B4F00A76D42 /* CoreGraphics.framework */; };
+		E95B753C1724825900E9D60D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006316FA3B4F00A76D42 /* InfoPlist.strings */; };
+		E95B753D1724825900E9D60D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006C16FA3B4F00A76D42 /* Default.png */; };
+		E95B753E1724825900E9D60D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA006E16FA3B4F00A76D42 /* Default@2x.png */; };
+		E95B753F1724825900E9D60D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */; };
+		E95B75401724825900E9D60D /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007516FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPhone.xib */; };
+		E95B75411724825900E9D60D /* TAKLocalSearchResultsViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DA007816FA3B4F00A76D42 /* TAKLocalSearchResultsViewController_iPad.xib */; };
+		E95B75421724825900E9D60D /* poweredByFoursquare.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639217136180009EEB22 /* poweredByFoursquare.png */; };
+		E95B75431724825900E9D60D /* poweredByFoursquare@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DD639317136180009EEB22 /* poweredByFoursquare@2x.png */; };
+		E95B75441724825900E9D60D /* NavBar.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9CD171B7C7E00F0E194 /* NavBar.png */; };
+		E95B75451724825900E9D60D /* NavBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9CE171B7C7E00F0E194 /* NavBar@2x.png */; };
+		E95B75461724825900E9D60D /* ToolbarBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D1171B7D5100F0E194 /* ToolbarBackground.png */; };
+		E95B75471724825900E9D60D /* ToolbarBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D2171B7D5100F0E194 /* ToolbarBackground@2x.png */; };
+		E95B75481724825900E9D60D /* TopGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9D9171B80EC00F0E194 /* TopGradient.png */; };
+		E95B75491724825900E9D60D /* TopGradient@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DA171B80EC00F0E194 /* TopGradient@2x.png */; };
+		E95B754A1724825900E9D60D /* SettingsGearCropped17.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DD171C520800F0E194 /* SettingsGearCropped17.png */; };
+		E95B754B1724825900E9D60D /* SettingsGearCropped17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DE171C520800F0E194 /* SettingsGearCropped17@2x.png */; };
+		E95B754C1724825900E9D60D /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E8171C5C1400F0E194 /* Help2.png */; };
+		E95B754D1724825900E9D60D /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E9171C5C1400F0E194 /* Help2@2x.png */; };
+		E95B754E1724825900E9D60D /* MapPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = E93BD85D1720D6D4008A752D /* MapPropertyList.plist */; };
 		E9813283171A37020046D8C8 /* TAKSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813282171A37020046D8C8 /* TAKSettingsViewController.m */; };
 		E9813287171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813286171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
@@ -119,6 +212,12 @@
 		E942F9E8171C5C1400F0E194 /* Help2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Help2.png; path = Images/Help2.png; sourceTree = "<group>"; };
 		E942F9E9171C5C1400F0E194 /* Help2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Help2@2x.png"; path = "Images/Help2@2x.png"; sourceTree = "<group>"; };
 		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
+		E95B74AB17247F4C00E9D60D /* LocationAwareApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LocationAwareApp copy-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/LocationAwareApp copy-Info.plist"; sourceTree = "<absolute>"; };
+		E95B74E317247F7000E9D60D /* LocationAwareApp copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LocationAwareApp copy2-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/LocationAwareApp copy2-Info.plist"; sourceTree = "<absolute>"; };
+		E95B751A1724822A00E9D60D /* Google.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Google.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E95B751B1724822B00E9D60D /* Foursquare copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Foursquare copy-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/Foursquare copy-Info.plist"; sourceTree = "<absolute>"; };
+		E95B75521724825900E9D60D /* Apple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Apple.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E95B75531724825900E9D60D /* Foursquare copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Foursquare copy2-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/Foursquare copy2-Info.plist"; sourceTree = "<absolute>"; };
 		E9813281171A37020046D8C8 /* TAKSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKSettingsViewController.h; path = ViewControllers/Settings/TAKSettingsViewController.h; sourceTree = "<group>"; };
 		E9813282171A37020046D8C8 /* TAKSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKSettingsViewController.m; path = ViewControllers/Settings/TAKSettingsViewController.m; sourceTree = "<group>"; };
 		E9813285171A89E50046D8C8 /* TAKFoursquareCheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKFoursquareCheckInViewController.h; path = ViewControllers/FoursquareCheckIn/TAKFoursquareCheckInViewController.h; sourceTree = "<group>"; };
@@ -145,7 +244,7 @@
 		E9DA007016FA3B4F00A76D42 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E9DA007616FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TAKLocalSearchResultsViewController_iPhone.xib; sourceTree = "<group>"; };
 		E9DA007916FA3B4F00A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TAKLocalSearchResultsViewController_iPad.xib; sourceTree = "<group>"; };
-		E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocationAwareAppTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9DA008016FA3B5000A76D42 /* FoursquareTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoursquareTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9DA008116FA3B5000A76D42 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		E9DA008916FA3B5000A76D42 /* LocationAwareAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "LocationAwareAppTests-Info.plist"; sourceTree = "<group>"; };
 		E9DA008B16FA3B5000A76D42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -166,6 +265,35 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E95B74FA1724822A00E9D60D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E95B74FB1724822A00E9D60D /* MobileCoreServices.framework in Frameworks */,
+				E95B74FC1724822A00E9D60D /* Foundation.framework in Frameworks */,
+				E95B74FD1724822A00E9D60D /* AddressBookUI.framework in Frameworks */,
+				E95B74FE1724822A00E9D60D /* QuartzCore.framework in Frameworks */,
+				E95B75001724822A00E9D60D /* CoreLocation.framework in Frameworks */,
+				E95B75011724822A00E9D60D /* UIKit.framework in Frameworks */,
+				E95B75021724822A00E9D60D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E95B75321724825900E9D60D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E95B75331724825900E9D60D /* MobileCoreServices.framework in Frameworks */,
+				E95B75341724825900E9D60D /* Foundation.framework in Frameworks */,
+				E95B75351724825900E9D60D /* AddressBookUI.framework in Frameworks */,
+				E95B75361724825900E9D60D /* QuartzCore.framework in Frameworks */,
+				E95B75371724825900E9D60D /* MapKit.framework in Frameworks */,
+				E95B75381724825900E9D60D /* CoreLocation.framework in Frameworks */,
+				E95B75391724825900E9D60D /* UIKit.framework in Frameworks */,
+				E95B753A1724825900E9D60D /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9DA005416FA3B4F00A76D42 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,6 +502,10 @@
 				E9DA008716FA3B5000A76D42 /* LocationAwareAppTests */,
 				E9DA005916FA3B4F00A76D42 /* Frameworks */,
 				E9DA005816FA3B4F00A76D42 /* Products */,
+				E95B74AB17247F4C00E9D60D /* LocationAwareApp copy-Info.plist */,
+				E95B74E317247F7000E9D60D /* LocationAwareApp copy2-Info.plist */,
+				E95B751B1724822B00E9D60D /* Foursquare copy-Info.plist */,
+				E95B75531724825900E9D60D /* Foursquare copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -381,7 +513,9 @@
 			isa = PBXGroup;
 			children = (
 				E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */,
-				E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */,
+				E9DA008016FA3B5000A76D42 /* FoursquareTests.octest */,
+				E95B751A1724822A00E9D60D /* Google.app */,
+				E95B75521724825900E9D60D /* Apple.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -580,9 +714,43 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E9DA005616FA3B4F00A76D42 /* LocationAwareApp */ = {
+		E95B74E41724822A00E9D60D /* Google */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9DA009216FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareApp" */;
+			buildConfigurationList = E95B75171724822A00E9D60D /* Build configuration list for PBXNativeTarget "Google" */;
+			buildPhases = (
+				E95B74E51724822A00E9D60D /* Sources */,
+				E95B74FA1724822A00E9D60D /* Frameworks */,
+				E95B75031724822A00E9D60D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Google;
+			productName = LocationAwareApp;
+			productReference = E95B751A1724822A00E9D60D /* Google.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E95B751C1724825900E9D60D /* Apple */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E95B754F1724825900E9D60D /* Build configuration list for PBXNativeTarget "Apple" */;
+			buildPhases = (
+				E95B751D1724825900E9D60D /* Sources */,
+				E95B75321724825900E9D60D /* Frameworks */,
+				E95B753B1724825900E9D60D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Apple;
+			productName = LocationAwareApp;
+			productReference = E95B75521724825900E9D60D /* Apple.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E9DA005616FA3B4F00A76D42 /* Foursquare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9DA009216FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "Foursquare" */;
 			buildPhases = (
 				E9DA005316FA3B4F00A76D42 /* Sources */,
 				E9DA005416FA3B4F00A76D42 /* Frameworks */,
@@ -592,14 +760,14 @@
 			);
 			dependencies = (
 			);
-			name = LocationAwareApp;
+			name = Foursquare;
 			productName = LocationAwareApp;
 			productReference = E9DA005716FA3B4F00A76D42 /* LocationAwareApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E9DA007F16FA3B5000A76D42 /* LocationAwareAppTests */ = {
+		E9DA007F16FA3B5000A76D42 /* FoursquareTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareAppTests" */;
+			buildConfigurationList = E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "FoursquareTests" */;
 			buildPhases = (
 				E9DA007B16FA3B5000A76D42 /* Sources */,
 				E9DA007C16FA3B5000A76D42 /* Frameworks */,
@@ -611,9 +779,9 @@
 			dependencies = (
 				E9DA008616FA3B5000A76D42 /* PBXTargetDependency */,
 			);
-			name = LocationAwareAppTests;
+			name = FoursquareTests;
 			productName = LocationAwareAppTests;
-			productReference = E9DA008016FA3B5000A76D42 /* LocationAwareAppTests.octest */;
+			productReference = E9DA008016FA3B5000A76D42 /* FoursquareTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -638,13 +806,67 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E9DA005616FA3B4F00A76D42 /* LocationAwareApp */,
-				E9DA007F16FA3B5000A76D42 /* LocationAwareAppTests */,
+				E9DA005616FA3B4F00A76D42 /* Foursquare */,
+				E9DA007F16FA3B5000A76D42 /* FoursquareTests */,
+				E95B74E41724822A00E9D60D /* Google */,
+				E95B751C1724825900E9D60D /* Apple */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E95B75031724822A00E9D60D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E95B75041724822A00E9D60D /* InfoPlist.strings in Resources */,
+				E95B75051724822A00E9D60D /* Default.png in Resources */,
+				E95B75061724822A00E9D60D /* Default@2x.png in Resources */,
+				E95B75071724822A00E9D60D /* Default-568h@2x.png in Resources */,
+				E95B75081724822A00E9D60D /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */,
+				E95B75091724822A00E9D60D /* TAKLocalSearchResultsViewController_iPad.xib in Resources */,
+				E95B750A1724822A00E9D60D /* poweredByFoursquare.png in Resources */,
+				E95B750B1724822A00E9D60D /* poweredByFoursquare@2x.png in Resources */,
+				E95B750C1724822A00E9D60D /* NavBar.png in Resources */,
+				E95B750D1724822A00E9D60D /* NavBar@2x.png in Resources */,
+				E95B750E1724822A00E9D60D /* ToolbarBackground.png in Resources */,
+				E95B750F1724822A00E9D60D /* ToolbarBackground@2x.png in Resources */,
+				E95B75101724822A00E9D60D /* TopGradient.png in Resources */,
+				E95B75111724822A00E9D60D /* TopGradient@2x.png in Resources */,
+				E95B75121724822A00E9D60D /* SettingsGearCropped17.png in Resources */,
+				E95B75131724822A00E9D60D /* SettingsGearCropped17@2x.png in Resources */,
+				E95B75141724822A00E9D60D /* Help2.png in Resources */,
+				E95B75151724822A00E9D60D /* Help2@2x.png in Resources */,
+				E95B75161724822A00E9D60D /* MapPropertyList.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E95B753B1724825900E9D60D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E95B753C1724825900E9D60D /* InfoPlist.strings in Resources */,
+				E95B753D1724825900E9D60D /* Default.png in Resources */,
+				E95B753E1724825900E9D60D /* Default@2x.png in Resources */,
+				E95B753F1724825900E9D60D /* Default-568h@2x.png in Resources */,
+				E95B75401724825900E9D60D /* TAKLocalSearchResultsViewController_iPhone.xib in Resources */,
+				E95B75411724825900E9D60D /* TAKLocalSearchResultsViewController_iPad.xib in Resources */,
+				E95B75421724825900E9D60D /* poweredByFoursquare.png in Resources */,
+				E95B75431724825900E9D60D /* poweredByFoursquare@2x.png in Resources */,
+				E95B75441724825900E9D60D /* NavBar.png in Resources */,
+				E95B75451724825900E9D60D /* NavBar@2x.png in Resources */,
+				E95B75461724825900E9D60D /* ToolbarBackground.png in Resources */,
+				E95B75471724825900E9D60D /* ToolbarBackground@2x.png in Resources */,
+				E95B75481724825900E9D60D /* TopGradient.png in Resources */,
+				E95B75491724825900E9D60D /* TopGradient@2x.png in Resources */,
+				E95B754A1724825900E9D60D /* SettingsGearCropped17.png in Resources */,
+				E95B754B1724825900E9D60D /* SettingsGearCropped17@2x.png in Resources */,
+				E95B754C1724825900E9D60D /* Help2.png in Resources */,
+				E95B754D1724825900E9D60D /* Help2@2x.png in Resources */,
+				E95B754E1724825900E9D60D /* MapPropertyList.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9DA005516FA3B4F00A76D42 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -698,6 +920,60 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E95B74E51724822A00E9D60D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E95B74E61724822A00E9D60D /* main.m in Sources */,
+				E95B74E71724822A00E9D60D /* TAKAppDelegate.m in Sources */,
+				E95B74E81724822A00E9D60D /* TAKMainMenuViewController.m in Sources */,
+				E95B74E91724822A00E9D60D /* TAKReminderMasterViewController.m in Sources */,
+				E95B74EA1724822A00E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */,
+				E95B74EB1724822A00E9D60D /* TAKLocalSearchResultsViewController.m in Sources */,
+				E95B74EC1724822A00E9D60D /* TAKFoursquareController.m in Sources */,
+				E95B74ED1724822A00E9D60D /* TAKDetailViewController.m in Sources */,
+				E95B74EE1724822A00E9D60D /* TAKSettingsViewController.m in Sources */,
+				E95B74EF1724822A00E9D60D /* TAKFoursquareCheckInViewController.m in Sources */,
+				E95B74F01724822A00E9D60D /* TAKGeocoder.m in Sources */,
+				E95B74F11724822A00E9D60D /* TAKLocationController.m in Sources */,
+				E95B74F21724822A00E9D60D /* BZFoursquare.m in Sources */,
+				E95B74F31724822A00E9D60D /* BZFoursquareRequest.m in Sources */,
+				E95B74F41724822A00E9D60D /* NSArray+FoursquareDataProcessor.m in Sources */,
+				E95B74F51724822A00E9D60D /* UIView+FindNextViewController.m in Sources */,
+				E95B74F61724822A00E9D60D /* TAKGoogleViewController.m in Sources */,
+				E95B74F71724822A00E9D60D /* TAKFoursquareAuthorizationView.m in Sources */,
+				E95B74F81724822A00E9D60D /* TAKMapView.m in Sources */,
+				E95B74F91724822A00E9D60D /* TAKSearchResultsTableView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E95B751D1724825900E9D60D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E95B751E1724825900E9D60D /* main.m in Sources */,
+				E95B751F1724825900E9D60D /* TAKAppDelegate.m in Sources */,
+				E95B75201724825900E9D60D /* TAKMainMenuViewController.m in Sources */,
+				E95B75211724825900E9D60D /* TAKReminderMasterViewController.m in Sources */,
+				E95B75221724825900E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */,
+				E95B75231724825900E9D60D /* TAKLocalSearchResultsViewController.m in Sources */,
+				E95B75241724825900E9D60D /* TAKFoursquareController.m in Sources */,
+				E95B75251724825900E9D60D /* TAKDetailViewController.m in Sources */,
+				E95B75261724825900E9D60D /* TAKSettingsViewController.m in Sources */,
+				E95B75271724825900E9D60D /* TAKFoursquareCheckInViewController.m in Sources */,
+				E95B75281724825900E9D60D /* TAKGeocoder.m in Sources */,
+				E95B75291724825900E9D60D /* TAKLocationController.m in Sources */,
+				E95B752A1724825900E9D60D /* BZFoursquare.m in Sources */,
+				E95B752B1724825900E9D60D /* BZFoursquareRequest.m in Sources */,
+				E95B752C1724825900E9D60D /* NSArray+FoursquareDataProcessor.m in Sources */,
+				E95B752D1724825900E9D60D /* UIView+FindNextViewController.m in Sources */,
+				E95B752E1724825900E9D60D /* TAKGoogleViewController.m in Sources */,
+				E95B752F1724825900E9D60D /* TAKFoursquareAuthorizationView.m in Sources */,
+				E95B75301724825900E9D60D /* TAKMapView.m in Sources */,
+				E95B75311724825900E9D60D /* TAKSearchResultsTableView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E9DA005316FA3B4F00A76D42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -741,7 +1017,7 @@
 /* Begin PBXTargetDependency section */
 		E9DA008616FA3B5000A76D42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E9DA005616FA3B4F00A76D42 /* LocationAwareApp */;
+			target = E9DA005616FA3B4F00A76D42 /* Foursquare */;
 			targetProxy = E9DA008516FA3B5000A76D42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -782,6 +1058,64 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E95B75181724822A00E9D60D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"TAK_GOOGLE=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Foursquare copy-Info.plist";
+				PRODUCT_NAME = Google;
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E95B75191724822A00E9D60D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "TAK_GOOGLE=1";
+				INFOPLIST_FILE = "Foursquare copy-Info.plist";
+				PRODUCT_NAME = Google;
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E95B75501724825900E9D60D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"TAK_APPLE=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Foursquare copy2-Info.plist";
+				PRODUCT_NAME = Apple;
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E95B75511724825900E9D60D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "TAK_APPLE=1";
+				INFOPLIST_FILE = "Foursquare copy2-Info.plist";
+				PRODUCT_NAME = Apple;
+				TARGETED_DEVICE_FAMILY = 1;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 		E9DA009016FA3B5000A76D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -845,6 +1179,10 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"TAK_FOURSQUARE=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "LocationAwareApp/LocationAwareApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -857,6 +1195,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LocationAwareApp/LocationAwareApp-Prefix.pch";
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "TAK_FOURSQUARE=1";
 				INFOPLIST_FILE = "LocationAwareApp/LocationAwareApp-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -867,7 +1206,7 @@
 		E9DA009616FA3B5000A76D42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LocationAwareApp.app/LocationAwareApp";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Foursquare.app/Foursquare";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -884,7 +1223,7 @@
 		E9DA009716FA3B5000A76D42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LocationAwareApp.app/LocationAwareApp";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Foursquare.app/Foursquare";
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
@@ -901,6 +1240,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E95B75171724822A00E9D60D /* Build configuration list for PBXNativeTarget "Google" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E95B75181724822A00E9D60D /* Debug */,
+				E95B75191724822A00E9D60D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E95B754F1724825900E9D60D /* Build configuration list for PBXNativeTarget "Apple" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E95B75501724825900E9D60D /* Debug */,
+				E95B75511724825900E9D60D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E9DA005216FA3B4F00A76D42 /* Build configuration list for PBXProject "LocationAwareApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -910,7 +1267,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9DA009216FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareApp" */ = {
+		E9DA009216FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "Foursquare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9DA009316FA3B5000A76D42 /* Debug */,
@@ -919,7 +1276,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "LocationAwareAppTests" */ = {
+		E9DA009516FA3B5000A76D42 /* Build configuration list for PBXNativeTarget "FoursquareTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9DA009616FA3B5000A76D42 /* Debug */,

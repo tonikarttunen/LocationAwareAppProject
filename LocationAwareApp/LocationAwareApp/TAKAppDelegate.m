@@ -27,25 +27,36 @@
     }
     */
     
-    // Read the value of the location data provider from the standard user defaults
-    NSLog(@"Reading the value of the location data provider from the standard user defaults...");
-    @try {
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        id infoSource = [userDefaults objectForKey:@"InformationSource"];
-        if ((infoSource != nil) && [infoSource isKindOfClass:[NSNumber class]]) { // a previous info source value exists
-            NSUInteger infoSourceValue = (NSUInteger)[infoSource integerValue];
-            self.currentInformationSource = infoSourceValue;
-            NSLog(@"Current information source: %i", self.currentInformationSource);
-        } else {
-            [userDefaults setValue:[NSNumber numberWithInt:0] forKey:@"InformationSource"]; // Apple
-            NSLog(@"The value of the information source did not exist in the standard user defaults."
-                  @" Setting the value as TAKInformationSourceTypeApple.");
-        }
-    }
-    @catch (NSException *exception) {
-        self.currentInformationSource = TAKInformationSourceTypeApple;
-        NSLog(@"%@", exception.description);
-    }
+#if defined TAK_FOURSQUARE
+    NSLog(@"Running the Foursquare version of the app...");
+    self.currentInformationSource = TAKInformationSourceTypeFoursquare;
+#elif defined TAK_GOOGLE
+    NSLog(@"Running the Google version of the app...");
+    self.currentInformationSource = TAKInformationSourceTypeGoogle;
+#elif defined TAK_APPLE
+    NSLog(@"Running the Apple version of the app...");
+    self.currentInformationSource = TAKInformationSourceTypeApple;
+#endif
+    
+//    // Read the value of the location data provider from the standard user defaults
+//    NSLog(@"Reading the value of the location data provider from the standard user defaults...");
+//    @try {
+//        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//        id infoSource = [userDefaults objectForKey:@"InformationSource"];
+//        if ((infoSource != nil) && [infoSource isKindOfClass:[NSNumber class]]) { // a previous info source value exists
+//            NSUInteger infoSourceValue = (NSUInteger)[infoSource integerValue];
+//            self.currentInformationSource = infoSourceValue;
+//            NSLog(@"Current information source: %i", self.currentInformationSource);
+//        } else {
+//            [userDefaults setValue:[NSNumber numberWithInt:0] forKey:@"InformationSource"]; // Apple
+//            NSLog(@"The value of the information source did not exist in the standard user defaults."
+//                  @" Setting the value as TAKInformationSourceTypeApple.");
+//        }
+//    }
+//    @catch (NSException *exception) {
+//        self.currentInformationSource = TAKInformationSourceTypeApple;
+//        NSLog(@"%@", exception.description);
+//    }
     
     self.mainMenuViewController = [TAKMainMenuViewController new];
     

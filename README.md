@@ -11,16 +11,39 @@ Foursquare places.
 
 ### Getting the Required API Keys
 
-**TO DO: Write some usage instructions...**
- 
-1. Obtain the necessary API keys
-2. Add the API keys to the APIConstants.h file
+#### 1. Foursquare
+
+Go to https://foursquare.com/developers/apps and click the `Create a New App` button.
+The the required information to the form and click changes (figure 1). The redirect URL should be
+the same as the URL scheme in the Info.plist file of the app. In this case, enter the
+following redirect URLs: `tonikarttunen://com.tonikarttunen.LocationAwareApp, app://tonikarttunen`.
+
+![Figure 1. Creating a new Foursquare app.](/DocumentationImages/NewFoursquareApp.png "Figure 1. Creating a new Foursquare app.")
+
+After saving the information, you should see a page that similar to the one below.
+Open the APIConstants.h file in Xcode. Copy the client ID and the client secret from the Foursquare app info page and paste them to the APIConstants.h file.
+
+![Figure 2. Foursquare app info page.](/DocumentationImages/FoursquareAppInfo.png "Figure 2. Foursquare app info page.") 
+
+### 2. Google Maps iOS SDK
+
+Follow the instructions that are available at
+[https://developers.google.com/maps/documentation/ios/start](https://developers.google.com/maps/documentation/ios/start).
+
+Add the API key to the APIConstants.h file.
+
+### 3. Google Places API
+
+Follow the instructions that are available at
+[https://developers.google.com/places/documentation/](https://developers.google.com/places/documentation/).
+
+Add the API key to the APIConstants.h file.
 
 ### Building and Running the App
 
 Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below). You have three options: Foursquare, Google and Apple.
 
-![Figure 1. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 1. Choosing a build scheme.")
+![Figure 3. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 3. Choosing a build scheme.")
 
 ## Build Requirements
 

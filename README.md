@@ -7,9 +7,9 @@ Foursquare places.
 
 **Status: ALPHA (not ready for prime time)**
 
-## Usage Instructions
-
 ## Getting the Required API Keys
+
+Before using the app, you must obtain the required API keys.
 
 ### Foursquare
 
@@ -41,6 +41,7 @@ Add the API key to the APIConstants.h file.
 
 ## Building and Running the App
 
+Open the `LocationAwareApp.xcodeproj` file with Xcode.
 Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below). You have three options: Foursquare, Google and Apple.
 
 ![Figure 3. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 3. Choosing a build scheme.")

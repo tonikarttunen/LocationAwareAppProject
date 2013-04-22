@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
-@interface TAKGoogleViewController : UIViewController <UITableViewDelegate>
+@interface TAKGoogleViewController : UIViewController <UITableViewDelegate, GMSMapViewDelegate>
 
 - (id)initWithCategory:(NSString *)category;
 

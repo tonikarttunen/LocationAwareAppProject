@@ -18,7 +18,7 @@ Foursquare places.
 
 ### Building and Running the App
 
-Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below. You have three options: Foursquare, Google and Apple.
+Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below). You have three options: Foursquare, Google and Apple.
 
 ![Figure 1. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 1. Choosing a build scheme.")
 

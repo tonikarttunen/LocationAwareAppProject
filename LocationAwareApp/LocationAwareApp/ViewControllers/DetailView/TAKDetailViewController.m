@@ -27,11 +27,16 @@
 
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
-@property (nonatomic, strong) TAKMapView *mapView;
 @property (nonatomic, strong) UIView *mapViewContainer;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
+
+#ifndef TAK_GOOGLE
+@property (nonatomic, strong) TAKMapView *mapView;
+#else
+@property (nonatomic, strong) GMSMapView *mapView;
+#endif
 
 @end
 
@@ -192,7 +197,7 @@ informationSourceType:(NSUInteger)informationSourceType
         }
             
         default: { // Google
-            return 5;
+            return 3;
         }
     }
 }
@@ -214,9 +219,6 @@ informationSourceType:(NSUInteger)informationSourceType
             } else {
                 array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_STATISTICS];
             }
-//            else { // Photo
-//                return 1;
-//            }
             return array.count;
         }
             
@@ -224,12 +226,12 @@ informationSourceType:(NSUInteger)informationSourceType
 #warning Incomplete implementation
             switch (section) {
                 case 0:
-                    return 2;
+                    return 3;
                     
                 case 1:
                     return 3;
                     
-                // reviews
+                // case 2: reviews
                     
                     
                 default:
@@ -351,41 +353,67 @@ informationSourceType:(NSUInteger)informationSourceType
 // #warning Incomplete implementation
                 switch (indexPath.section) {
                     case 0: {
-                        if (indexPath.row == 1) {
-                            cell.textLabel.text = @"Copyright text";
+                        if (indexPath.row == 0) {
+                            cell.textLabel.text = @"Name";
+                            NSString *name = self.title;
+                            if (name) {
+                                cell.detailTextLabel.text = name;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
+                        } else if (indexPath.row == 1) {
+                            cell.textLabel.text = @"Website";
+                            NSString *website = [self.tableViewContentDictionary objectForKey:@"website"];
+                            if (website) {
+                                cell.detailTextLabel.text = website;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
+                        } else if (indexPath.row == 2) {
+                            cell.textLabel.text = @"Phone Number";
+                            NSString *phone = [self.tableViewContentDictionary objectForKey:@"formatted_phone_number"];
+                            if (phone) {
+                                cell.detailTextLabel.text = phone;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
                         } else {
-                            cell.textLabel.text = @" ";
+                            cell.textLabel.text = @"Rating";
+                            NSString *rating = [self.tableViewContentDictionary objectForKey:@"rating"];
+                            if (rating) {
+                                cell.detailTextLabel.text = rating;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
                         }
                         break;
                     }
                         
                     case 1: {
                         if (indexPath.row == 0) {
-                            cell.textLabel.text = @"Name";
-                            cell.detailTextLabel.text = self.title;
-                        } else if (indexPath.row == 1) {
-                            cell.textLabel.text = @"Website";
-                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"website"];
-                        } else if (indexPath.row == 2) {
-                            cell.textLabel.text = @"Phone Number";
-                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"formatted_phone_number"];
-                        } else {
-                            cell.textLabel.text = @"Rating";
-                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"rating"];
-                        }
-                        break;
-                    }
-                        
-                    case 2: {
-                        if (indexPath.row == 0) {
                             cell.textLabel.text = @"Address";
-                            cell.detailTextLabel.text = [self.tableViewContentDictionary objectForKey:@"vicinity"];
+                            NSString *address = [self.tableViewContentDictionary objectForKey:@"vicinity"];
+                            if (address) {
+                                cell.detailTextLabel.text = address;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
                         } else if (indexPath.row == 1) {
                             cell.textLabel.text = @"Latitude";
-                            cell.detailTextLabel.text = [[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] stringValue];
+                            NSString *coordinate = [[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] stringValue];
+                            if (coordinate) {
+                                cell.detailTextLabel.text = coordinate;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
                         } else {
                             cell.textLabel.text = @"Longitude";
-                            cell.detailTextLabel.text = [[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] stringValue];
+                            NSString *coordinate = [[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] stringValue];
+                            if (coordinate) {
+                                cell.detailTextLabel.text = coordinate;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
                         }
                         break;
                     }
@@ -449,15 +477,12 @@ informationSourceType:(NSUInteger)informationSourceType
         default: {
             switch (section) {
                 case 0:
-                    return @"Photo";
-                
-                case 1:
                     return @"Basic Information";
                     
-                case 2:
+                case 1:
                     return @"Location";
                     
-                case 3:
+                case 2:
                     return @"Opening Hours";
                     
                 default:
@@ -932,16 +957,35 @@ informationSourceType:(NSUInteger)informationSourceType
     self.mapViewContainer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:self.mapViewContainer];
     
+#ifdef TAK_GOOGLE
+    @try {
+        CLLocationDegrees latitude = (CLLocationDegrees)[[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+        CLLocationDegrees longitude = (CLLocationDegrees)[[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude
+                                                                longitude:longitude
+                                                                     zoom:12.0];
+        self.mapView = [[GMSMapView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+        self.mapView.camera = camera;
+        self.mapView.myLocationEnabled = YES;
+        self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        // self.mapView.delegate = self;
+        [self.mapViewContainer addSubview:self.mapView];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+    }
+#else
     self.mapView = [[TAKMapView alloc] initWithFrame:self.mapViewContainer.bounds];
     self.mapView.informationSourceType = TAKInformationSourceTypeFoursquare;
     [self.mapViewContainer addSubview:self.mapView];
+#endif
     
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
-        UIImageView *foursquareImagView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f, 236.0f, 60.0f)];
+        UIImageView *foursquareImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f, 236.0f, 60.0f)];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
-        foursquareImagView.image = [[UIImage alloc] initWithContentsOfFile:path];
-        foursquareImagView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-        [self.mapViewContainer addSubview:foursquareImagView];
+        foursquareImageView.image = [[UIImage alloc] initWithContentsOfFile:path];
+        foursquareImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+        [self.mapViewContainer addSubview:foursquareImageView];
     }
     
     switch (self.informationSourceType) {
@@ -967,9 +1011,10 @@ informationSourceType:(NSUInteger)informationSourceType
                     }
                 }
                 annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-                
+#ifndef TAK_GOOGLE
                 [self.mapView addAnnotation:annotation];
                 [self.mapView selectAnnotation:annotation animated:YES];
+#endif
             }
             @catch (NSException *exception) {
                 NSLog(@"Cannot add an annotation to the map: %@", exception.description);
@@ -979,14 +1024,25 @@ informationSourceType:(NSUInteger)informationSourceType
         }
             
         case TAKInformationSourceTypeFoursquare: {
+#ifndef TAK_GOOGLE
             NSArray *array = @[self.tableViewContentDictionary];
             [self.mapView refreshMapAnnotationsWithArray:array informationSource:TAKInformationSourceTypeFoursquare];
+#endif
             break;
         }
             
         default: { // Google
-#warning Incomplete implementation
-            
+#ifdef TAK_GOOGLE
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            CLLocationDegrees latitude = (CLLocationDegrees)[[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+            CLLocationDegrees longitude = (CLLocationDegrees)[[[[self.tableViewContentDictionary objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+            marker.position = CLLocationCoordinate2DMake(latitude, longitude);
+            marker.title = self.title;
+            marker.snippet = (NSString*)[self.tableViewContentDictionary objectForKey:@"vicinity"];
+            marker.map = self.mapView;
+            marker.animated = YES;
+            NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f", marker.title, marker.snippet, latitude, longitude);
+#endif
             break;
         }
     }

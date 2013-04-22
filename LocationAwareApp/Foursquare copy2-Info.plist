@@ -26,11 +26,9 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>tonikarttunen://com.tonikarttunen.LocationAwareApp</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>tonikarttunen</string>
-			</array>
+			<array/>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>

@@ -14,7 +14,7 @@
 // #import "TAKMapView.h"
 #import "TAKSearchResultsTableView.h"
 #import "TAKDetailViewController.h"
-#import <GoogleMaps/GoogleMaps.h>
+//#import <GoogleMaps/GoogleMaps.h>
 //#ifdef TAK_GOOGLE
 //#import <GoogleMaps/GoogleMaps.h>
 //#endif
@@ -199,10 +199,12 @@
 #ifdef TAK_GOOGLE
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude
                                                             longitude:longitude
-                                                                 zoom:11];
+                                                                 zoom:11.9];
     self.mapView = [[GMSMapView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
+    self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.mapView.camera = camera;
     self.mapView.myLocationEnabled = YES;
+    self.mapView.delegate = self;
     [self.view addSubview:self.mapView];
 #endif
 }
@@ -214,7 +216,6 @@
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0: {
             // Swap the view if necessary
-#ifdef TAK_GOOGLE
             if (self.mapView == nil) {
                 TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
                 
@@ -232,7 +233,6 @@
                 [self generateMapViewWithLatitude:latitude longitude:longitude];
             }
             self.mapView.hidden = NO;
-#endif
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;
             }
@@ -244,11 +244,9 @@
                 [self generateTableView];
             }
             self.tableView.hidden = NO;
-#ifdef TAK_GOOGLE
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
             }
-#endif
             break;
         }
     }
@@ -290,8 +288,6 @@
         } else {
             if (searchResults.count > 0) {
                 for (int i = 0; i < searchResults.count; i++) {
-                    
-#ifdef TAK_GOOGLE
                     NSDictionary *placeInformation = [searchResults objectAtIndex:i];
                     
                     GMSMarker *marker = [[GMSMarker alloc] init];
@@ -301,8 +297,8 @@
                     marker.title = (NSString *)[placeInformation objectForKey:@"name"];
                     marker.snippet = (NSString*)[placeInformation objectForKey:@"vicinity"];
                     marker.map = self.mapView;
+                    marker.animated = YES;
                     NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f", marker.title, marker.snippet, latitude, longitude);
-#endif
                 }
             }
         }
@@ -447,5 +443,44 @@
         return @"zoo";
     }
 }
+
+#pragma mark - Google MapView delegate methods
+
+- (void)mapView:(GMSMapView *)mapView
+didTapInfoWindowOfMarker:(GMSMarker *)marker
+{
+    @try {
+        NSArray *searchResults = [self.searchResponse objectForKey:@"results"];
+        TAKDetailViewController *DVC;
+        
+        for (int i = 0; i < searchResults.count; i++) {
+            NSDictionary *placeInformation = [searchResults objectAtIndex:i];
+            NSString *placeName = (NSString *)[placeInformation objectForKey:@"name"];
+            if ([placeName isEqualToString:marker.title]) {
+                DVC = [[TAKDetailViewController alloc] initWithStyle:UITableViewStyleGrouped tableViewContentDictionary:[NSMutableDictionary new] informationSourceType:TAKInformationSourceTypeGoogle referenceID:(NSString *)[placeInformation objectForKey:@"reference"]];
+                DVC.title = (NSString *)[placeInformation objectForKey:@"name"];
+                break;
+            }
+            
+//            GMSMarker *marker = [[GMSMarker alloc] init];
+//            CLLocationDegrees latitude = (CLLocationDegrees)[[[[placeInformation objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
+//            CLLocationDegrees longitude = (CLLocationDegrees)[[[[placeInformation objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
+//            marker.position = CLLocationCoordinate2DMake(latitude, longitude);
+//            marker.title = (NSString *)[placeInformation objectForKey:@"name"];
+        }
+        
+        [self.navigationController pushViewController:DVC animated:YES];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"An error occurred while trying to present the detail view controller: %@", exception.description);
+    }
+}
+
+//- (UIView *) mapView:(GMSMapView *)mapView
+//    markerInfoWindow:(GMSMarker *)marker
+//{
+//    
+//}
+
 
 @end

@@ -38,6 +38,7 @@
     NSLog(@"Running the Google version of the app...");
     [GMSServices provideAPIKey:TAK_GOOGLE_MAPS_API_KEY];
     self.currentInformationSource = TAKInformationSourceTypeGoogle;
+    // NSLog(@"%@", [GMSServices openSourceLicenseInfo]);
 #elif defined TAK_APPLE
     NSLog(@"Running the Apple version of the app...");
     self.currentInformationSource = TAKInformationSourceTypeApple;

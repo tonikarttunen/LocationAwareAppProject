@@ -160,6 +160,38 @@
 		E95F28E91725DD6500032B78 /* FoursquareLoginButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F28E61725DD6500032B78 /* FoursquareLoginButton.png */; };
 		E95F28EA1725DD6500032B78 /* FoursquareLoginButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F28E71725DD6500032B78 /* FoursquareLoginButton@2x.png */; };
 		E95F28EB1725DD6500032B78 /* FoursquareLoginButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F28E71725DD6500032B78 /* FoursquareLoginButton@2x.png */; };
+		E95F293A1725F4EE00032B78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29321725F4EE00032B78 /* Icon-72.png */; };
+		E95F293B1725F4EE00032B78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29321725F4EE00032B78 /* Icon-72.png */; };
+		E95F293C1725F4EE00032B78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29321725F4EE00032B78 /* Icon-72.png */; };
+		E95F293D1725F4EE00032B78 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29321725F4EE00032B78 /* Icon-72.png */; };
+		E95F293E1725F4EE00032B78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29331725F4EE00032B78 /* Icon-72@2x.png */; };
+		E95F293F1725F4EE00032B78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29331725F4EE00032B78 /* Icon-72@2x.png */; };
+		E95F29401725F4EE00032B78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29331725F4EE00032B78 /* Icon-72@2x.png */; };
+		E95F29411725F4EE00032B78 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29331725F4EE00032B78 /* Icon-72@2x.png */; };
+		E95F29421725F4EE00032B78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29341725F4EE00032B78 /* Icon-Small-50.png */; };
+		E95F29431725F4EE00032B78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29341725F4EE00032B78 /* Icon-Small-50.png */; };
+		E95F29441725F4EE00032B78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29341725F4EE00032B78 /* Icon-Small-50.png */; };
+		E95F29451725F4EE00032B78 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29341725F4EE00032B78 /* Icon-Small-50.png */; };
+		E95F29461725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29351725F4EE00032B78 /* Icon-Small-50@2x.png */; };
+		E95F29471725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29351725F4EE00032B78 /* Icon-Small-50@2x.png */; };
+		E95F29481725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29351725F4EE00032B78 /* Icon-Small-50@2x.png */; };
+		E95F29491725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29351725F4EE00032B78 /* Icon-Small-50@2x.png */; };
+		E95F294A1725F4EE00032B78 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29361725F4EE00032B78 /* Icon-Small.png */; };
+		E95F294B1725F4EE00032B78 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29361725F4EE00032B78 /* Icon-Small.png */; };
+		E95F294C1725F4EE00032B78 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29361725F4EE00032B78 /* Icon-Small.png */; };
+		E95F294D1725F4EE00032B78 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29361725F4EE00032B78 /* Icon-Small.png */; };
+		E95F294E1725F4EE00032B78 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29371725F4EE00032B78 /* Icon-Small@2x.png */; };
+		E95F294F1725F4EE00032B78 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29371725F4EE00032B78 /* Icon-Small@2x.png */; };
+		E95F29501725F4EE00032B78 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29371725F4EE00032B78 /* Icon-Small@2x.png */; };
+		E95F29511725F4EE00032B78 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29371725F4EE00032B78 /* Icon-Small@2x.png */; };
+		E95F29521725F4EE00032B78 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29381725F4EE00032B78 /* Icon.png */; };
+		E95F29531725F4EE00032B78 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29381725F4EE00032B78 /* Icon.png */; };
+		E95F29541725F4EE00032B78 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29381725F4EE00032B78 /* Icon.png */; };
+		E95F29551725F4EE00032B78 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29381725F4EE00032B78 /* Icon.png */; };
+		E95F29561725F4EE00032B78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29391725F4EE00032B78 /* Icon@2x.png */; };
+		E95F29571725F4EE00032B78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29391725F4EE00032B78 /* Icon@2x.png */; };
+		E95F29581725F4EE00032B78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29391725F4EE00032B78 /* Icon@2x.png */; };
+		E95F29591725F4EE00032B78 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95F29391725F4EE00032B78 /* Icon@2x.png */; };
 		E96375A417248CC2003F87FC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A317248CC2003F87FC /* AVFoundation.framework */; };
 		E96375A617248CCC003F87FC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A517248CCC003F87FC /* CoreData.framework */; };
 		E96375A817248CE7003F87FC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E96375A717248CE7003F87FC /* CoreText.framework */; };
@@ -272,6 +304,14 @@
 		E95F28DF1725DA6A00032B78 /* FoursquareLogin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FoursquareLogin@2x.png"; path = "Images/FoursquareLogin@2x.png"; sourceTree = "<group>"; };
 		E95F28E61725DD6500032B78 /* FoursquareLoginButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FoursquareLoginButton.png; path = Images/FoursquareLoginButton.png; sourceTree = "<group>"; };
 		E95F28E71725DD6500032B78 /* FoursquareLoginButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FoursquareLoginButton@2x.png"; path = "Images/FoursquareLoginButton@2x.png"; sourceTree = "<group>"; };
+		E95F29321725F4EE00032B78 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		E95F29331725F4EE00032B78 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		E95F29341725F4EE00032B78 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		E95F29351725F4EE00032B78 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		E95F29361725F4EE00032B78 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		E95F29371725F4EE00032B78 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		E95F29381725F4EE00032B78 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		E95F29391725F4EE00032B78 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		E96375A317248CC2003F87FC /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E96375A517248CCC003F87FC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E96375A717248CE7003F87FC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -474,6 +514,21 @@
 				E93BD8581720D685008A752D /* TAKGoogleViewController.m */,
 			);
 			name = "Google Places API";
+			sourceTree = "<group>";
+		};
+		E95F29311725F49F00032B78 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				E95F29321725F4EE00032B78 /* Icon-72.png */,
+				E95F29331725F4EE00032B78 /* Icon-72@2x.png */,
+				E95F29341725F4EE00032B78 /* Icon-Small-50.png */,
+				E95F29351725F4EE00032B78 /* Icon-Small-50@2x.png */,
+				E95F29361725F4EE00032B78 /* Icon-Small.png */,
+				E95F29371725F4EE00032B78 /* Icon-Small@2x.png */,
+				E95F29381725F4EE00032B78 /* Icon.png */,
+				E95F29391725F4EE00032B78 /* Icon@2x.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 		E9813280171A36CF0046D8C8 /* Settings */ = {
@@ -784,6 +839,7 @@
 		E9DD6391171360F1009EEB22 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E95F29311725F49F00032B78 /* Icons */,
 				E95F28DD1725DA6A00032B78 /* FoursquareLogin-568h@2x.png */,
 				E95F28DE1725DA6A00032B78 /* FoursquareLogin.png */,
 				E95F28DF1725DA6A00032B78 /* FoursquareLogin@2x.png */,
@@ -962,6 +1018,14 @@
 				E95B75151724822A00E9D60D /* Help2@2x.png in Resources */,
 				E95B75161724822A00E9D60D /* MapPropertyList.plist in Resources */,
 				E95F28C71724ABF100032B78 /* GoogleMaps.bundle in Resources */,
+				E95F293C1725F4EE00032B78 /* Icon-72.png in Resources */,
+				E95F29401725F4EE00032B78 /* Icon-72@2x.png in Resources */,
+				E95F29441725F4EE00032B78 /* Icon-Small-50.png in Resources */,
+				E95F29481725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */,
+				E95F294C1725F4EE00032B78 /* Icon-Small.png in Resources */,
+				E95F29501725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
+				E95F29541725F4EE00032B78 /* Icon.png in Resources */,
+				E95F29581725F4EE00032B78 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,6 +1053,14 @@
 				E95B754D1724825900E9D60D /* Help2@2x.png in Resources */,
 				E95B754E1724825900E9D60D /* MapPropertyList.plist in Resources */,
 				E95F28C81724ABF100032B78 /* GoogleMaps.bundle in Resources */,
+				E95F293D1725F4EE00032B78 /* Icon-72.png in Resources */,
+				E95F29411725F4EE00032B78 /* Icon-72@2x.png in Resources */,
+				E95F29451725F4EE00032B78 /* Icon-Small-50.png in Resources */,
+				E95F29491725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */,
+				E95F294D1725F4EE00032B78 /* Icon-Small.png in Resources */,
+				E95F29511725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
+				E95F29551725F4EE00032B78 /* Icon.png in Resources */,
+				E95F29591725F4EE00032B78 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,6 +1093,14 @@
 				E95F28E41725DA6A00032B78 /* FoursquareLogin@2x.png in Resources */,
 				E95F28E81725DD6500032B78 /* FoursquareLoginButton.png in Resources */,
 				E95F28EA1725DD6500032B78 /* FoursquareLoginButton@2x.png in Resources */,
+				E95F293A1725F4EE00032B78 /* Icon-72.png in Resources */,
+				E95F293E1725F4EE00032B78 /* Icon-72@2x.png in Resources */,
+				E95F29421725F4EE00032B78 /* Icon-Small-50.png in Resources */,
+				E95F29461725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */,
+				E95F294A1725F4EE00032B78 /* Icon-Small.png in Resources */,
+				E95F294E1725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
+				E95F29521725F4EE00032B78 /* Icon.png in Resources */,
+				E95F29561725F4EE00032B78 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1034,6 +1114,14 @@
 				E95F28E51725DA6A00032B78 /* FoursquareLogin@2x.png in Resources */,
 				E95F28E91725DD6500032B78 /* FoursquareLoginButton.png in Resources */,
 				E95F28EB1725DD6500032B78 /* FoursquareLoginButton@2x.png in Resources */,
+				E95F293B1725F4EE00032B78 /* Icon-72.png in Resources */,
+				E95F293F1725F4EE00032B78 /* Icon-72@2x.png in Resources */,
+				E95F29431725F4EE00032B78 /* Icon-Small-50.png in Resources */,
+				E95F29471725F4EE00032B78 /* Icon-Small-50@2x.png in Resources */,
+				E95F294B1725F4EE00032B78 /* Icon-Small.png in Resources */,
+				E95F294F1725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
+				E95F29531725F4EE00032B78 /* Icon.png in Resources */,
+				E95F29571725F4EE00032B78 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

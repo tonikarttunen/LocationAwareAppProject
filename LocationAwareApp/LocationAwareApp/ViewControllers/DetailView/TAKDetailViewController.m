@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UISegmentedControl *mapTypeSegmentedControl;
 @property (nonatomic, strong) UIView *mapViewContainer;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -170,6 +171,7 @@ informationSourceType:(NSUInteger)informationSourceType
 {
     _toolbar = nil;
     _segmentedControl = nil;
+    _mapTypeSegmentedControl = nil;
     _mapView.delegate = nil;
     _mapView = nil;
     _mapViewContainer = nil;
@@ -223,17 +225,7 @@ informationSourceType:(NSUInteger)informationSourceType
         }
             
         default: { // Google
-#warning Incomplete implementation
             switch (section) {
-                case 0:
-                    return 3;
-                    
-                case 1:
-                    return 3;
-                    
-                // case 2: reviews
-                    
-                    
                 default:
                     return 3;
             }
@@ -259,7 +251,7 @@ informationSourceType:(NSUInteger)informationSourceType
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
         cell.textLabel.numberOfLines = 1;
-        cell.textLabel.tag = 5;
+        // cell.textLabel.tag = 5;
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
@@ -267,7 +259,8 @@ informationSourceType:(NSUInteger)informationSourceType
         cell.detailTextLabel.opaque = NO;
         cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
         cell.detailTextLabel.numberOfLines = 1;
-        cell.detailTextLabel.tag = 6;
+        
+        // cell.detailTextLabel.tag = 6;
     }
 //    else {
 //        [[cell.contentView viewWithTag:TAK_IMAGE_VIEW_TAG] removeFromSuperview];
@@ -305,7 +298,6 @@ informationSourceType:(NSUInteger)informationSourceType
                     array = [self.tableViewContentDictionary objectForKey:@"Image"];
                 }
                 
-//                if (indexPath.section != 3) {
                 cell.textLabel.text = (NSString *)[[array objectAtIndex:indexPath.row] objectAtIndex:0];
                 id obj = [[array objectAtIndex:indexPath.row] objectAtIndex:1];
                 if ([obj isKindOfClass:[NSNumber class]]) {
@@ -320,37 +312,10 @@ informationSourceType:(NSUInteger)informationSourceType
                 } else {
                     cell.detailTextLabel.text = (NSString *)obj;
                 }
-//                } else {
-//                    // cell.detailTextLabel.text = @"";
-//                    id obj = [array objectAtIndex:1];
-//                    UIImageView *imageView = [[UIImageView alloc] initWithImage:(UIImage *)obj];
-//                    if (isnan(_rowHeight)) {
-//                        cell.contentView.frame = CGRectMake(0.0f, 0.0f, 300.0f, 60.0f);
-//                    } else {
-//                        cell.contentView.frame = CGRectMake(0.0f, 0.0f, 300.0f, _rowHeight);
-//                        NSLog(@"cell.contentview...height: %f", _rowHeight);
-//                    }
-//                    imageView.frame = CGRectMake(0.0f, 0.0f, cell.contentView.frame.size.width, cell.contentView.frame.size.height);
-//                    imageView.tag = TAK_IMAGE_VIEW_TAG;
-//                
-//                    cell.imageView.layer.masksToBounds = YES;
-//                    cell.imageView.layer.opaque = NO;
-//                    imageView.layer.cornerRadius = 20;
-//                    cell.contentView.layer.cornerRadius = 20;
-//                    cell.contentView.layer.masksToBounds = YES;
-//                    cell.contentView.layer.opaque = NO;
-//                    [cell.contentView addSubview:imageView];
-//                    cell.layer.cornerRadius = 20;
-//                    cell.layer.masksToBounds = YES;
-//                    cell.layer.opaque = NO;
-//                }
-                
-                
                 break;
             }
                 
             case TAKInformationSourceTypeGoogle: {
-// #warning Incomplete implementation
                 switch (indexPath.section) {
                     case 0: {
                         if (indexPath.row == 0) {
@@ -419,8 +384,60 @@ informationSourceType:(NSUInteger)informationSourceType
                     }
                         
                     default: {
-                        cell.textLabel.text = @" ";
-                        cell.detailTextLabel.text = @" ";
+                        NSArray *reviews = [self.tableViewContentDictionary objectForKey:@"reviews"];
+//                        if ((reviews == nil) || ([reviews isKindOfClass:[NSNull class]]) || (reviews.count < 1)) {
+//                            break;
+//                        }
+                        
+                        NSDictionary *review1 = [reviews objectAtIndex:0];
+//                        if ((review1 == nil) || ([review1 isKindOfClass:[NSNull class]]) || (review1.count < 1)) {
+//                            break;
+//                        }
+                        
+                        if (indexPath.row == 0) {
+                            cell.textLabel.text = @"Author name";
+                            NSString *author = [review1 objectForKey:@"author_name"];
+                            if (author) {
+                                cell.detailTextLabel.text = author;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
+                        } else if (indexPath.row == 1) {
+                            cell.detailTextLabel.numberOfLines = 0;
+                            cell.textLabel.text = @"Rating";
+                            // NSString *rating = [[[[review1 objectForKey:@"aspects"] objectAtIndex:0] objectForKey:@"rating"] stringValue];
+                            
+                            NSMutableArray *ratings = [NSMutableArray new];
+                            for (int i = 0; i < [[review1 objectForKey:@"aspects"] count]; i++) {
+                                
+                                NSString *type = [[[review1 objectForKey:@"aspects"] objectAtIndex:i] objectForKey:@"type"];
+                                NSString *rating = [[[[review1 objectForKey:@"aspects"] objectAtIndex:i] objectForKey:@"rating"] stringValue];
+                                
+                                if (type && rating) {
+                                    [ratings addObject:type];
+                                    [ratings addObject:@": "];
+                                    [ratings addObject:rating];
+                                    if (i != ([[review1 objectForKey:@"aspects"] count] - 1)) {
+                                        [ratings addObject:@", "];
+                                    }
+                                }
+                            }
+                            
+                            if (ratings && (ratings.count > 0)) {
+                                cell.detailTextLabel.text = [ratings componentsJoinedByString:@""];
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
+                        } else {
+                            cell.detailTextLabel.numberOfLines = 0;
+                            cell.textLabel.text = @"Text";
+                            NSString *text = [review1 objectForKey:@"text"];
+                            if (text && (![text isEqualToString:@""])) {
+                                cell.detailTextLabel.text = text;
+                            } else {
+                                cell.detailTextLabel.text = @"N/A";
+                            }
+                        }
                         break;
                     }
                 }
@@ -482,11 +499,8 @@ informationSourceType:(NSUInteger)informationSourceType
                 case 1:
                     return @"Location";
                     
-                case 2:
-                    return @"Opening Hours";
-                    
                 default:
-                    return @"";
+                    return @"Review";
             }
         }
     }
@@ -542,7 +556,74 @@ informationSourceType:(NSUInteger)informationSourceType
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0f;
+    switch (self.informationSourceType) {
+        case TAKInformationSourceTypeGoogle: {
+            @try {
+                if ((indexPath.section == 2) && (indexPath.row == 1)) {
+                    NSString *cellText;
+                    NSDictionary *review1 = [[self.tableViewContentDictionary objectForKey:@"reviews"] objectAtIndex:0];
+                    
+                    NSMutableArray *ratings = [NSMutableArray new];
+                    for (int i = 0; i < [[review1 objectForKey:@"aspects"] count]; i++) {
+                        
+                        NSString *type = [[[review1 objectForKey:@"aspects"] objectAtIndex:i] objectForKey:@"type"];
+                        NSString *rating = [[[[review1 objectForKey:@"aspects"] objectAtIndex:i] objectForKey:@"rating"] stringValue];
+                        
+                        if (type && rating) {
+                            [ratings addObject:type];
+                            [ratings addObject:@": "];
+                            [ratings addObject:rating];
+                            if (i != ([[review1 objectForKey:@"aspects"] count] - 1)) {
+                                [ratings addObject:@", "];
+                            }
+                        }
+                    }
+                    
+                    if (ratings && (ratings.count > 0)) {
+                        cellText = [ratings componentsJoinedByString:@""];
+                    } else {
+                        return 60.0f;
+                    }
+                    
+                    CGSize labelSize = [cellText sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0]
+                                            constrainedToSize:CGSizeMake(self.view.bounds.size.width - 45.0f, MAXFLOAT)
+                                                lineBreakMode:NSLineBreakByWordWrapping];
+                    
+                    // NSLog(@"CELL TEXT: %@, label height: %f", cellText, labelSize.height);
+                    
+                    if ((labelSize.height + 48.0f) < 60.0f) {
+                        return 60.0f;
+                    } else {
+                        return labelSize.height + 48.0f;
+                    }
+                } else if ((indexPath.section == 2) && (indexPath.row == 2)) {
+                    NSDictionary *review1 = [[self.tableViewContentDictionary objectForKey:@"reviews"] objectAtIndex:0];
+                    NSString *cellText = [review1 objectForKey:@"text"];
+                    
+                    CGSize labelSize = [cellText sizeWithFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:16.0]
+                                            constrainedToSize:CGSizeMake(self.view.bounds.size.width - 45.0f, MAXFLOAT)
+                                                lineBreakMode:NSLineBreakByWordWrapping];
+                    
+                    // NSLog(@"CELL TEXT: %@, label height: %f", cellText, labelSize.height);
+                    
+                    if ((labelSize.height + 48.0f) < 60.0f) {
+                        return 60.0f;
+                    } else {
+                    return labelSize.height + 48.0f;
+                    }
+                } else {
+                    return 60.0f;
+                }
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception.description);
+                return 60.0f;
+            }
+        }
+            
+        default:
+            return 60.0f;
+    }
     
 //    switch (self.informationSourceType) {
 //        case TAKInformationSourceTypeFoursquare:
@@ -887,6 +968,32 @@ informationSourceType:(NSUInteger)informationSourceType
     [self.segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
 }
 
+- (void)generateMapTypeSegmentedControl
+{
+    NSArray *segmentedControlItems;
+    if (self.informationSourceType == TAKInformationSourceTypeGoogle) {
+        segmentedControlItems = @[@"Standard", @"Hybrid", @"Satellite", @"Terrain"];
+    } else {
+        segmentedControlItems = @[@"Standard", @"Hybrid", @"Satellite"];
+    }
+    self.mapTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedControlItems];
+    self.mapTypeSegmentedControl.frame = CGRectMake(60.0f, self.mapViewContainer.bounds.size.height -  31.0f - 6.0f, self.view.bounds.size.width - 60.0f - 6.0f, TAK_SEGMENTED_CONTROL_HEIGHT);
+    self.mapTypeSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.mapTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.mapTypeSegmentedControl.selectedSegmentIndex = 0;
+    self.mapTypeSegmentedControl.momentary = NO;
+    self.mapTypeSegmentedControl.tintColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+    [self.mapTypeSegmentedControl addTarget:self action:@selector(mapTypeSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [UIFont systemFontOfSize:12.0f], UITextAttributeFont,
+                                [UIColor colorWithWhite:0.88 alpha:1.0], UITextAttributeTextColor,
+                                nil]; // 0.84
+    [self.mapTypeSegmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    [self.mapTypeSegmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
+    [self.mapViewContainer addSubview:self.mapTypeSegmentedControl];
+}
+
 - (void)generateTableView
 {
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT) style:((self.informationSourceType == TAKInformationSourceTypeApple) ? UITableViewStylePlain : UITableViewStyleGrouped)];
@@ -980,8 +1087,10 @@ informationSourceType:(NSUInteger)informationSourceType
     [self.mapViewContainer addSubview:self.mapView];
 #endif
     
+    [self generateMapTypeSegmentedControl];
+    
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
-        UIImageView *foursquareImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f, 236.0f, 60.0f)];
+        UIImageView *foursquareImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f - 42.0f, 236.0f, 60.0f)];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
         foursquareImageView.image = [[UIImage alloc] initWithContentsOfFile:path];
         foursquareImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
@@ -1040,7 +1149,7 @@ informationSourceType:(NSUInteger)informationSourceType
             marker.title = self.title;
             marker.snippet = (NSString*)[self.tableViewContentDictionary objectForKey:@"vicinity"];
             marker.map = self.mapView;
-            marker.animated = YES;
+            // marker.animated = YES; 
             NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f", marker.title, marker.snippet, latitude, longitude);
 #endif
             break;
@@ -1061,6 +1170,7 @@ informationSourceType:(NSUInteger)informationSourceType
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
                 self.mapViewContainer.hidden = YES;
+                self.mapTypeSegmentedControl.hidden = YES;
             }
             if (self.scrollView != nil) {
                 self.scrollView.hidden = YES;
@@ -1081,6 +1191,7 @@ informationSourceType:(NSUInteger)informationSourceType
             }
             self.mapView.hidden = NO;
             self.mapViewContainer.hidden = NO;
+            self.mapTypeSegmentedControl.hidden = NO;
             break;
         }
         default: {
@@ -1091,6 +1202,7 @@ informationSourceType:(NSUInteger)informationSourceType
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
                 self.mapViewContainer.hidden = YES;
+                self.mapTypeSegmentedControl.hidden = YES;
             }
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;
@@ -1102,5 +1214,53 @@ informationSourceType:(NSUInteger)informationSourceType
     }
 }
 
+- (void)mapTypeSegmentedControlValueChanged:(id)sender
+{
+    switch (self.mapTypeSegmentedControl.selectedSegmentIndex) {
+        case 0: {
+            if (self.informationSourceType == TAKInformationSourceTypeGoogle) {
+                self.mapView.mapType = kGMSTypeNormal;
+            } else {
+                self.mapView.mapType = MKMapTypeStandard;
+            }
+            NSLog(@"Standard");
+            break;
+        }
+            
+        case 1: {
+            if (self.informationSourceType == TAKInformationSourceTypeGoogle) {
+                self.mapView.mapType = kGMSTypeHybrid;
+            } else {
+                self.mapView.mapType = MKMapTypeHybrid;
+            }
+            NSLog(@"Hybrid");
+            break;
+        }
+            
+        case 2: {
+            if (self.informationSourceType == TAKInformationSourceTypeGoogle) {
+                self.mapView.mapType = kGMSTypeSatellite;
+            } else {
+                self.mapView.mapType = MKMapTypeSatellite;
+            }
+            NSLog(@"Satellite");
+            break;
+        }
+            
+        case 3: {
+            if (self.informationSourceType == TAKInformationSourceTypeGoogle) {
+                self.mapView.mapType = kGMSTypeTerrain;
+            }
+            NSLog(@"Terrain");
+            break;
+        }
+            
+        default:
+            NSLog(@"Unknown maptype");
+            break;
+    }
+    
+    NSLog(@"map type: %i", self.mapView.mapType);
+}
 
 @end

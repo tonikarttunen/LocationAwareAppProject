@@ -31,7 +31,8 @@
         _informationSourceType = 0;
         self.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         self.mapProperties = [NSMutableDictionary new];
-        [self readMapPropertiesFromPlistFile];
+        self.mapType = MKMapTypeStandard; // [self readMapPropertiesFromPlistFile];
+        self.userTrackingMode = MKUserTrackingModeNone;
         self.isLocationAlreadyKnown = NO;
         self.showsUserLocation = YES;
         self.userTrackingMode = MKUserTrackingModeNone;

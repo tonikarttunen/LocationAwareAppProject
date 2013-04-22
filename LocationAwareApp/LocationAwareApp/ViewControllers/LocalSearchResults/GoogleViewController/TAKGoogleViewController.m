@@ -27,6 +27,7 @@
 @property (nonatomic, copy) NSString *category;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UISegmentedControl *mapTypeSegmentedControl;
 @property (nonatomic, strong) GMSMapView *mapView;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
@@ -73,6 +74,7 @@
     _category = nil;
     _toolbar = nil;
     _segmentedControl = nil;
+    _mapTypeSegmentedControl = nil;
     _mapView.delegate = nil;
     _mapView = nil;
     _activityIndicatorView = nil;
@@ -180,6 +182,28 @@
     [self.segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
 }
 
+- (void)generateMapTypeSegmentedControl
+{
+    NSArray *segmentedControlItems = segmentedControlItems = @[@"Standard", @"Hybrid", @"Satellite", @"Terrain"];
+    
+    self.mapTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedControlItems];
+    self.mapTypeSegmentedControl.frame = CGRectMake(60.0f, self.view.bounds.size.height -  31.0f - 6.0f, self.view.bounds.size.width - 60.0f - 6.0f, TAK_SEGMENTED_CONTROL_HEIGHT);
+    self.mapTypeSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.mapTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.mapTypeSegmentedControl.selectedSegmentIndex = 0;
+    self.mapTypeSegmentedControl.momentary = NO;
+    self.mapTypeSegmentedControl.tintColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+    [self.mapTypeSegmentedControl addTarget:self action:@selector(mapTypeSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [UIFont systemFontOfSize:12.0f], UITextAttributeFont,
+                                [UIColor colorWithWhite:0.88 alpha:1.0], UITextAttributeTextColor,
+                                nil]; // 0.84
+    [self.mapTypeSegmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    [self.mapTypeSegmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
+    [self.view addSubview:self.mapTypeSegmentedControl];
+}
+
 - (void)generateTableView
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
@@ -206,6 +230,7 @@
     self.mapView.myLocationEnabled = YES;
     self.mapView.delegate = self;
     [self.view addSubview:self.mapView];
+    [self generateMapTypeSegmentedControl];
 #endif
 }
 
@@ -233,6 +258,7 @@
                 [self generateMapViewWithLatitude:latitude longitude:longitude];
             }
             self.mapView.hidden = NO;
+            self.mapTypeSegmentedControl.hidden = NO;
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;
             }
@@ -246,10 +272,41 @@
             self.tableView.hidden = NO;
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
+                self.mapTypeSegmentedControl.hidden = YES;
             }
             break;
         }
     }
+}
+
+- (void)mapTypeSegmentedControlValueChanged:(id)sender
+{
+    switch (self.mapTypeSegmentedControl.selectedSegmentIndex) {
+        case 0: {
+            self.mapView.mapType = kGMSTypeNormal;
+            NSLog(@"Standard");
+            break;
+        }
+            
+        case 1: {
+            self.mapView.mapType = kGMSTypeHybrid;
+            NSLog(@"Hybrid");
+            break;
+        }
+            
+        case 2: {
+            self.mapView.mapType = kGMSTypeSatellite;
+            NSLog(@"Satellite");
+            break;
+        }
+            
+        default:
+            self.mapView.mapType = kGMSTypeTerrain;
+            NSLog(@"Terrain");
+            break;
+    }
+    
+    NSLog(@"map type: %i", self.mapView.mapType);
 }
 
 #pragma mark - Google Places search
@@ -297,7 +354,7 @@
                     marker.title = (NSString *)[placeInformation objectForKey:@"name"];
                     marker.snippet = (NSString*)[placeInformation objectForKey:@"vicinity"];
                     marker.map = self.mapView;
-                    marker.animated = YES;
+                    // marker.animated = YES;
                     NSLog(@"Annotation title: %@, subtitle: %@, lat: %f, long: %f", marker.title, marker.snippet, latitude, longitude);
                 }
             }
@@ -461,12 +518,6 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker
                 DVC.title = (NSString *)[placeInformation objectForKey:@"name"];
                 break;
             }
-            
-//            GMSMarker *marker = [[GMSMarker alloc] init];
-//            CLLocationDegrees latitude = (CLLocationDegrees)[[[[placeInformation objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue];
-//            CLLocationDegrees longitude = (CLLocationDegrees)[[[[placeInformation objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue];
-//            marker.position = CLLocationCoordinate2DMake(latitude, longitude);
-//            marker.title = (NSString *)[placeInformation objectForKey:@"name"];
         }
         
         [self.navigationController pushViewController:DVC animated:YES];
@@ -475,12 +526,5 @@ didTapInfoWindowOfMarker:(GMSMarker *)marker
         NSLog(@"An error occurred while trying to present the detail view controller: %@", exception.description);
     }
 }
-
-//- (UIView *) mapView:(GMSMapView *)mapView
-//    markerInfoWindow:(GMSMarker *)marker
-//{
-//    
-//}
-
 
 @end

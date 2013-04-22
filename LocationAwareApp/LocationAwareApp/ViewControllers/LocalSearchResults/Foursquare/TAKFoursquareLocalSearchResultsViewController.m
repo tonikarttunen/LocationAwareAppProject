@@ -17,6 +17,7 @@
 // UI
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) UISegmentedControl *mapTypeSegmentedControl;
 @property (nonatomic, strong) TAKMapView *mapView;
 @property (nonatomic, strong) UIView *mapViewContainer;
 @property (nonatomic, strong) TAKSearchResultsTableView *tableView;
@@ -109,6 +110,7 @@
 {
     _toolbar = nil;
     _segmentedControl = nil;
+    _mapTypeSegmentedControl = nil;
     _mapView.delegate = nil;
     _mapView = nil;
     _venues = nil;
@@ -239,6 +241,28 @@
     [self.segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
 }
 
+- (void)generateMapTypeSegmentedControl
+{
+    NSArray *segmentedControlItems = segmentedControlItems = @[@"Standard", @"Hybrid", @"Satellite"];
+    
+    self.mapTypeSegmentedControl = [[UISegmentedControl alloc] initWithItems:segmentedControlItems];
+    self.mapTypeSegmentedControl.frame = CGRectMake(60.0f, self.view.bounds.size.height -  31.0f - 6.0f, self.view.bounds.size.width - 60.0f - 6.0f, TAK_SEGMENTED_CONTROL_HEIGHT);
+    self.mapTypeSegmentedControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.mapTypeSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.mapTypeSegmentedControl.selectedSegmentIndex = 0;
+    self.mapTypeSegmentedControl.momentary = NO;
+    self.mapTypeSegmentedControl.tintColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+    [self.mapTypeSegmentedControl addTarget:self action:@selector(mapTypeSegmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [UIFont systemFontOfSize:12.0f], UITextAttributeFont,
+                                [UIColor colorWithWhite:0.88 alpha:1.0], UITextAttributeTextColor,
+                                nil]; // 0.84
+    [self.mapTypeSegmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    [self.mapTypeSegmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
+    [self.view addSubview:self.mapTypeSegmentedControl];
+}
+
 - (void)generateTableView
 {
     self.tableView = [[TAKSearchResultsTableView alloc] initWithFrame:CGRectMake(0.0f, TAK_STANDARD_TOOLBAR_HEIGHT, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
@@ -267,11 +291,12 @@
     self.mapView.informationSourceType = TAKInformationSourceTypeFoursquare;
     [self.mapViewContainer addSubview:self.mapView];
     
-    UIImageView *foursquareImagView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f, 236.0f, 60.0f)];
+    UIImageView *foursquareImagView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f - 42.0f, 236.0f, 60.0f)];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
     foursquareImagView.image = [[UIImage alloc] initWithContentsOfFile:path];
     foursquareImagView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin; 
     [self.mapViewContainer addSubview:foursquareImagView];
+    [self generateMapTypeSegmentedControl];
 }
 
 #pragma mark - Segmented control actions
@@ -285,6 +310,7 @@
                 [self generateMapView];
             }
             self.mapView.hidden = NO;
+            self.mapTypeSegmentedControl.hidden = NO;
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;
             }
@@ -298,11 +324,42 @@
             self.tableView.hidden = NO;
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
+                self.mapTypeSegmentedControl.hidden = YES;
             }
             break;
         }
     }
 }
+
+- (void)mapTypeSegmentedControlValueChanged:(id)sender
+{
+    switch (self.mapTypeSegmentedControl.selectedSegmentIndex) {
+        case 0: {
+            self.mapView.mapType = MKMapTypeStandard;
+            NSLog(@"Standard");
+            break;
+        }
+            
+        case 1: {
+            self.mapView.mapType = MKMapTypeHybrid;
+            NSLog(@"Hybrid");
+            break;
+        }
+            
+        case 2: {
+            self.mapView.mapType = MKMapTypeSatellite;
+            NSLog(@"Satellite");
+            break;
+        }
+            
+        default:
+            NSLog(@"Unknown maptype");
+            break;
+    }
+    
+    NSLog(@"map type: %i", self.mapView.mapType);
+}
+
 
 #pragma mark - Table view delegate
 

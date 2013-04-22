@@ -1090,7 +1090,7 @@ informationSourceType:(NSUInteger)informationSourceType
     [self generateMapTypeSegmentedControl];
     
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
-        UIImageView *foursquareImageView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f - 42.0f, 236.0f, 60.0f)];
+        UIImageView *foursquareImageView = [[UIImageView alloc] initWithFrame:CGRectMake(/* (self.mapViewContainer.frame.size.width -236.0f) / 2.0f*/ 69.0f, self.mapViewContainer.frame.size.height - 44.0f - 42.0f, 236.0f, 60.0f)];
         NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
         foursquareImageView.image = [[UIImage alloc] initWithContentsOfFile:path];
         foursquareImageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;

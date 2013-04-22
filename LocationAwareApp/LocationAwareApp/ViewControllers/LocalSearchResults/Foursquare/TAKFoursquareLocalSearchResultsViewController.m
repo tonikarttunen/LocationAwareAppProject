@@ -291,7 +291,7 @@
     self.mapView.informationSourceType = TAKInformationSourceTypeFoursquare;
     [self.mapViewContainer addSubview:self.mapView];
     
-    UIImageView *foursquareImagView = [[UIImageView alloc] initWithFrame:CGRectMake((self.mapViewContainer.frame.size.width -236.0f) / 2.0f, self.mapViewContainer.frame.size.height - 44.0f - 42.0f, 236.0f, 60.0f)];
+    UIImageView *foursquareImagView = [[UIImageView alloc] initWithFrame:CGRectMake(/* (self.mapViewContainer.frame.size.width -236.0f) / 2.0f*/ 69.0f, self.mapViewContainer.frame.size.height - 44.0f - 42.0f, 236.0f, 60.0f)];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"poweredByFoursquare" ofType:@"png"];
     foursquareImagView.image = [[UIImage alloc] initWithContentsOfFile:path];
     foursquareImagView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin; 

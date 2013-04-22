@@ -9,9 +9,9 @@ Foursquare places.
 
 ## Usage Instructions
 
-### Getting the Required API Keys
+## Getting the Required API Keys
 
-#### 1. Foursquare
+### Foursquare
 
 Go to https://foursquare.com/developers/apps and click the `Create a New App` button.
 The the required information to the form and click changes (figure 1). The redirect URL should be
@@ -25,27 +25,27 @@ Open the APIConstants.h file in Xcode. Copy the client ID and the client secret 
 
 ![Figure 2. Foursquare app info page.](/DocumentationImages/FoursquareAppInfo.png "Figure 2. Foursquare app info page.") 
 
-### 2. Google Maps iOS SDK
+### Google Maps iOS SDK
 
 Follow the instructions that are available at
 [https://developers.google.com/maps/documentation/ios/start](https://developers.google.com/maps/documentation/ios/start).
 
 Add the API key to the APIConstants.h file.
 
-### 3. Google Places API
+### Google Places API
 
 Follow the instructions that are available at
 [https://developers.google.com/places/documentation/](https://developers.google.com/places/documentation/).
 
 Add the API key to the APIConstants.h file.
 
-### Building and Running the App
+## Building and Running the App
 
 Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below). You have three options: Foursquare, Google and Apple.
 
 ![Figure 3. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 3. Choosing a build scheme.")
 
-## Build Requirements
+### Build Requirements
 
 + iOS 6.1 or later
 + Xcode 4.4 or later (tested with Xcode 4.6.1)

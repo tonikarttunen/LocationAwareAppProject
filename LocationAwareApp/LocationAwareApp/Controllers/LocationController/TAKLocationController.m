@@ -49,12 +49,52 @@
         if (self.locationManager == nil) {
             self.locationManager = [[CLLocationManager alloc] init];
             self.locationManager.delegate = self;
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-            self.locationManager.distanceFilter = kCLLocationAccuracyHundredMeters;
+//            
+//            CLLocationAccuracy accuracy;
+//            NSLog(@"Reading the saved location accuracy value from the standard user defaults...");
+//            @try {
+//                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//                id locationAccuracy = [userDefaults objectForKey:TAK_LOCATION_ACCURACY];
+//                if ((locationAccuracy != nil) && [locationAccuracy isKindOfClass:[NSString class]]) { // a previously chosen value exists
+//                    // accuracy = (CLLocationAccuracy)[locationAccuracy doubleValue];
+//                    
+//                    if ([locationAccuracy isEqualToString:TAK_LOCATION_ACCURACY_BEST]) {
+//                        accuracy = kCLLocationAccuracyBest;
+//                    } else if ([locationAccuracy isEqualToString:TAK_LOCATION_ACCURACY_TEN_METERS]) {
+//                        accuracy = kCLLocationAccuracyNearestTenMeters;
+//                    } else if ([locationAccuracy isEqualToString:TAK_LOCATION_ACCURACY_HUNDRED_METERS]) {
+//                        accuracy = kCLLocationAccuracyHundredMeters;
+//                    } else if ([locationAccuracy isEqualToString:TAK_LOCATION_ACCURACY_ONE_KILOMETER]) {
+//                        accuracy = kCLLocationAccuracyKilometer;
+//                    } else if ([locationAccuracy isEqualToString:TAK_LOCATION_ACCURACY_THREE_KILOMETERS]) {
+//                        accuracy = kCLLocationAccuracyThreeKilometers;
+//                    } else {
+//                        accuracy = kCLLocationAccuracyBestForNavigation;
+//                    }
+//                    
+//                    NSLog(@"Current location accuracy: %f, dict value: %@", accuracy, locationAccuracy);
+//                    
+////                    [userDefaults setValue:TAK_LOCATION_ACCURACY_HUNDRED_METERS forKey:TAK_LOCATION_ACCURACY]; // Current location
+////                    [userDefaults synchronize];
+//                } else { // The first application launch...
+//                    [userDefaults setValue:TAK_LOCATION_ACCURACY_HUNDRED_METERS forKey:TAK_LOCATION_ACCURACY]; // Current location
+//                    [userDefaults synchronize];
+//                    NSLog(@"The value of the location accuracy did not exist in the standard user defaults."
+//                          @" Setting the value as kCLLocationAccuracyHundredMeters.");
+//                }
+//            }
+//            @catch (NSException *exception) {
+//                accuracy = kCLLocationAccuracyHundredMeters;
+//                NSLog(@"%@", exception.description);
+//            }
+            
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // accuracy;
+            self.locationManager.distanceFilter = kCLLocationAccuracyHundredMeters; // (CLLocationDistance)accuracy;
             self.lastKnownLocation = [[CLLocation alloc] init];
         }
         [self.locationManager startUpdatingLocation];
         self.isLocationManagerCurrentlyActive = YES;
+        // self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
         return YES;
     } else {
         self.isLocationManagerCurrentlyActive = NO;

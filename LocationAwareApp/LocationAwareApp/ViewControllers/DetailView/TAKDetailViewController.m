@@ -1097,6 +1097,7 @@ informationSourceType:(NSUInteger)informationSourceType
         self.mapView = [[GMSMapView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, self.view.bounds.size.height - TAK_STANDARD_TOOLBAR_HEIGHT)];
         self.mapView.camera = camera;
         self.mapView.myLocationEnabled = YES;
+        self.mapView.trafficEnabled = YES;
         self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         // self.mapView.delegate = self;
         [self.mapViewContainer addSubview:self.mapView];

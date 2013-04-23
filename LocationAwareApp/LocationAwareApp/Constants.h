@@ -37,7 +37,6 @@ typedef enum TAKLocationType : NSUInteger {
 #define TAK_SUZHOU_LATITUDE         31.207516
 #define TAK_SUZHOU_LONGITUDE        120.613403
 
-
 // UI
 #define TAK_STANDARD_TOOLBAR_HEIGHT     44.0f
 #define TAK_SEGMENTED_CONTROL_HEIGHT    31.0f
@@ -49,6 +48,13 @@ typedef enum TAKLocationType : NSUInteger {
 #define TAK_FOURSQUARE_STATISTICS           @"Statistics"
 
 // User defaults
-#define TAK_LOCATION_TYPE   @"LocationType"
+#define TAK_LOCATION_TYPE     @"LocationType"
+#define TAK_LOCATION_ACCURACY @"LocationAccuracy"
+
+#define TAK_LOCATION_ACCURACY_BEST              @"LocationAccuracyBest"
+#define TAK_LOCATION_ACCURACY_TEN_METERS        @"LocationAccuracyTenMeters"
+#define TAK_LOCATION_ACCURACY_HUNDRED_METERS    @"LocationAccuracyHundredMeters"
+#define TAK_LOCATION_ACCURACY_ONE_KILOMETER     @"LocationAccuracyOneKilometer"
+#define TAK_LOCATION_ACCURACY_THREE_KILOMETERS  @"LocationAccuracyThreeKilometers"
 
 #endif

@@ -133,7 +133,7 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
         case 0: {
             switch (indexPath.row) {
                 case 0:
-                    cell.textLabel.text = @"Private";
+                    cell.textLabel.text = @"Private (Only Me)";
                     break;
                     
                 default:

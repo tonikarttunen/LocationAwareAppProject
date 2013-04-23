@@ -10,6 +10,7 @@
 #import "TAKAppDelegate.h"
 #import "TAKSettingsViewController.h"
 #import "TAKGoogleViewController.h"
+#import "TAKPrivacyViewController.h"
 
 @interface TAKMainMenuViewController ()
 
@@ -283,7 +284,10 @@
 
 - (void)presentPrivacyViewController
 {
-    
+    TAKPrivacyViewController *privacy = [[TAKPrivacyViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:privacy];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:NULL];
 }
 
 #pragma mark - Present the help view controller

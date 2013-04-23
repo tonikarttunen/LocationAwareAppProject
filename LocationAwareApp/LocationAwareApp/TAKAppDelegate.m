@@ -45,7 +45,7 @@
 #endif
     
 //    // Read the value of the location data provider from the standard user defaults
-//    NSLog(@"Reading the value of the location data provider from the standard user defaults...");
+//    NSLog(@"Reading the previously saved value of the location data provider from the standard user defaults...");
 //    @try {
 //        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 //        id infoSource = [userDefaults objectForKey:@"InformationSource"];
@@ -66,7 +66,7 @@
     
     // Read the value of the location from the standard user defaults
     
-    NSLog(@"Reading the value of the previously saved location type from the standard user defaults...");
+    NSLog(@"Reading the previously saved value of the location type from the standard user defaults...");
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         id locationType = [userDefaults objectForKey:TAK_LOCATION_TYPE];
@@ -76,6 +76,7 @@
             NSLog(@"Current location type: %i", self.currentLocationType);
         } else { // The first application launch...
             [userDefaults setValue:[NSNumber numberWithInt:0] forKey:TAK_LOCATION_TYPE]; // Current location
+            [userDefaults synchronize];
             NSLog(@"The value of the information source did not exist in the standard user defaults."
                   @" Setting the value as TAKInformationSourceTypeApple.");
         }

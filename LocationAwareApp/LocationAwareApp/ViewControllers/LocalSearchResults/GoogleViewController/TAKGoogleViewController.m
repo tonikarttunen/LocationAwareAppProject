@@ -258,6 +258,7 @@
     self.mapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.mapView.camera = camera;
     self.mapView.myLocationEnabled = YES;
+    self.mapView.trafficEnabled = YES;
     self.mapView.delegate = self;
     [self.view addSubview:self.mapView];
     [self generateMapTypeSegmentedControl];

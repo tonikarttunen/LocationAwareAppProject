@@ -15,7 +15,7 @@
 
 // @property NSUInteger currentInformationSource;
 @property (nonatomic, copy) NSArray *tableViewContents;
-@property (nonatomic, strong) NSIndexPath* checkedIndexPath;
+@property (nonatomic, strong) NSIndexPath *checkedIndexPath;
 
 @end
 

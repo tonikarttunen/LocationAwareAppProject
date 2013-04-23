@@ -9,6 +9,7 @@
 #import "TAKPrivacyViewController.h"
 #import "TAKAppDelegate.h"
 #import "Constants.h"
+#import "TAKPrivacyPolicyViewController.h"
 
 @interface TAKPrivacyViewController ()
 
@@ -72,7 +73,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 4;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -80,10 +81,10 @@
     // Return the number of rows in the section.
     switch (section) {
         case 1:
-            return 5;
-            
-        case 2:
             return 2;
+            
+//        case 2:
+//            return 1;
             
         default:
             return 1;
@@ -95,10 +96,13 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier /* forIndexPath:indexPath */];
     
+    int obfuscate;
     NSString *accuracy;
     NSLog(@"Reading the saved location accuracy value from the standard user defaults...");
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        obfuscate = [[userDefaults objectForKey:@"Obfuscate"] integerValue];
+        NSLog(@"Obfuscate: %i", obfuscate);
         id locationAccuracy = [userDefaults objectForKey:TAK_LOCATION_ACCURACY];
         if ((locationAccuracy != nil) && [locationAccuracy isKindOfClass:[NSString class]]) {
             accuracy = (NSString *)locationAccuracy;
@@ -128,57 +132,76 @@
         switch (indexPath.section) {
             case 0: {
                 cell.textLabel.text = @"\n";
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone]; 
                 break;
             }
                 
+//            case 1: {
+//                cell.textLabel.text = [[self.tableViewContents objectForKey:@"Location Accuracy"] objectAtIndex:indexPath.row];
+//                if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_BEST]) {
+//                    if (indexPath.row == 0) {
+//                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                        self.checkedIndexPath = indexPath;
+//                    } else {
+//                        cell.accessoryType = UITableViewCellAccessoryNone;
+//                    }
+//                } else if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_TEN_METERS]) {
+//                    if (indexPath.row == 1) {
+//                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                        self.checkedIndexPath = indexPath;
+//                    } else {
+//                        cell.accessoryType = UITableViewCellAccessoryNone;
+//                    }
+//                } else if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_HUNDRED_METERS]) {
+//                    if (indexPath.row == 2) {
+//                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                        self.checkedIndexPath = indexPath;
+//                    } else {
+//                        cell.accessoryType = UITableViewCellAccessoryNone;
+//                    }
+//                } else if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_ONE_KILOMETER]) {
+//                    if (indexPath.row == 3) {
+//                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                        self.checkedIndexPath = indexPath;
+//                    } else {
+//                        cell.accessoryType = UITableViewCellAccessoryNone;
+//                    }
+//                } else {
+//                    if (indexPath.row == 4) {
+//                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                        self.checkedIndexPath = indexPath;
+//                    } else {
+//                        cell.accessoryType = UITableViewCellAccessoryNone;
+//                    }
+//                }
+//                break;
+//            }
+                
             case 1: {
-                cell.textLabel.text = [[self.tableViewContents objectForKey:@"Location Accuracy"] objectAtIndex:indexPath.row];
-                if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_BEST]) {
-                    if (indexPath.row == 0) {
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        self.checkedIndexPath = indexPath;
-                    } else {
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                    }
-                } else if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_TEN_METERS]) {
+                cell.textLabel.text = [[self.tableViewContents objectForKey:@"Obfuscated Location Data"] objectAtIndex:indexPath.row];
+                
+                if (obfuscate == 1) {
                     if (indexPath.row == 1) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                         self.checkedIndexPath = indexPath;
                     } else {
                         cell.accessoryType = UITableViewCellAccessoryNone;
                     }
-                } else if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_HUNDRED_METERS]) {
-                    if (indexPath.row == 2) {
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        self.checkedIndexPath = indexPath;
-                    } else {
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                    }
-                } else if ([accuracy isEqualToString:TAK_LOCATION_ACCURACY_ONE_KILOMETER]) {
-                    if (indexPath.row == 3) {
-                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        self.checkedIndexPath = indexPath;
-                    } else {
-                        cell.accessoryType = UITableViewCellAccessoryNone;
-                    }
                 } else {
-                    if (indexPath.row == 4) {
+                    if (indexPath.row == 0) {
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                         self.checkedIndexPath = indexPath;
                     } else {
                         cell.accessoryType = UITableViewCellAccessoryNone;
                     }
                 }
+                
                 break;
             }
                 
             case 2: {
-                cell.textLabel.text = [[self.tableViewContents objectForKey:@"Obfuscated Location Data"] objectAtIndex:indexPath.row];
-                break;
-            }
-                
-            case 3: {
                 cell.textLabel.text = [self.tableViewContents objectForKey:@"Privacy Policy"];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
             }
                 
@@ -196,8 +219,8 @@
 - (void)generateTableViewContents
 {
     self.tableViewContents = @{@"Privacy Tips" : @"",
-                               @"Location Accuracy" : @[@"Best", @"Nearest 10 Meters", @"100 Meters", @"1 Kilometer", @"3 Kilometers"],
-                               @"Obfuscated Location Data" : @[@"Yes", @"No"],
+                               /* @"Location Accuracy" : @[@"Best", @"Nearest 10 Meters", @"100 Meters", @"1 Kilometer", @"3 Kilometers"], */
+                               @"Obfuscated Location Data" : @[@"No", @"Yes"],
                                @"Privacy Policy" : @"Read Our Privacy Policy"
                                };
 }
@@ -208,10 +231,10 @@
         case 0:
             return @"Privacy Tips";
             
-        case 1:
-            return @"Location Accuracy";
+//        case 1:
+//            return @"Location Accuracy";
             
-        case 2:
+        case 1:
             return @"Provide Obfuscated Location Data";
             
         default:
@@ -265,7 +288,7 @@
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     switch (indexPath.section) {
-        case 1: {
+//        case 1: {
 //            if (self.checkedIndexPath != nil) {
 //                UITableViewCell *previouslyCheckedCell = [tableView
 //                                                          cellForRowAtIndexPath:self.checkedIndexPath];
@@ -309,7 +332,42 @@
 //            @catch (NSException *exception) {
 //                NSLog(@"%@", exception.description);
 //            }
-
+//
+//            break;
+//        }
+            
+        case 1: {
+            if (self.checkedIndexPath != nil) {
+                UITableViewCell *previouslyCheckedCell = [tableView
+                                                          cellForRowAtIndexPath:self.checkedIndexPath];
+                previouslyCheckedCell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            UITableViewCell *tappedCell = [tableView cellForRowAtIndexPath:indexPath];
+            tappedCell.accessoryType = UITableViewCellAccessoryCheckmark;
+            self.checkedIndexPath = indexPath;
+            
+            TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+            if (indexPath.row == 1) {
+                appDelegate.locationController.isLocationObfuscated = YES;
+                double randomNumberForlocationObfuscation = ((double)rand() / (RAND_MAX)) + 1.0;
+                double maximumObfuscationInKilometers = 0.35;
+                CLLocationDegrees latitude = appDelegate.locationController.realLocation.coordinate.latitude + ((randomNumberForlocationObfuscation * maximumObfuscationInKilometers) / 110.0); 
+                CLLocationDegrees longitude = appDelegate.locationController.realLocation.coordinate.longitude + ((randomNumberForlocationObfuscation * maximumObfuscationInKilometers) / 110.0); 
+                appDelegate.locationController.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+            } else {
+                appDelegate.locationController.isLocationObfuscated = NO;
+                appDelegate.locationController.lastKnownLocation = appDelegate.locationController.realLocation;
+            }
+            
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            [userDefaults setObject:[NSNumber numberWithInteger:(NSInteger)indexPath.row] forKey:@"Obfuscate"];
+            [userDefaults synchronize];
+            NSLog(@"new obfuscation value: %i", (NSInteger)indexPath.row);
+        }
+            
+        case 2: {
+            TAKPrivacyPolicyViewController *DVC = [[TAKPrivacyPolicyViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:DVC animated:YES];
             break;
         }
             

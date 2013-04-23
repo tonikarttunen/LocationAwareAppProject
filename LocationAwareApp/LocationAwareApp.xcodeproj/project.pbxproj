@@ -31,6 +31,9 @@
 		E942F9E0171C520800F0E194 /* SettingsGearCropped17@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9DE171C520800F0E194 /* SettingsGearCropped17@2x.png */; };
 		E942F9EA171C5C1400F0E194 /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E8171C5C1400F0E194 /* Help2.png */; };
 		E942F9EB171C5C1400F0E194 /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E942F9E9171C5C1400F0E194 /* Help2@2x.png */; };
+		E95B109917267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */; };
+		E95B109A17267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */; };
+		E95B109B17267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */; };
 		E95B74E61724822A00E9D60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
 		E95B74E71724822A00E9D60D /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
 		E95B74E81724822A00E9D60D /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
@@ -294,6 +297,8 @@
 		E942F9E8171C5C1400F0E194 /* Help2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Help2.png; path = Images/Help2.png; sourceTree = "<group>"; };
 		E942F9E9171C5C1400F0E194 /* Help2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Help2@2x.png"; path = "Images/Help2@2x.png"; sourceTree = "<group>"; };
 		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
+		E95B109717267A51000BC304 /* TAKPrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKPrivacyPolicyViewController.h; path = ViewControllers/Privacy/TAKPrivacyPolicyViewController.h; sourceTree = "<group>"; };
+		E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKPrivacyPolicyViewController.m; path = ViewControllers/Privacy/TAKPrivacyPolicyViewController.m; sourceTree = "<group>"; };
 		E95B74AB17247F4C00E9D60D /* LocationAwareApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LocationAwareApp copy-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/LocationAwareApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		E95B74E317247F7000E9D60D /* LocationAwareApp copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LocationAwareApp copy2-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/LocationAwareApp copy2-Info.plist"; sourceTree = "<absolute>"; };
 		E95B751A1724822A00E9D60D /* Google.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Google.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -872,6 +877,8 @@
 			children = (
 				E9F6615E1726417F0048C500 /* TAKPrivacyViewController.h */,
 				E9F6615F1726417F0048C500 /* TAKPrivacyViewController.m */,
+				E95B109717267A51000BC304 /* TAKPrivacyPolicyViewController.h */,
+				E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */,
 			);
 			name = Privacy;
 			sourceTree = "<group>";
@@ -1184,6 +1191,7 @@
 				E95B74F81724822A00E9D60D /* TAKMapView.m in Sources */,
 				E95B74F91724822A00E9D60D /* TAKSearchResultsTableView.m in Sources */,
 				E9F661611726417F0048C500 /* TAKPrivacyViewController.m in Sources */,
+				E95B109A17267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1212,6 +1220,7 @@
 				E95B75301724825900E9D60D /* TAKMapView.m in Sources */,
 				E95B75311724825900E9D60D /* TAKSearchResultsTableView.m in Sources */,
 				E9F661621726417F0048C500 /* TAKPrivacyViewController.m in Sources */,
+				E95B109B17267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1240,6 +1249,7 @@
 				E93BD8611720D6E7008A752D /* TAKMapView.m in Sources */,
 				E93BD8641720D6F4008A752D /* TAKSearchResultsTableView.m in Sources */,
 				E9F661601726417F0048C500 /* TAKPrivacyViewController.m in Sources */,
+				E95B109917267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,9 +13,11 @@
 @interface TAKLocationController : NSObject <CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
-@property (nonatomic, strong) CLLocation *lastKnownLocation;
+@property (nonatomic, strong) CLLocation *lastKnownLocation; // This location may be obfuscated
+@property (nonatomic, strong) CLLocation *realLocation; // The real location
 @property (setter = setLocationManagerCurrentlyActive:) BOOL isLocationManagerCurrentlyActive;
 @property (setter = setRegionMonitoringDesired:) BOOL isRegionMonitoringDesired;
+@property (setter = setLocationObfuscated:) BOOL isLocationObfuscated;
 
 - (BOOL)isLocationManagerAuthorizedByUser;
 

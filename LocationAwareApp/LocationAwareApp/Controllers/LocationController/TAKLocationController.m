@@ -49,6 +49,27 @@
         if (self.locationManager == nil) {
             self.locationManager = [[CLLocationManager alloc] init];
             self.locationManager.delegate = self;
+            
+            @try {
+                NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+                id result = [userDefaults objectForKey:@"Obfuscate"];
+                if (result && [result isKindOfClass:[NSNumber class]]) {
+                    int resultValue = [result integerValue];
+                    NSLog(@"obfuscate: %i", resultValue);
+                    if (resultValue == 1) {
+                        self.isLocationObfuscated = YES;
+                    } else {
+                        self.isLocationObfuscated = NO;
+                    }
+                } else {
+                    self.isLocationObfuscated = NO;
+                    [userDefaults setValue:[NSNumber numberWithInt:0] forKey:@"Obfuscate"];
+                }
+            }
+            @catch (NSException *exception) {
+                NSLog(@"%@", exception.description);
+            }
+
 //            
 //            CLLocationAccuracy accuracy;
 //            NSLog(@"Reading the saved location accuracy value from the standard user defaults...");
@@ -364,8 +385,18 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{    
-    self.lastKnownLocation = [locations lastObject];
+{
+    self.realLocation = [locations lastObject];
+    
+    if (!self.isLocationObfuscated) {
+        self.lastKnownLocation = self.realLocation;
+    } else {
+        double randomNumberForlocationObfuscation = ((double)rand() / (RAND_MAX)) + 1.0;
+        double maximumObfuscationInKilometers = 0.35;
+        CLLocationDegrees latitude = self.realLocation.coordinate.latitude + ((randomNumberForlocationObfuscation * maximumObfuscationInKilometers) / 110.0); //   ((0.25f * ((rand() % (2)))) / 111.0f);
+        CLLocationDegrees longitude = self.realLocation.coordinate.longitude + ((randomNumberForlocationObfuscation * maximumObfuscationInKilometers) / 110.0); //  ((0.25f * ((rand() % (2)))) / 111.0f);
+        self.lastKnownLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    }
     
     /* 
      * Uncomment this if you want that the centerpoint of the map is always user's location
@@ -384,6 +415,7 @@
         NSLog(@"%@", exception.description);
     } */
 #ifdef DEBUG
+    NSLog(@"Real location: lat: %f, long: %f", self.realLocation.coordinate.latitude, self.realLocation.coordinate.longitude);
     NSLog(@"Did update locations: \ntimestamp: %@, \nlatitude: %f, longitude: %f, \naltitude: %f, speed: %f, course: %f",
           self.lastKnownLocation.timestamp, self.lastKnownLocation.coordinate.latitude,
           self.lastKnownLocation.coordinate.longitude, self.lastKnownLocation.altitude,

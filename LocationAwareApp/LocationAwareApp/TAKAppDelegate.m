@@ -64,6 +64,27 @@
 //        NSLog(@"%@", exception.description);
 //    }
     
+    // Read the value of the location from the standard user defaults
+    
+    NSLog(@"Reading the value of the previously saved location type from the standard user defaults...");
+    @try {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        id locationType = [userDefaults objectForKey:TAK_LOCATION_TYPE];
+        if ((locationType != nil) && [locationType isKindOfClass:[NSNumber class]]) { // a previously chosen value exists
+            NSUInteger locationTypeValue = (NSUInteger)[locationType integerValue];
+            self.currentLocationType = locationTypeValue;
+            NSLog(@"Current location type: %i", self.currentLocationType);
+        } else { // The first application launch...
+            [userDefaults setValue:[NSNumber numberWithInt:0] forKey:TAK_LOCATION_TYPE]; // Current location
+            NSLog(@"The value of the information source did not exist in the standard user defaults."
+                  @" Setting the value as TAKInformationSourceTypeApple.");
+        }
+    }
+    @catch (NSException *exception) {
+        self.currentLocationType = TAKLocationTypeCurrentLocation;
+        NSLog(@"%@", exception.description);
+    }
+    
     self.mainMenuViewController = [TAKMainMenuViewController new];
     
     self.window.backgroundColor = [UIColor blackColor];
@@ -116,16 +137,19 @@
         [self.locationController disableLocationManager];
     }
     
-    // Save the value of the location data provider to the standard user defaults
+    // Save the value of the location data provider and the location type to the standard user defaults
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSInteger infoSource = (NSInteger)self.currentInformationSource;
         [userDefaults setObject:[NSNumber numberWithInteger:infoSource] forKey:@"InformationSource"];
+        NSInteger locationType = (NSInteger)self.currentLocationType;
+        [userDefaults setObject:[NSNumber numberWithInteger:locationType] forKey:TAK_LOCATION_TYPE];
         [userDefaults synchronize];
-        NSLog(@"applicationDidEnterBackground, infoSource: %i", infoSource);
+        NSLog(@"applicationDidEnterBackground, infoSource: %i, locationType: %i", infoSource, locationType);
     }
     @catch (NSException *exception) {
         self.currentInformationSource = TAKInformationSourceTypeApple;
+        self.currentLocationType = TAKLocationTypeCurrentLocation;
         NSLog(@"%@", exception.description);
     }
 }

@@ -42,14 +42,54 @@
             if ([foursquareController.foursquare isSessionValid]) {
                 CLLocation *location;
                 NSString *locationString;
-                if (appDelegate.locationController.lastKnownLocation != nil) {
-                    location = appDelegate.locationController.lastKnownLocation;
-                    double latitude = (double)location.coordinate.latitude;
-                    double longitude = (double)location.coordinate.longitude;
-                    locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
-                } else {
-                    locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
+                
+                double latitude;
+                double longitude;
+                
+                switch (appDelegate.currentLocationType) {
+                    case TAKLocationTypeCurrentLocation: {
+                        if (appDelegate.locationController.lastKnownLocation != nil) {
+                            location = appDelegate.locationController.lastKnownLocation;
+                            latitude = (double)location.coordinate.latitude;
+                            longitude = (double)location.coordinate.longitude;
+                            locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                        } else {
+                            locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
+                        }
+                        break;
+                    }
+                        
+                    case TAKLocationTypeOtaniemi: {
+                        latitude = TAK_OTANIEMI_LATITUDE;
+                        longitude = TAK_OTANIEMI_LONGITUDE;
+                        locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                        break;
+                    }
+                        
+                    case TAKLocationTypeSchonberg: {
+                        latitude = TAK_SCHONBERG_LATITUDE;
+                        longitude = TAK_SCHONBERG_LONGITUDE;
+                        locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                        break;
+                    }
+                        
+                    case TAKLocationTypePittsburgh: {
+                        latitude = TAK_PITTSBURGH_LATITUDE;
+                        longitude = TAK_PITTSBURGH_LONGITUDE;
+                        locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                        break;
+                    }
+                        
+                    default: {
+                        latitude = TAK_SUZHOU_LATITUDE;
+                        longitude = TAK_SUZHOU_LONGITUDE;
+                        locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                        break;
+                    }
                 }
+                
+                NSLog(@"LOCATION STRING: %@", locationString);
+                
                 NSString *categoryID = [self foursquareCategoryID];
                 if ([categoryID isEqualToString:@"Everything"]) {
                     [foursquareController searchFoursquareContentWithPath:@"venues/search"
@@ -360,6 +400,16 @@
     NSLog(@"map type: %i", self.mapView.mapType);
 }
 
+#pragma mark - Alert
+
+- (void)showAlertWithText:(NSString *)text
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request"
+                                                    message:text delegate:self
+                                          cancelButtonTitle:@"Dismiss"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
 
 #pragma mark - Table view delegate
 

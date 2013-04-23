@@ -24,6 +24,7 @@
 @property (strong, nonatomic) TAKFoursquareController *foursquareController;
 @property (setter = setRegionMonitoringActive:) BOOL isRegionMonitoringActive;
 @property NSUInteger currentInformationSource;
+@property NSUInteger currentLocationType;
 
 - (BOOL)handleSuccessfulFoursquareAuthorization;
 

@@ -28,4 +28,7 @@
 - (void)updateUI;
 - (NSString *)foursquareCategoryID;
 
+- (void)hideActivityIndicator;
+- (void)showAlertWithText:(NSString *)text;
+
 @end

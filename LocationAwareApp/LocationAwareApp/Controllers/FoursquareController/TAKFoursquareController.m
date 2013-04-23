@@ -172,13 +172,49 @@ typedef enum TAKFoursquareRequestType : NSUInteger {
             
             CLLocation *location;
             NSString *locationString;
-            if (appDelegate.locationController.lastKnownLocation != nil) {
-                location = appDelegate.locationController.lastKnownLocation;
-                double latitude = (double)location.coordinate.latitude;
-                double longitude = (double)location.coordinate.longitude;
-                locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
-            } else {
-                locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
+            double latitude;
+            double longitude;
+            
+            switch (appDelegate.currentLocationType) {
+                case TAKLocationTypeCurrentLocation: {
+                    if (appDelegate.locationController.lastKnownLocation != nil) {
+                        location = appDelegate.locationController.lastKnownLocation;
+                        latitude = (double)location.coordinate.latitude;
+                        longitude = (double)location.coordinate.longitude;
+                        locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                    } else {
+                        locationString = @"60.168824,24.942422"; // Aleksanterinkatu 52, Helsinki, Finland
+                    }
+                    break;
+                }
+                    
+                case TAKLocationTypeOtaniemi: {
+                    latitude = TAK_OTANIEMI_LATITUDE;
+                    longitude = TAK_OTANIEMI_LONGITUDE;
+                    locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                    break;
+                }
+                    
+                case TAKLocationTypeSchonberg: {
+                    latitude = TAK_SCHONBERG_LATITUDE;
+                    longitude = TAK_SCHONBERG_LONGITUDE;
+                    locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                    break;
+                }
+                    
+                case TAKLocationTypePittsburgh: {
+                    latitude = TAK_PITTSBURGH_LATITUDE;
+                    longitude = TAK_PITTSBURGH_LONGITUDE;
+                    locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                    break;
+                }
+                    
+                default: {
+                    latitude = TAK_SUZHOU_LATITUDE;
+                    longitude = TAK_SUZHOU_LONGITUDE;
+                    locationString = [NSString stringWithFormat:@"%f,%f", latitude, longitude];
+                    break;
+                }
             }
             
             UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
@@ -505,6 +541,25 @@ typedef enum TAKFoursquareRequestType : NSUInteger {
         }
         @catch (NSException *exception) {
             NSLog(@"Something went wrong in the check-in process. %@.", exception.description);
+        }
+    } else if (self.currentRequestType == TAKFoursquareRequestTypeSearchVenues) {
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+        if (navigationController == nil) {
+            return;
+        }
+        if (navigationController.viewControllers.count < 2) {
+            NSLog(@"Foursquare view controller does not exist!");
+            return;
+        }
+        TAKFoursquareLocalSearchResultsViewController *foursquareViewController = [navigationController.viewControllers objectAtIndex:1];
+        if (foursquareViewController == nil) {
+            return;
+        } else if ([foursquareViewController respondsToSelector:@selector(hideActivityIndicator)]) {
+            [foursquareViewController hideActivityIndicator];
+        }
+        if ([foursquareViewController respondsToSelector:@selector(showAlertWithText:)]) {
+            [foursquareViewController showAlertWithText:[error localizedDescription]];
         }
     }
 }

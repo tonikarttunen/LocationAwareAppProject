@@ -70,21 +70,96 @@
     @try {
         CLLocation *currentUserLocation;
         
-        TAKAppDelegate *myAppDelegate = [[UIApplication sharedApplication] delegate];
-        CLLocation *lastLocation;
-        if (myAppDelegate != nil) {
-            lastLocation = myAppDelegate.locationController.lastKnownLocation;
+        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+        CLLocation *location;
+        
+        
+        
+        double latitude;
+        double longitude;
+        
+        switch (appDelegate.currentLocationType) {
+            case TAKLocationTypeCurrentLocation: {
+                if (appDelegate != nil) {
+                    location = appDelegate.locationController.lastKnownLocation;
+                }
+                
+                if (self.userLocation.location != nil) { // Use the location that was provided my the MapKit
+                    currentUserLocation = self.userLocation.location;
+                    self.isLocationAlreadyKnown = YES;
+                } else if (location != nil) { // Use the last known location (if available)
+                    currentUserLocation = location;
+                    self.isLocationAlreadyKnown = YES;
+                } else { // The location is unknown; the code below sets the location to Helsinki downtown
+                    currentUserLocation = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
+                }
+                
+//                if ((appDelegate != nil) && (appDelegate.locationController.lastKnownLocation != nil)) {
+//                    location = appDelegate.locationController.lastKnownLocation;
+//                    
+//                    if (self.userLocation.location != nil) { // Use the location that was provided my the MapKit
+//                        currentUserLocation = self.userLocation.location;
+//                        self.isLocationAlreadyKnown = YES;
+//                    } else if (location != nil) { // Use the last known location (if available)
+//                        currentUserLocation = location;
+//                        self.isLocationAlreadyKnown = YES;
+//                    } else { // The location is unknown; the code below sets the location to Helsinki downtown
+//                        currentUserLocation = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
+//                    }
+//                    
+//                    
+//                    latitude = (double)location.coordinate.latitude;
+//                    longitude = (double)location.coordinate.longitude;
+//                } else { // Aleksanterinkatu 52, Helsinki, Finland
+//                    latitude = 60.168824;
+//                    longitude = 24.942422;
+//                }
+                
+                break;
+            }
+                
+            case TAKLocationTypeOtaniemi: {
+                latitude = TAK_OTANIEMI_LATITUDE;
+                longitude = TAK_OTANIEMI_LONGITUDE;
+                currentUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+                break;
+            }
+                
+            case TAKLocationTypeSchonberg: {
+                latitude = TAK_SCHONBERG_LATITUDE;
+                longitude = TAK_SCHONBERG_LONGITUDE;
+                currentUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+                break;
+            }
+                
+            case TAKLocationTypePittsburgh: {
+                latitude = TAK_PITTSBURGH_LATITUDE;
+                longitude = TAK_PITTSBURGH_LONGITUDE;
+                currentUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+                break;
+            }
+                
+            default: {
+                latitude = TAK_SUZHOU_LATITUDE;
+                longitude = TAK_SUZHOU_LONGITUDE;
+                currentUserLocation = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+                break;
+            }
         }
         
-        if (self.userLocation.location != nil) { // Use the location that was provided my the MapKit
-            currentUserLocation = self.userLocation.location;
-            self.isLocationAlreadyKnown = YES;
-        } else if (lastLocation != nil) { // Use the last known location (if available)
-            currentUserLocation = lastLocation;
-            self.isLocationAlreadyKnown = YES;
-        } else { // The location is unknown; the code below sets the location to Helsinki downtown
-            currentUserLocation = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
-        }
+//        if (appDelegate != nil) {
+//            location = appDelegate.locationController.lastKnownLocation;
+//        }
+//        
+//        if (self.userLocation.location != nil) { // Use the location that was provided my the MapKit
+//            currentUserLocation = self.userLocation.location;
+//            self.isLocationAlreadyKnown = YES;
+//        } else if (location != nil) { // Use the last known location (if available)
+//            currentUserLocation = location;
+//            self.isLocationAlreadyKnown = YES;
+//        } else { // The location is unknown; the code below sets the location to Helsinki downtown
+//            currentUserLocation = [[CLLocation alloc] initWithLatitude:60.168824 longitude:24.942422];
+//        }
         
         // Zoom to the current location
         MKCoordinateSpan coordinateSpan;
@@ -103,7 +178,6 @@
     }
 }
 
-#warning - TODO: Test whether this method works
 - (void)moveCenterPointToLocation:(CLLocation *)location animated:(BOOL)animated
 {
     @try {
@@ -426,9 +500,8 @@
 
 - (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error
 {
-#warning TODO: Show a message to the user
-//    UIAlertView *mapAlert = [[UIAlertView alloc] initWithTitle:@"Cannot Load Map Data" message:[error description] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-//    [mapAlert show];
+    UIAlertView *mapAlert = [[UIAlertView alloc] initWithTitle:@"Cannot Load Map Data" message:[error description] delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [mapAlert show];
     
 #ifdef DEBUG
     NSLog(@"Cannot Load Map Data: %@", [error description]);

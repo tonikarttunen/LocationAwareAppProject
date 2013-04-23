@@ -98,13 +98,43 @@
     CLLocation *location;
     double latitude;
     double longitude;
-    if (appDelegate && appDelegate.locationController.lastKnownLocation != nil) {
-        location = appDelegate.locationController.lastKnownLocation;
-        latitude = (double)location.coordinate.latitude;
-        longitude = (double)location.coordinate.longitude;
-    } else { // Aleksanterinkatu 52, Helsinki, Finland
-        latitude = 60.168824;
-        longitude = 24.942422;
+    
+    switch (appDelegate.currentLocationType) {
+        case TAKLocationTypeCurrentLocation: {
+            if (appDelegate.locationController.lastKnownLocation != nil) {
+                location = appDelegate.locationController.lastKnownLocation;
+                latitude = (double)location.coordinate.latitude;
+                longitude = (double)location.coordinate.longitude;
+            } else { // Aleksanterinkatu 52, Helsinki, Finland
+                latitude = 60.168824;
+                longitude = 24.942422;
+            }
+            break;
+        }
+            
+        case TAKLocationTypeOtaniemi: {
+            latitude = TAK_OTANIEMI_LATITUDE;
+            longitude = TAK_OTANIEMI_LONGITUDE;
+            break;
+        }
+            
+        case TAKLocationTypeSchonberg: {
+            latitude = TAK_SCHONBERG_LATITUDE;
+            longitude = TAK_SCHONBERG_LONGITUDE;
+            break;
+        }
+            
+        case TAKLocationTypePittsburgh: {
+            latitude = TAK_PITTSBURGH_LATITUDE;
+            longitude = TAK_PITTSBURGH_LONGITUDE;
+            break;
+        }
+            
+        default: {
+            latitude = TAK_SUZHOU_LATITUDE;
+            longitude = TAK_SUZHOU_LONGITUDE;
+            break;
+        }
     }
     
     [self searchNearbyGooglePlacesWithParameters:@{
@@ -247,14 +277,45 @@
                 CLLocation *location;
                 double latitude;
                 double longitude;
-                if (appDelegate && appDelegate.locationController.lastKnownLocation != nil) {
-                    location = appDelegate.locationController.lastKnownLocation;
-                    latitude = (double)location.coordinate.latitude;
-                    longitude = (double)location.coordinate.longitude;
-                } else { // Aleksanterinkatu 52, Helsinki, Finland
-                    latitude = 60.168824;
-                    longitude = 24.942422;
+                
+                switch (appDelegate.currentLocationType) {
+                    case TAKLocationTypeCurrentLocation: {
+                        if (appDelegate.locationController.lastKnownLocation != nil) {
+                            location = appDelegate.locationController.lastKnownLocation;
+                            latitude = (double)location.coordinate.latitude;
+                            longitude = (double)location.coordinate.longitude;
+                        } else { // Aleksanterinkatu 52, Helsinki, Finland
+                            latitude = 60.168824;
+                            longitude = 24.942422;
+                        }
+                        break;
+                    }
+                        
+                    case TAKLocationTypeOtaniemi: {
+                        latitude = TAK_OTANIEMI_LATITUDE;
+                        longitude = TAK_OTANIEMI_LONGITUDE;
+                        break;
+                    }
+                        
+                    case TAKLocationTypeSchonberg: {
+                        latitude = TAK_SCHONBERG_LATITUDE;
+                        longitude = TAK_SCHONBERG_LONGITUDE;
+                        break;
+                    }
+                        
+                    case TAKLocationTypePittsburgh: {
+                        latitude = TAK_PITTSBURGH_LATITUDE;
+                        longitude = TAK_PITTSBURGH_LONGITUDE;
+                        break;
+                    }
+                        
+                    default: {
+                        latitude = TAK_SUZHOU_LATITUDE;
+                        longitude = TAK_SUZHOU_LONGITUDE;
+                        break;
+                    }
                 }
+                
                 [self generateMapViewWithLatitude:latitude longitude:longitude];
             }
             self.mapView.hidden = NO;
@@ -315,7 +376,30 @@
 {
     NSError *error;
     
-    id response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    if (!data) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alert show];
+        if (self.activityIndicatorView) {
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = YES;
+        }
+        return;
+    }
+    
+    id response;
+    @try {
+        response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alert show];
+        if (self.activityIndicatorView) {
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = YES;
+        }
+        return;
+    }
     
     if (error) {
         NSLog(@"Error: %@", [error localizedDescription]);

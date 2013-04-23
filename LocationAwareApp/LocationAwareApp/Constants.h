@@ -16,21 +16,27 @@ typedef enum TAKInformationSourceType : NSUInteger {
     TAKInformationSourceTypeGoogle
 } TAKInformationSourceType;
 
-// Local search categories
-//#define TAK_COFFEE              @"Coffee"
-//#define TAK_LUNCH               @"Lunch"
-//#define TAK_DINNER              @"Dinner"
-//#define TAK_THEATRE             @"Theatre"
-//#define TAK_NIGHTLIFE           @"Nightlife"
-//#define TAK_MOVIES              @"Movies"
-//#define TAK_ART_MUSEUMS         @"Art Museums"
-//#define TAK_MUSEUMS             @"Museums"
-//#define TAK_SPORTS              @"Sports"
-//#define TAK_BEACH               @"Beach"
-//#define TAK_TOURIST_ATTRACTIONS @"Tourist Attractions"
-//#define TAK_SHOPPING            @"Shopping"
-//#define TAK_EVENTS              @"Events"
-//#define TAK_ARCHITECTURE        @"Architecture"
+// Locations
+typedef enum TAKLocationType : NSUInteger {
+    TAKLocationTypeCurrentLocation,
+    TAKLocationTypeOtaniemi,
+    TAKLocationTypeSchonberg,
+    TAKLocationTypePittsburgh,
+    TAKLocationTypeSuzhou
+} TAKLocationType;
+
+#define TAK_OTANIEMI_LATITUDE       60.186933
+#define TAK_OTANIEMI_LONGITUDE      24.827261
+
+#define TAK_SCHONBERG_LATITUDE      54.392899
+#define TAK_SCHONBERG_LONGITUDE     10.374110
+
+#define TAK_PITTSBURGH_LATITUDE     40.440625
+#define TAK_PITTSBURGH_LONGITUDE    -79.995886
+
+#define TAK_SUZHOU_LATITUDE         31.207516
+#define TAK_SUZHOU_LONGITUDE        120.613403
+
 
 // UI
 #define TAK_STANDARD_TOOLBAR_HEIGHT     44.0f
@@ -41,5 +47,8 @@ typedef enum TAKInformationSourceType : NSUInteger {
 #define TAK_FOURSQUARE_BASIC_INFORMATION    @"Basic Information"
 #define TAK_FOURSQUARE_LOCATION             @"Location"
 #define TAK_FOURSQUARE_STATISTICS           @"Statistics"
+
+// User defaults
+#define TAK_LOCATION_TYPE   @"LocationType"
 
 #endif

@@ -819,7 +819,30 @@ informationSourceType:(NSUInteger)informationSourceType
 {
     NSError *error;
     
-    id response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    if (!data) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alert show];
+        if (self.activityIndicatorView) {
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = YES;
+        }
+        return;
+    }
+    
+    id response;
+    @try {
+        response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alert show];
+        if (self.activityIndicatorView) {
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = YES;
+        }
+        return;
+    }
     
     if (error) {
         NSLog(@"Error: %@", [error localizedDescription]);

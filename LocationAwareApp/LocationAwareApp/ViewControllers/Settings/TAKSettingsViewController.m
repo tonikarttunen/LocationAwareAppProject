@@ -14,7 +14,7 @@
 @interface TAKSettingsViewController ()
 
 // @property NSUInteger currentInformationSource;
-@property (nonatomic, copy) NSArray *informationSources;
+@property (nonatomic, copy) NSArray *tableViewContents;
 @property (nonatomic, strong) NSIndexPath* checkedIndexPath;
 
 @end
@@ -61,12 +61,12 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    _informationSources = nil;
+    _tableViewContents = nil;
 }
 
 - (void)dealloc
 {
-    _informationSources = nil;
+    _tableViewContents = nil;
     _checkedIndexPath = nil;
 }
 
@@ -81,7 +81,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 3;
+    return self.tableViewContents.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,10 +105,10 @@
 //        cell.selectedBackgroundView = selectedCellBackgroundView;
         
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        NSUInteger currentInformationSource = appDelegate.currentInformationSource;
+        NSUInteger currentLocationType = appDelegate.currentLocationType;
         
-        switch (currentInformationSource) {
-            case TAKInformationSourceTypeApple: {
+        switch (currentLocationType) {
+            case TAKLocationTypeCurrentLocation: {
                 if (indexPath.row == 0) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     self.checkedIndexPath = indexPath;
@@ -118,7 +118,7 @@
                 break;
             }
                 
-            case TAKInformationSourceTypeFoursquare: {
+            case TAKLocationTypeOtaniemi: {
                 if (indexPath.row == 1) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     self.checkedIndexPath = indexPath;
@@ -128,8 +128,28 @@
                 break;
             }
                 
-            default: {
+            case TAKLocationTypeSchonberg: {
                 if (indexPath.row == 2) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    self.checkedIndexPath = indexPath;
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                break;
+            }
+                
+            case TAKLocationTypePittsburgh: {
+                if (indexPath.row == 3) {
+                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    self.checkedIndexPath = indexPath;
+                } else {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
+                break;
+            }
+                
+            default: { // Suzhou
+                if (indexPath.row == 4) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     self.checkedIndexPath = indexPath;
                 } else {
@@ -140,23 +160,23 @@
         }
     }
     
-    if (self.informationSources == nil) {
+    if (self.tableViewContents == nil) {
         [self generateTableViewContentArray];
     }
     
-    cell.textLabel.text = (NSString *)[self.informationSources objectAtIndex:indexPath.row];
+    cell.textLabel.text = (NSString *)[self.tableViewContents objectAtIndex:indexPath.row];
     
     return cell;
 }
 
 - (void)generateTableViewContentArray
 {
-    self.informationSources = @[@"Apple", @"Foursquare", @"Google"];
+    self.tableViewContents = @[@"Current Location", @"Otaniemi, Espoo, Finland", @"Schönberg, Plön, Germany", @"Pittsburgh, PA, USA", @"Suzhou, China"];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Location Data Provider";
+    return @"Location";
 }
 
 /*
@@ -214,19 +234,19 @@
     self.checkedIndexPath = indexPath;
     
     TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    appDelegate.currentInformationSource = (NSUInteger)indexPath.row;
-    NSLog(@"Selected a new infosource, infoSource: %i", appDelegate.currentInformationSource);
+    appDelegate.currentLocationType = (NSUInteger)indexPath.row;
+    NSLog(@"Selected a new location type, location: %i", appDelegate.currentLocationType);
     
     // Save the value of the location data provider to the standard user defaults
     @try {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSInteger infoSource = (NSInteger)appDelegate.currentInformationSource;
-        [userDefaults setObject:[NSNumber numberWithInteger:infoSource] forKey:@"InformationSource"];
+        NSInteger locationType = (NSInteger)appDelegate.currentLocationType;
+        [userDefaults setObject:[NSNumber numberWithInteger:locationType] forKey:TAK_LOCATION_TYPE];
         [userDefaults synchronize];
-        NSLog(@"Saved a new infosource to the standard user defaults, infoSource: %i", infoSource);
+        NSLog(@"Saved a new location type to the standard user defaults, location type: %i", locationType);
     }
     @catch (NSException *exception) {
-        appDelegate.currentInformationSource = TAKInformationSourceTypeApple;
+        appDelegate.currentLocationType = TAKLocationTypeCurrentLocation;
         NSLog(@"%@", exception.description);
     }
 }
@@ -235,25 +255,25 @@
 
 - (void)dismissView
 {
-    void (^reloadTableViewContents) (void) = ^{
-        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
-        if ((navigationController != nil) && (navigationController.viewControllers.count > 0)) {
-            [self dismissViewControllerAnimated:YES completion:NULL];
-            TAKMainMenuViewController *mainMenu = [navigationController.viewControllers objectAtIndex:0];
-            if (mainMenu) {
-                [mainMenu generateTitleArray];
-                [mainMenu.tableView reloadData];
-                NSLog(@"RELOADED THE DATA");
-            } else {
-                return;
-            }
-        } else {
-            return;
-        }
-    };
+//    void (^reloadTableViewContents) (void) = ^{
+//        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
+//        if ((navigationController != nil) && (navigationController.viewControllers.count > 0)) {
+//            [self dismissViewControllerAnimated:YES completion:NULL];
+//            TAKMainMenuViewController *mainMenu = [navigationController.viewControllers objectAtIndex:0];
+//            if (mainMenu) {
+//                [mainMenu generateTitleArray];
+//                [mainMenu.tableView reloadData];
+//                NSLog(@"RELOADED THE DATA");
+//            } else {
+//                return;
+//            }
+//        } else {
+//            return;
+//        }
+//    };
     
-    [self dismissViewControllerAnimated:YES completion:reloadTableViewContents];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

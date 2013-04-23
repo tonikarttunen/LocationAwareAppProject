@@ -15,6 +15,7 @@
 #import "TAKMapView.h"
 
 #define TAK_GOOGLE_PLACE_DETAILS_BASE_URL @"https://maps.googleapis.com/maps/api/place/details/json?"
+#define TAK_GOOGLE_PLACE_PHOTOS_BASE_URL  @"https://maps.googleapis.com/maps/api/place/photo?"
 #define TAK_IMAGE_VIEW_TAG 50
 
 @interface TAKDetailViewController ()
@@ -822,6 +823,7 @@ informationSourceType:(NSUInteger)informationSourceType
     if (!data) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alert show];
+        [self showNoPhotosLabel];
         if (self.activityIndicatorView) {
             [self.activityIndicatorView stopAnimating];
             self.activityIndicatorView.hidden = YES;
@@ -837,6 +839,7 @@ informationSourceType:(NSUInteger)informationSourceType
         NSLog(@"%@", exception.description);
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
         [alert show];
+        [self showNoPhotosLabel];
         if (self.activityIndicatorView) {
             [self.activityIndicatorView stopAnimating];
             self.activityIndicatorView.hidden = YES;
@@ -865,6 +868,21 @@ informationSourceType:(NSUInteger)informationSourceType
             self.tableViewContentDictionary = (NSMutableDictionary *)searchResult;
             NSLog(@"searchResult: %@", searchResult);
             [self.tableView reloadData];
+            
+            NSArray *photos = [searchResult objectForKey:@"photos"];
+            if (photos && (![photos isKindOfClass:[NSNull class]]) && (photos.count > 0)) {
+                NSDictionary *photo1 = [photos objectAtIndex:0];
+                if (!photo1) {
+                    [self showNoPhotosLabel];
+                } else {
+                    NSString *photoReference = [photo1 objectForKey:@"photo_reference"];
+                    if (photoReference && (![photoReference isEqualToString:@""])) {
+                        [self retrieveGooglePlacesPhotoWithPhotoReference:photoReference];
+                    }
+                }
+            } else {
+                [self showNoPhotosLabel];
+            }
         }
     }
     @catch (NSException *exception) {
@@ -920,6 +938,117 @@ informationSourceType:(NSUInteger)informationSourceType
         [self.activityIndicatorView stopAnimating];
         self.activityIndicatorView.hidden = YES;
     }
+}
+
+#pragma mark - Google Places photos
+
+- (void)retrieveGooglePlacesPhotoWithPhotoReference:(NSString *)reference
+{
+    @try {
+        NSString *searchURLString = [NSString stringWithFormat:@"%@key=%@&photoreference=%@&sensor=true&maxheight=800&maxwidth=800",
+                                     TAK_GOOGLE_PLACE_PHOTOS_BASE_URL,
+                                     TAK_GOOGLE_PLACES_API_KEY,
+                                     reference];
+        NSString *searchURLStringWithPercentEscapes = [searchURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSURL *searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
+        
+#ifdef DEBUG
+        NSLog(@"Google Places search URL: %@", searchURL);
+#endif
+        
+        // Download the data asynchronously
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSData *requestData = [NSData dataWithContentsOfURL:searchURL];
+            [self performSelectorOnMainThread:@selector(handlePhotoRequestData:) withObject:requestData waitUntilDone:YES];
+        });
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", exception.description);
+        [self.activityIndicatorView stopAnimating];
+        self.activityIndicatorView.hidden = YES;
+    }
+}
+
+- (void)handlePhotoRequestData:(NSData *)data
+{
+    NSError *error;
+    
+    if (!data) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alert show];
+        if (self.activityIndicatorView) {
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = YES;
+        }
+        return;
+    }
+    
+    if ((error == nil) && ([data length] > 0))
+    {
+        UIImage *image = [UIImage imageWithData:data];
+        // [self.imageView removeFromSuperview];
+        
+        self.imageView = [[UIImageView alloc] initWithImage:image];
+        //                _imageHeight = image.size.height;
+        //                _imageWidth = image.size.width;
+        // [[self.tableViewContentDictionary objectForKey:@"Image"] replaceObjectAtIndex:1 withObject:image];
+        CGFloat imageHeight = image.size.height;
+        CGFloat imageWidth = image.size.width;
+        CGFloat imageHeightInUI = 320.0f * imageHeight / imageWidth;
+        self.imageView.frame = CGRectMake(0.0f, 0.0f, 320.0f, imageHeightInUI);
+        [self.activityIndicatorView stopAnimating];
+        [self.activityIndicatorView removeFromSuperview];
+        [self.scrollView addSubview:self.imageView];
+        // [self.tableView reloadData];
+        self.scrollView.contentSize = CGSizeMake(320.0f, imageHeightInUI);
+        NSLog(@"Image: %@, self.imageView.frame: %@, contentSize: %@", image, NSStringFromCGRect(self.imageView.frame), NSStringFromCGSize(self.scrollView.contentSize));
+    }
+
+    
+//    id response;
+//    @try {
+//        response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"%@", exception.description);
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+//        [alert show];
+//        if (self.activityIndicatorView) {
+//            [self.activityIndicatorView stopAnimating];
+//            self.activityIndicatorView.hidden = YES;
+//        }
+//        return;
+//    }
+//    
+//    if (error) {
+//        NSLog(@"Error: %@", [error localizedDescription]);
+//        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+//        return;
+//    }
+//    
+//    NSLog(@"Google Places JSON response: %@", response);
+//    
+//    if ([response isKindOfClass:[NSNull class]]) {
+//        return;
+//    }
+//    
+//    self.searchResponse = response;
+//    
+//    @try {
+//        NSDictionary *searchResult = [self.searchResponse objectForKey:@"result"];
+//        
+//        if (self.tableView != nil) {
+//            self.tableViewContentDictionary = (NSMutableDictionary *)searchResult;
+//            NSLog(@"searchResult: %@", searchResult);
+//            [self.tableView reloadData];
+//        }
+//    }
+//    @catch (NSException *exception) {
+//        NSLog(@"%@", exception.description);
+//    }
+//    
+//    [self.activityIndicatorView stopAnimating];
+//    self.activityIndicatorView.hidden = YES;
 }
 
 #pragma mark - UI

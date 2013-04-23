@@ -16,7 +16,7 @@
 
 #define TAK_GOOGLE_PLACE_DETAILS_BASE_URL @"https://maps.googleapis.com/maps/api/place/details/json?"
 #define TAK_GOOGLE_PLACE_PHOTOS_BASE_URL  @"https://maps.googleapis.com/maps/api/place/photo?"
-#define TAK_IMAGE_VIEW_TAG 50
+// #define TAK_IMAGE_VIEW_TAG 50
 
 @interface TAKDetailViewController ()
 
@@ -625,30 +625,6 @@ informationSourceType:(NSUInteger)informationSourceType
         default:
             return 60.0f;
     }
-    
-//    switch (self.informationSourceType) {
-//        case TAKInformationSourceTypeFoursquare:
-//            switch (indexPath.section) {
-//                case 3: {
-//                    _rowHeight = (300.0f * _imageHeight / _imageWidth);
-//                    NSLog(@"ROW HEIGHT: %f", _rowHeight);
-//                    if (isnan(_rowHeight)) {
-//                        return 60.0f;
-//                    } else {
-//                        return (300.0f * _imageHeight / _imageWidth);
-//                    }
-//                }
-//                    
-//                default: {
-//                    return 60.0f;
-//                }
-//            }
-//            break;
-//            
-//        default: {
-//            return 60.0f;
-//        }
-//    }
 }
 
 #pragma mark - Foursquare check-in
@@ -692,7 +668,7 @@ informationSourceType:(NSUInteger)informationSourceType
 #pragma mark - Foursquare photos
 
 - (void)sendFoursquarePhotoContentRequestWithURLString:(NSString *)URLString
-{
+{    
     @try {
         NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
         NSString *venueID = (NSString *)[[array objectAtIndex:1] objectAtIndex:1];
@@ -704,89 +680,53 @@ informationSourceType:(NSUInteger)informationSourceType
 #ifdef DEBUG
         NSLog(@"Foursquare photo request URL: %@", requestURL);
 #endif
-        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:requestURL];
-        [urlRequest setHTTPMethod:@"GET"];
-        [urlRequest setTimeoutInterval:30.0f];
-
-        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-
-        [NSURLConnection sendAsynchronousRequest:urlRequest
-                                           queue:queue
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-        {
-            if ((error == nil) && ([data length] > 0))
-            {
-                UIImage *image = [UIImage imageWithData:data];
-                // [self.imageView removeFromSuperview];
-                
-                self.imageView = [[UIImageView alloc] initWithImage:image];
-//                _imageHeight = image.size.height;
-//                _imageWidth = image.size.width;
-                [[self.tableViewContentDictionary objectForKey:@"Image"] replaceObjectAtIndex:1 withObject:image];
-                CGFloat imageHeight = image.size.height;
-                CGFloat imageWidth = image.size.width;
-                CGFloat imageHeightInUI = 320.0f * imageHeight / imageWidth;
-                self.imageView.frame = CGRectMake(0.0f, 0.0f, 320.0f, imageHeightInUI);
-                [self.activityIndicatorView stopAnimating];
-                [self.activityIndicatorView removeFromSuperview];
-                [self.scrollView addSubview:self.imageView];
-                // [self.tableView reloadData];
-                self.scrollView.contentSize = CGSizeMake(320.0f, imageHeightInUI);
-                NSLog(@"Image: %@, self.imageView.frame: %@, contentSize: %@", image, NSStringFromCGRect(self.imageView.frame), NSStringFromCGSize(self.scrollView.contentSize));
-            }
-        }];
+        // Download the data asynchronously
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSData *requestData = [NSData dataWithContentsOfURL:requestURL];
+            [self performSelectorOnMainThread:@selector(handleFoursquarePhotoRequestData:) withObject:requestData waitUntilDone:YES];
+        });
     }
     @catch (NSException *exception) {
         NSLog(@"Cannot download the Foursquare venue photo: %@", exception.description);
     }
 }
 
+- (void)handleFoursquarePhotoRequestData:(NSData *)data
+{
+    NSError *error;
+    
+    if (!data) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
+        [alert show];
+        if (self.activityIndicatorView) {
+            [self.activityIndicatorView stopAnimating];
+            self.activityIndicatorView.hidden = YES;
+        }
+        return;
+    }
+    
+    if ((error == nil) && ([data length] > 0))
+    {
+        UIImage *image = [UIImage imageWithData:data];
+        // [self.imageView removeFromSuperview];
+        
+        self.imageView = [[UIImageView alloc] initWithImage:image];
+        CGFloat imageHeight = image.size.height;
+        CGFloat imageWidth = image.size.width;
+        CGFloat imageHeightInUI = 320.0f * imageHeight / imageWidth;
+        self.imageView.frame = CGRectMake(0.0f, 0.0f, 320.0f, imageHeightInUI);
+        [self.activityIndicatorView stopAnimating];
+        [self.activityIndicatorView removeFromSuperview];
+        [self.scrollView addSubview:self.imageView];
+        // [self.tableView reloadData];
+        self.scrollView.contentSize = CGSizeMake(320.0f, imageHeightInUI);
+        NSLog(@"Image: %@, self.imageView.frame: %@, contentSize: %@", image, NSStringFromCGRect(self.imageView.frame), NSStringFromCGSize(self.scrollView.contentSize));
+    }
+}
+
 - (void)sendFoursquarePhotoRequest
 {
     @try {
-//        NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
-//        NSString *venueID = (NSString *)[[array objectAtIndex:1] objectAtIndex:1];
-//#ifdef DEBUG
-//        NSLog(@"Foursquare venue ID: %@", venueID);
-//#endif
-//        NSString *requestURLString = [NSString stringWithFormat:@"https://api.foursquare.com/v2/venues/%@/photos?group=venue&limit=1&oauth_token=%@&v=20130420", venueID, TAK_FOURSQUARE_API_KEY];
-//        NSURL *requestURL = [NSURL URLWithString:requestURLString];
-//#ifdef DEBUG
-//        NSLog(@"Foursquare photo request URL: %@", requestURL);
-//#endif
-//        NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:requestURL];
-//        [urlRequest setHTTPMethod:@"GET"];
-//        [urlRequest setTimeoutInterval:30.0f];
-//        
-//        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//        
-//        [NSURLConnection sendAsynchronousRequest:urlRequest
-//                                           queue:queue
-//                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-//        {
-//            if ((error == nil) && ([data length] > 0))
-//            {
-//                id responseJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-//                
-//                if (error) {
-//                    NSLog(@"An error occurred while downloading the image: %@", error.description);
-//                }
-//                
-//                if ([responseJSON isKindOfClass:[NSNull class]]) {
-//                    NSLog(@"No data!");
-//                }
-//                
-//                if ([responseJSON isKindOfClass:[NSDictionary class]]) {
-//                    NSDictionary *response = [responseJSON objectForKey:@"response"];
-//                    NSLog(@"response: %@", response);
-//                    
-//                }
-//            }
-//        }];
-        
-        
-        ////
-        
         TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
         if (appDelegate && appDelegate.foursquareController && appDelegate.foursquareController.foursquare) {
             NSArray *array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
@@ -905,17 +845,6 @@ informationSourceType:(NSUInteger)informationSourceType
     //
     
     @try {
-//        if ((parameters == nil) || (parameters.count == 0)) {
-//            NSLog(@"No parameters were given!");
-//            return;
-//        }
-        
-//        double latitude = [[parameters objectForKey:@"Latitude"] doubleValue];
-//        double longitude = [[parameters objectForKey:@"Longitude"] doubleValue];
-//        int radius = [[parameters objectForKey:@"Radius"] integerValue];
-//        NSString *types = [parameters objectForKey:@"Types"];
-        // NSString *openNow = [parameters objectForKey:@"Open Now"];
-        
         NSString *searchURLString = [NSString stringWithFormat:@"%@key=%@&reference=%@&sensor=true",
                                      TAK_GOOGLE_PLACE_DETAILS_BASE_URL,
                                      TAK_GOOGLE_PLACES_API_KEY,
@@ -989,9 +918,6 @@ informationSourceType:(NSUInteger)informationSourceType
         // [self.imageView removeFromSuperview];
         
         self.imageView = [[UIImageView alloc] initWithImage:image];
-        //                _imageHeight = image.size.height;
-        //                _imageWidth = image.size.width;
-        // [[self.tableViewContentDictionary objectForKey:@"Image"] replaceObjectAtIndex:1 withObject:image];
         CGFloat imageHeight = image.size.height;
         CGFloat imageWidth = image.size.width;
         CGFloat imageHeightInUI = 320.0f * imageHeight / imageWidth;
@@ -1003,52 +929,6 @@ informationSourceType:(NSUInteger)informationSourceType
         self.scrollView.contentSize = CGSizeMake(320.0f, imageHeightInUI);
         NSLog(@"Image: %@, self.imageView.frame: %@, contentSize: %@", image, NSStringFromCGRect(self.imageView.frame), NSStringFromCGSize(self.scrollView.contentSize));
     }
-
-    
-//    id response;
-//    @try {
-//        response = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"%@", exception.description);
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Could Not Complete the Request" message:@"" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:nil];
-//        [alert show];
-//        if (self.activityIndicatorView) {
-//            [self.activityIndicatorView stopAnimating];
-//            self.activityIndicatorView.hidden = YES;
-//        }
-//        return;
-//    }
-//    
-//    if (error) {
-//        NSLog(@"Error: %@", [error localizedDescription]);
-//        [[[UIAlertView alloc] initWithTitle:@"Error" message:[error localizedDescription] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-//        return;
-//    }
-//    
-//    NSLog(@"Google Places JSON response: %@", response);
-//    
-//    if ([response isKindOfClass:[NSNull class]]) {
-//        return;
-//    }
-//    
-//    self.searchResponse = response;
-//    
-//    @try {
-//        NSDictionary *searchResult = [self.searchResponse objectForKey:@"result"];
-//        
-//        if (self.tableView != nil) {
-//            self.tableViewContentDictionary = (NSMutableDictionary *)searchResult;
-//            NSLog(@"searchResult: %@", searchResult);
-//            [self.tableView reloadData];
-//        }
-//    }
-//    @catch (NSException *exception) {
-//        NSLog(@"%@", exception.description);
-//    }
-//    
-//    [self.activityIndicatorView stopAnimating];
-//    self.activityIndicatorView.hidden = YES;
 }
 
 #pragma mark - UI
@@ -1180,34 +1060,6 @@ informationSourceType:(NSUInteger)informationSourceType
         [self.scrollView addSubview:self.activityIndicatorView];
         [self.activityIndicatorView startAnimating];
     }
-    
-//    [self.view addSubview:self.scrollView];
-    
-//    NSArray *array = [self.tableViewContentDictionary objectForKey:@"Image"];
-//    UIImage *image = [array objectAtIndex:1];
-//    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-//    CGFloat imageHeight = image.size.height;
-//    CGFloat imageWidth = image.size.width;
-//    CGFloat imageHeightInUI = self.view.bounds.size.width * imageHeight / imageWidth;
-//    imageView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, imageHeightInUI);
-//    imageView.opaque = YES;
-//    [self.scrollView addSubview:self.imageView];
-    
-    //                    imageView.tag = TAK_IMAGE_VIEW_TAG;
-    //
-    //                    cell.imageView.layer.masksToBounds = YES;
-    //                    cell.imageView.layer.opaque = NO;
-    //                    imageView.layer.cornerRadius = 20;
-    //                    cell.contentView.layer.cornerRadius = 20;
-    //                    cell.contentView.layer.masksToBounds = YES;
-    //                    cell.contentView.layer.opaque = NO;
-    //                    [cell.contentView addSubview:imageView];
-    //                    cell.layer.cornerRadius = 20;
-    //                    cell.layer.masksToBounds = YES;
-    //                    cell.layer.opaque = NO;
-    
-    
-//    self.scrollView.contentSize = CGSizeMake(self.view.bounds.size.width, imageHeightInUI);
 }
 
 - (void)generateMapView

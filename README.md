@@ -5,9 +5,7 @@ whether to use the new Apple Local Search API, Foursquare API v.2 or Google Plac
 to find local search results. It is also possible to use this app to check in to 
 Foursquare places. 
 
-*Note: the application works best on a real iOS device. I may not work in the Simulator.*
-
-**Status: ALPHA (not ready for prime time)**
+*Note: the application works best on a real iOS device. It may not work in the Simulator.*
 
 ## Getting the Required API Keys
 

@@ -102,9 +102,9 @@ informationSourceType:(NSUInteger)informationSourceType
         NSLog(@"%@", _tableViewContentDictionary);
         self.tableView.delegate = self;
         self.tableView.dataSource = self;
-#ifdef DEBUG
-        NSLog(@" Google Places reference ID: %@", _referenceID);
-#endif
+//#ifdef DEBUG
+//        NSLog(@" Google Places reference ID: %@", _referenceID);
+//#endif
     }
     return self;
 }
@@ -149,7 +149,7 @@ informationSourceType:(NSUInteger)informationSourceType
         [self searchPlaceDetails];
     }
     
-    NSLog(@"Detail view information source type: %i", self.informationSourceType);
+    // NSLog(@"Detail view information source type: %i", self.informationSourceType);
     if (self.informationSourceType == TAKInformationSourceTypeFoursquare) {
         UIBarButtonItem *checkInButton = [[UIBarButtonItem alloc] initWithTitle:@"Check In" style:UIBarButtonItemStyleBordered target:self action:@selector(presentFoursquareCheckInViewController)];
         self.navigationItem.rightBarButtonItem = checkInButton;
@@ -793,7 +793,7 @@ informationSourceType:(NSUInteger)informationSourceType
         return;
     }
     
-    NSLog(@"Google Places JSON response: %@", response);
+    NSLog(@"Google Places JSON response: %@\n\n", response);
     
     if ([response isKindOfClass:[NSNull class]]) {
         return;
@@ -806,7 +806,7 @@ informationSourceType:(NSUInteger)informationSourceType
         
         if (self.tableView != nil) {
             self.tableViewContentDictionary = (NSMutableDictionary *)searchResult;
-            NSLog(@"searchResult: %@", searchResult);
+            // NSLog(@"searchResult: %@", searchResult);
             [self.tableView reloadData];
             
             NSArray *photos = [searchResult objectForKey:@"photos"];
@@ -852,9 +852,9 @@ informationSourceType:(NSUInteger)informationSourceType
         NSString *searchURLStringWithPercentEscapes = [searchURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
         
-#ifdef DEBUG
-        NSLog(@"Google Places search URL: %@", searchURL);
-#endif
+//#ifdef DEBUG
+//        NSLog(@"Google Places search URL: %@", searchURL);
+//#endif
         
         // Download the data asynchronously
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -881,9 +881,9 @@ informationSourceType:(NSUInteger)informationSourceType
         NSString *searchURLStringWithPercentEscapes = [searchURLString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *searchURL = [NSURL URLWithString:searchURLStringWithPercentEscapes];
         
-#ifdef DEBUG
-        NSLog(@"Google Places search URL: %@", searchURL);
-#endif
+//#ifdef DEBUG
+//        NSLog(@"Google Places search URL: %@", searchURL);
+//#endif
         
         // Download the data asynchronously
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -927,7 +927,7 @@ informationSourceType:(NSUInteger)informationSourceType
         [self.scrollView addSubview:self.imageView];
         // [self.tableView reloadData];
         self.scrollView.contentSize = CGSizeMake(320.0f, imageHeightInUI);
-        NSLog(@"Image: %@, self.imageView.frame: %@, contentSize: %@", image, NSStringFromCGRect(self.imageView.frame), NSStringFromCGSize(self.scrollView.contentSize));
+        // NSLog(@"Image: %@, self.imageView.frame: %@, contentSize: %@", image, NSStringFromCGRect(self.imageView.frame), NSStringFromCGSize(self.scrollView.contentSize));
     }
 }
 

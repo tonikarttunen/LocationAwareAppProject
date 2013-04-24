@@ -42,7 +42,8 @@
 {
     self = [super init];
     if (self) {
-        _category = [category copy];
+        self.category = category;
+        self.title = category;
         
 //        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 //
@@ -91,7 +92,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = self.category;
+    // self.title = self.category;
     
     TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     

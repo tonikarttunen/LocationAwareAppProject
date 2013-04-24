@@ -176,7 +176,7 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             UIImageView *privacyTips = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 7.0f, 280.0f, 311.0f)];
             privacyTips.tag = TAK_PRIVACY_IMAGE_TAG;
-            privacyTips.image = [UIImage imageNamed:@"PrivacyTipsCropped3"];
+            privacyTips.image = [UIImage imageNamed:@"PrivacyTipsCropped4"];
             [cell.contentView addSubview:privacyTips];
             break;
         }

@@ -34,14 +34,14 @@
 		E95B109917267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */; };
 		E95B109A17267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */; };
 		E95B109B17267A51000BC304 /* TAKPrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */; };
-		E95B10A817279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A617279AF5000BC304 /* PrivacyTipsCropped3.png */; };
-		E95B10A917279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A617279AF5000BC304 /* PrivacyTipsCropped3.png */; };
-		E95B10AA17279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A617279AF5000BC304 /* PrivacyTipsCropped3.png */; };
-		E95B10AB17279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A617279AF5000BC304 /* PrivacyTipsCropped3.png */; };
-		E95B10AC17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A717279AF5000BC304 /* PrivacyTipsCropped3@2x.png */; };
-		E95B10AD17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A717279AF5000BC304 /* PrivacyTipsCropped3@2x.png */; };
-		E95B10AE17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A717279AF5000BC304 /* PrivacyTipsCropped3@2x.png */; };
-		E95B10AF17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10A717279AF5000BC304 /* PrivacyTipsCropped3@2x.png */; };
+		E95B10B21727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B01727DED5000BC304 /* PrivacyTipsCropped4.png */; };
+		E95B10B31727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B01727DED5000BC304 /* PrivacyTipsCropped4.png */; };
+		E95B10B41727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B01727DED5000BC304 /* PrivacyTipsCropped4.png */; };
+		E95B10B51727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B01727DED5000BC304 /* PrivacyTipsCropped4.png */; };
+		E95B10B61727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B11727DED5000BC304 /* PrivacyTipsCropped4@2x.png */; };
+		E95B10B71727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B11727DED5000BC304 /* PrivacyTipsCropped4@2x.png */; };
+		E95B10B81727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B11727DED5000BC304 /* PrivacyTipsCropped4@2x.png */; };
+		E95B10B91727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10B11727DED5000BC304 /* PrivacyTipsCropped4@2x.png */; };
 		E95B74E61724822A00E9D60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
 		E95B74E71724822A00E9D60D /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
 		E95B74E81724822A00E9D60D /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
@@ -307,8 +307,8 @@
 		E958D943170CD3730092E324 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = LocationAwareApp/Constants.h; sourceTree = "<group>"; };
 		E95B109717267A51000BC304 /* TAKPrivacyPolicyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKPrivacyPolicyViewController.h; path = ViewControllers/Privacy/TAKPrivacyPolicyViewController.h; sourceTree = "<group>"; };
 		E95B109817267A51000BC304 /* TAKPrivacyPolicyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKPrivacyPolicyViewController.m; path = ViewControllers/Privacy/TAKPrivacyPolicyViewController.m; sourceTree = "<group>"; };
-		E95B10A617279AF5000BC304 /* PrivacyTipsCropped3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PrivacyTipsCropped3.png; path = Images/PrivacyTipsCropped3.png; sourceTree = "<group>"; };
-		E95B10A717279AF5000BC304 /* PrivacyTipsCropped3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PrivacyTipsCropped3@2x.png"; path = "Images/PrivacyTipsCropped3@2x.png"; sourceTree = "<group>"; };
+		E95B10B01727DED5000BC304 /* PrivacyTipsCropped4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PrivacyTipsCropped4.png; path = Images/PrivacyTipsCropped4.png; sourceTree = "<group>"; };
+		E95B10B11727DED5000BC304 /* PrivacyTipsCropped4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PrivacyTipsCropped4@2x.png"; path = "Images/PrivacyTipsCropped4@2x.png"; sourceTree = "<group>"; };
 		E95B74AB17247F4C00E9D60D /* LocationAwareApp copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LocationAwareApp copy-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/LocationAwareApp copy-Info.plist"; sourceTree = "<absolute>"; };
 		E95B74E317247F7000E9D60D /* LocationAwareApp copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "LocationAwareApp copy2-Info.plist"; path = "/Users/tonikarttunen/Documents/Dropbox/Dropbox-Developer/iOS/LocationAwareAppProject/LocationAwareApp/LocationAwareApp copy2-Info.plist"; sourceTree = "<absolute>"; };
 		E95B751A1724822A00E9D60D /* Google.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Google.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -861,8 +861,8 @@
 			isa = PBXGroup;
 			children = (
 				E95F29311725F49F00032B78 /* Icons */,
-				E95B10A617279AF5000BC304 /* PrivacyTipsCropped3.png */,
-				E95B10A717279AF5000BC304 /* PrivacyTipsCropped3@2x.png */,
+				E95B10B01727DED5000BC304 /* PrivacyTipsCropped4.png */,
+				E95B10B11727DED5000BC304 /* PrivacyTipsCropped4@2x.png */,
 				E95F28DD1725DA6A00032B78 /* FoursquareLogin-568h@2x.png */,
 				E95F28DE1725DA6A00032B78 /* FoursquareLogin.png */,
 				E95F28DF1725DA6A00032B78 /* FoursquareLogin@2x.png */,
@@ -1060,8 +1060,8 @@
 				E95F29501725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
 				E95F29541725F4EE00032B78 /* Icon.png in Resources */,
 				E95F29581725F4EE00032B78 /* Icon@2x.png in Resources */,
-				E95B10AA17279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */,
-				E95B10AE17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */,
+				E95B10B41727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */,
+				E95B10B81727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1097,8 +1097,8 @@
 				E95F29511725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
 				E95F29551725F4EE00032B78 /* Icon.png in Resources */,
 				E95F29591725F4EE00032B78 /* Icon@2x.png in Resources */,
-				E95B10AB17279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */,
-				E95B10AF17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */,
+				E95B10B51727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */,
+				E95B10B91727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1139,8 +1139,8 @@
 				E95F294E1725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
 				E95F29521725F4EE00032B78 /* Icon.png in Resources */,
 				E95F29561725F4EE00032B78 /* Icon@2x.png in Resources */,
-				E95B10A817279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */,
-				E95B10AC17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */,
+				E95B10B21727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */,
+				E95B10B61727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1162,8 +1162,8 @@
 				E95F294F1725F4EE00032B78 /* Icon-Small@2x.png in Resources */,
 				E95F29531725F4EE00032B78 /* Icon.png in Resources */,
 				E95F29571725F4EE00032B78 /* Icon@2x.png in Resources */,
-				E95B10A917279AF5000BC304 /* PrivacyTipsCropped3.png in Resources */,
-				E95B10AD17279AF5000BC304 /* PrivacyTipsCropped3@2x.png in Resources */,
+				E95B10B31727DED5000BC304 /* PrivacyTipsCropped4.png in Resources */,
+				E95B10B71727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

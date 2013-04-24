@@ -11,6 +11,8 @@
 #import "Constants.h"
 #import "TAKPrivacyPolicyViewController.h"
 
+#define TAK_PRIVACY_IMAGE_TAG 15
+
 @interface TAKPrivacyViewController ()
 
 @property (nonatomic, copy) NSDictionary *tableViewContents;
@@ -123,6 +125,9 @@
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
         cell.textLabel.numberOfLines = 1;
     }
+    else {
+        [[cell.contentView viewWithTag:TAK_PRIVACY_IMAGE_TAG] removeFromSuperview];
+    }
     
     if (self.tableViewContents == nil) {
         [self generateTableViewContents];
@@ -132,7 +137,11 @@
         switch (indexPath.section) {
             case 0: {
                 cell.textLabel.text = @"\n";
-                [cell setSelectionStyle:UITableViewCellSelectionStyleNone]; 
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                UIImageView *privacyTips = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 7.0f, 280.0f, 311.0f)];
+                privacyTips.tag = TAK_PRIVACY_IMAGE_TAG;
+                privacyTips.image = [UIImage imageNamed:@"PrivacyTipsCropped3"];
+                [cell.contentView addSubview:privacyTips];
                 break;
             }
                 
@@ -235,7 +244,7 @@
 //            return @"Location Accuracy";
             
         case 1:
-            return @"Provide Obfuscated Location Data";
+            return @"Use Obfuscated Location Data";
             
         default:
             return @"Privacy Policy";
@@ -282,6 +291,21 @@
 */
 
 #pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+#ifdef TAK_FOURSQUARE
+    switch (indexPath.section) {
+        case 0:
+            return 330.0f;
+            
+        default:
+            return 45.0f;
+    }
+#else
+    return 45.0f;
+#endif
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -363,6 +387,7 @@
             [userDefaults setObject:[NSNumber numberWithInteger:(NSInteger)indexPath.row] forKey:@"Obfuscate"];
             [userDefaults synchronize];
             NSLog(@"new obfuscation value: %i", (NSInteger)indexPath.row);
+            break;
         }
             
         case 2: {

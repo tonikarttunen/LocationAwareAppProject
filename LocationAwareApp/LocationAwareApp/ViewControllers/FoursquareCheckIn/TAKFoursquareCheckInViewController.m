@@ -12,6 +12,8 @@
 #import "TAKFoursquareController.h"
 #import <QuartzCore/QuartzCore.h>
 
+#define TAK_PRIVACY_IMAGE_TAG 15
+
 @interface TAKFoursquareCheckInViewController ()
 
 @property (nonatomic, strong) NSIndexPath* checkedIndexPath;
@@ -128,6 +130,9 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
                 break;
         }
     }
+    else {
+        [[cell.contentView viewWithTag:TAK_PRIVACY_IMAGE_TAG] removeFromSuperview];
+    }
     
     switch (indexPath.section) {
         case 0: {
@@ -166,9 +171,15 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
             break;
         }
             
-        default:
-            cell.textLabel.text = @"· Avoid checking in near home\n· Tip 2\n· Tip 3\n· Tip 4";
+        default: {
+            cell.textLabel.text = @"\n";
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            UIImageView *privacyTips = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 7.0f, 280.0f, 311.0f)];
+            privacyTips.tag = TAK_PRIVACY_IMAGE_TAG;
+            privacyTips.image = [UIImage imageNamed:@"PrivacyTipsCropped3"];
+            [cell.contentView addSubview:privacyTips];
             break;
+        }
     }
     
     return cell;
@@ -250,7 +261,7 @@ typedef enum TAKFoursquarePrivacySetting : NSUInteger {
             return 45.0f;
             
         default:
-            return 120.0f;
+            return 330.0f;
     }
 }
 

@@ -75,15 +75,24 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+#ifdef TAK_FOURSQUARE
     return 3;
+#else
+    return 2;
+#endif
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     switch (section) {
+#ifdef TAK_FOURSQUARE
         case 1:
             return 2;
+#else
+        case 0:
+            return 2;
+#endif
             
 //        case 2:
 //            return 1;
@@ -136,6 +145,7 @@
     @try {
         switch (indexPath.section) {
             case 0: {
+#ifdef TAK_FOURSQUARE
                 cell.textLabel.text = @"\n";
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 UIImageView *privacyTips = [[UIImageView alloc] initWithFrame:CGRectMake(10.0f, 7.0f, 280.0f, 311.0f)];
@@ -143,7 +153,29 @@
                 privacyTips.image = [UIImage imageNamed:@"PrivacyTipsCropped3"];
                 [cell.contentView addSubview:privacyTips];
                 break;
+#else
+                cell.textLabel.text = [[self.tableViewContents objectForKey:@"Obfuscated Location Data"] objectAtIndex:indexPath.row];
+                
+                if (obfuscate == 1) {
+                    if (indexPath.row == 1) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        self.checkedIndexPath = indexPath;
+                    } else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                } else {
+                    if (indexPath.row == 0) {
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        self.checkedIndexPath = indexPath;
+                    } else {
+                        cell.accessoryType = UITableViewCellAccessoryNone;
+                    }
+                }
+                
+                break;
+#endif
             }
+                
                 
 //            case 1: {
 //                cell.textLabel.text = [[self.tableViewContents objectForKey:@"Location Accuracy"] objectAtIndex:indexPath.row];
@@ -187,6 +219,7 @@
 //            }
                 
             case 1: {
+#ifdef TAK_FOURSQUARE
                 cell.textLabel.text = [[self.tableViewContents objectForKey:@"Obfuscated Location Data"] objectAtIndex:indexPath.row];
                 
                 if (obfuscate == 1) {
@@ -204,15 +237,20 @@
                         cell.accessoryType = UITableViewCellAccessoryNone;
                     }
                 }
-                
+#else
+                cell.textLabel.text = [self.tableViewContents objectForKey:@"Privacy Policy"];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+#endif
                 break;
             }
-                
+            
+#ifdef TAK_FOURSQUARE
             case 2: {
                 cell.textLabel.text = [self.tableViewContents objectForKey:@"Privacy Policy"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 break;
             }
+#endif
                 
             default:
                 break;
@@ -236,7 +274,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    switch (section) {
+    switch (section) {            
+#ifdef TAK_FOURSQUARE
         case 0:
             return @"Privacy Tips";
             
@@ -245,6 +284,10 @@
             
         case 1:
             return @"Use Obfuscated Location Data";
+#else
+        case 0:
+            return @"Use Obfuscated Location Data";
+#endif
             
         default:
             return @"Privacy Policy";
@@ -359,8 +402,13 @@
 //
 //            break;
 //        }
+        
             
+#ifdef TAK_FOURSQUARE
         case 1: {
+#else
+        case 0: {
+#endif
             if (self.checkedIndexPath != nil) {
                 UITableViewCell *previouslyCheckedCell = [tableView
                                                           cellForRowAtIndexPath:self.checkedIndexPath];
@@ -389,8 +437,12 @@
             NSLog(@"new obfuscation value: %i", (NSInteger)indexPath.row);
             break;
         }
-            
+        
+#ifdef TAK_FOURSQUARE
         case 2: {
+#else
+        case 1: {
+#endif
             TAKPrivacyPolicyViewController *DVC = [[TAKPrivacyPolicyViewController alloc] initWithStyle:UITableViewStyleGrouped];
             [self.navigationController pushViewController:DVC animated:YES];
             break;
@@ -405,24 +457,6 @@
 
 - (void)dismissView
 {
-    //    void (^reloadTableViewContents) (void) = ^{
-    //        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    //        UINavigationController *navigationController = (UINavigationController *)appDelegate.window.rootViewController;
-    //        if ((navigationController != nil) && (navigationController.viewControllers.count > 0)) {
-    //            [self dismissViewControllerAnimated:YES completion:NULL];
-    //            TAKMainMenuViewController *mainMenu = [navigationController.viewControllers objectAtIndex:0];
-    //            if (mainMenu) {
-    //                [mainMenu generateTitleArray];
-    //                [mainMenu.tableView reloadData];
-    //                NSLog(@"RELOADED THE DATA");
-    //            } else {
-    //                return;
-    //            }
-    //        } else {
-    //            return;
-    //        }
-    //    };
-    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 

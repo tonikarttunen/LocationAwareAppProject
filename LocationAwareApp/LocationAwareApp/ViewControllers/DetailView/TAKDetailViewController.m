@@ -1175,7 +1175,7 @@ informationSourceType:(NSUInteger)informationSourceType
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
                 self.mapViewContainer.hidden = YES;
-                self.mapTypeSegmentedControl.hidden = YES;
+                // self.mapTypeSegmentedControl.hidden = YES;
             }
             if (self.scrollView != nil) {
                 self.scrollView.hidden = YES;
@@ -1196,7 +1196,7 @@ informationSourceType:(NSUInteger)informationSourceType
             }
             self.mapView.hidden = NO;
             self.mapViewContainer.hidden = NO;
-            self.mapTypeSegmentedControl.hidden = NO;
+            // self.mapTypeSegmentedControl.hidden = NO;
             break;
         }
         default: {
@@ -1207,7 +1207,7 @@ informationSourceType:(NSUInteger)informationSourceType
             if (self.mapView != nil) {
                 self.mapView.hidden = YES;
                 self.mapViewContainer.hidden = YES;
-                self.mapTypeSegmentedControl.hidden = YES;
+                // self.mapTypeSegmentedControl.hidden = YES;
             }
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;

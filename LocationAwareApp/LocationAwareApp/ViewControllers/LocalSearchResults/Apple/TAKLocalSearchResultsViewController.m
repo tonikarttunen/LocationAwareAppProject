@@ -195,6 +195,7 @@
                 [self generateMapView];
             }
             self.mapView.hidden = NO;
+            self.mapTypeSegmentedControl.hidden = NO;
             if (self.tableView != nil) {
                 self.tableView.hidden = YES;
             }

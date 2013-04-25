@@ -7,7 +7,9 @@ Foursquare places.
 
 *Note: the application works best on a real iOS device. It may not work in the Simulator.*
 
-![Figure 1. Foursquare local search results.](/DocumentationImages/Trending.png "Figure 1. Foursquare local search results.") ![Figure 2. Google Maps 3D View.](/DocumentationImages/Pittsburgh.png "Figure 2. Google Maps 3D View.")
+![Figure 1. Foursquare local search results.](/DocumentationImages/Trending.png "Figure 1. Foursquare local search results.") 
+
+![Figure 2. Google Maps 3D View.](/DocumentationImages/Pittsburgh.png "Figure 2. Google Maps 3D View.")
 
 ## Getting the Required API Keys
 

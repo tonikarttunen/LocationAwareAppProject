@@ -103,7 +103,7 @@
     self.locationController = [[TAKLocationController alloc] init];
     self.foursquareController = [[TAKFoursquareController alloc] init];
     
-#warning Read the correct value from NSUserDefaults
+// #warning Read the correct value from NSUserDefaults
     self.isRegionMonitoringActive = NO;
     
     // Region monitoring test
@@ -133,7 +133,7 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-#warning Save the value of the isRegionMonitoringActive property to NSUserDefaults
+// #warning Save the value of the isRegionMonitoringActive property to NSUserDefaults
     if (self.locationController && (!self.isRegionMonitoringActive)) {
         [self.locationController disableLocationManager];
     }
@@ -173,7 +173,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-#warning Save the value of the isRegionMonitoringActive property to NSUserDefaults
+//#warning Save the value of the isRegionMonitoringActive property to NSUserDefaults
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     if (self.locationController && (!self.isRegionMonitoringActive)) {
         [self.locationController disableLocationManager];

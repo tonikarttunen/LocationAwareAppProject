@@ -7,6 +7,8 @@ Foursquare places.
 
 *Note: the application works best on a real iOS device. It may not work in the Simulator.*
 
+![Figure 1. Foursquare local search results.](/DocumentationImages/Trending.png "Figure 1. Foursquare local search results.") ![Figure 2. Google Maps 3D View.](/DocumentationImages/Pittsburgh.png "Figure 2. Google Maps 3D View.")
+
 ## Getting the Required API Keys
 
 Before using the app, you must obtain the required API keys.
@@ -18,12 +20,12 @@ The the required information to the form and click changes (figure 1). The redir
 the same as the URL scheme in the Info.plist file of the app. In this case, enter the
 following redirect URLs: `tonikarttunen://com.tonikarttunen.LocationAwareApp, app://tonikarttunen`.
 
-![Figure 1. Creating a new Foursquare app.](/DocumentationImages/NewFoursquareApp.png "Figure 1. Creating a new Foursquare app.")
+![Figure 3. Creating a new Foursquare app.](/DocumentationImages/NewFoursquareApp.png "Figure 3. Creating a new Foursquare app.")
 
 After saving the information, you should see a page that similar to the one below.
 Open the APIConstants.h file in Xcode. Copy the client ID and the client secret from the Foursquare app info page and paste them to the APIConstants.h file.
 
-![Figure 2. Foursquare app info page.](/DocumentationImages/FoursquareAppInfo.png "Figure 2. Foursquare app info page.") 
+![Figure 4. Foursquare app info page.](/DocumentationImages/FoursquareAppInfo.png "Figure 4. Foursquare app info page.") 
 
 ### Google Maps iOS SDK
 
@@ -44,17 +46,12 @@ Add the API key to the APIConstants.h file.
 Open the `LocationAwareApp.xcodeproj` file with Xcode.
 Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (see the image below). You have three options: Foursquare, Google and Apple.
 
-![Figure 3. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 3. Choosing a build scheme.")
+![Figure 5. Choosing a build scheme.](/DocumentationImages/BuildSchemeSettings.png "Figure 5. Choosing a build scheme.")
 
 ### Build Requirements
 
 + iOS 6.1 or later
 + Xcode 4.5 or later (tested with Xcode 4.6.1)
-
-## Acknowledgements
-
-[Foursquare API v2 for iOS](https://github.com/baztokyo/foursquare-ios-api)
-was developed by [Ba-Z Communication Inc.](http://www.ba-z.co.jp/)
 
 ## License
 
@@ -86,7 +83,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## Foursquare API v2 for iOS License
 
-Copyright (C) 2011-2013 Ba-Z Communication Inc. All rights reserved.
+Copyright (C) 2011-2013 [Ba-Z Communication Inc.](http://www.ba-z.co.jp/). All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

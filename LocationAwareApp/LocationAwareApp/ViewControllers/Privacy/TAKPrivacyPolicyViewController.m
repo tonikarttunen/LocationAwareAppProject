@@ -33,6 +33,8 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     self.title = @"Privacy Policy";
+    
+    self.tableView.allowsSelection = NO;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -52,7 +54,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -74,65 +76,87 @@
         cell.textLabel.textColor = [UIColor colorWithWhite:0.16 alpha:1.0];
         cell.textLabel.highlightedTextColor = [UIColor whiteColor];
         cell.textLabel.opaque = NO;
-        cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
-        cell.textLabel.numberOfLines = 1;
+        cell.textLabel.font = [UIFont fontWithName:@"Helvetica" size:16.0];
+        cell.textLabel.numberOfLines = 0;
     }
     
-    cell.textLabel.text = @"Privacy Policy";
+    NSString *cellText;
+    switch (indexPath.section) {
+        case 0:
+            cellText = @"The application uses your current location to provide relevant local search results.";
+            break;
+            
+        case 1: {
+            cellText = @"No, this application respects your privacy.";
+            break;
+        }
+            
+        default:
+#if defined TAK_APPLE
+            cellText = @"The application sends your location data to Apple in order to provide local search results.";
+#elif defined TAK_GOOGLE
+            cellText = @"The application sends your location data to Google in order to provide local search results.";
+#else
+            cellText = @"The application sends your location data to Foursquare in order to provide local search results.";
+#endif
+            break;
+    }
+    
+    cell.textLabel.text = cellText;
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    switch (section) {
+        case 0:
+            return @"What Information Does the Application Collect?";
+            
+        case 1:
+            return @"Does this Application Store My Location Data Permanently?";
+            
+        default:
+            return @"Does the Application Disclose My Location Data to Any Third Parties?";
+    }
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    NSString *cellText;
+    switch (indexPath.section) {
+        case 0:
+            cellText = @"The application uses your current location to provide relevant local search results.";
+            break;
+            
+        case 1: {
+            cellText = @"No, this application respects your privacy.";
+            break;
+        }
+            
+        default:
+#if defined TAK_APPLE
+            cellText = @"The application sends your location data to Apple in order to provide local search results.";
+#elif defined TAK_GOOGLE
+            cellText = @"The application sends your location data to Google in order to provide local search results.";
+#else
+            cellText = @"The application sends your location data to Foursquare in order to provide local search results.";
+#endif
+            break;
+    }
+    
+    CGSize labelSize = [cellText sizeWithFont:[UIFont fontWithName:@"Helvetica" size:16.0]
+                            constrainedToSize:CGSizeMake(self.view.bounds.size.width - 45.0f, MAXFLOAT)
+                                lineBreakMode:NSLineBreakByWordWrapping];
+    
+    if ((labelSize.height + 24.0f) < 60.0f) {
+        return 60.0f;
+    } else {
+        return labelSize.height + 24.0f;
+    }
+
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "TAKSettingsViewController.h"
 #import "TAKGoogleViewController.h"
 #import "TAKPrivacyViewController.h"
+#import "TAKHelpViewController.h"
 
 @interface TAKMainMenuViewController ()
 
@@ -37,13 +38,7 @@
     
     self.title = @"Nearby Places";
     
-    // UIBarButtonItem *privacyUIBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Privacy" style:UIBarButtonItemStyleBordered target:self action:@selector(presentPrivacyViewController)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Privacy" style:UIBarButtonItemStyleBordered target:self action:@selector(presentPrivacyViewController)];
-    
-    // UIButton *help = [UIButton buttonWithType:UIButtonTypeInfoLight];
-	// [help addTarget:self action:@selector(presentHelpViewController) forControlEvents:UIControlEventTouchUpInside];
-	// UIBarButtonItem *helpUIBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:help];
-    // UIBarButtonItem *helpUIBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Help" style:UIBarButtonItemStyleBordered target:self action:@selector(presentHelpViewController)];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"SettingsGearCropped17" ofType:@"png"];
     UIImage *settingsImage = [[UIImage alloc] initWithContentsOfFile:path];
@@ -53,23 +48,16 @@
                                           target:self
                                           action:@selector(presentSettingsViewController)];
     
-    NSString *helpPath = [[NSBundle mainBundle] pathForResource:@"Help2" ofType:@"png"];
+    NSString *helpPath = [[NSBundle mainBundle] pathForResource:@"HelpButton" ofType:@"png"];
     UIImage *helpImage = [[UIImage alloc] initWithContentsOfFile:helpPath];
     UIBarButtonItem *helpItem = [[UIBarButtonItem alloc] initWithImage:helpImage
                                                                             style:UIBarButtonItemStyleBordered
                                                                            target:self
                                                                            action:@selector(presentHelpViewController)];
     
-    // self.navigationItem.rightBarButtonItems = @[helpUIBarButtonItem, settingsUIBarButtonItem]; // [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStyleBordered target:self action:@selector(presentSettingsViewController)];
     self.navigationItem.leftBarButtonItems = @[settingsUIBarButtonItem, helpItem];
     
     [self setViewBasicProperties];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -272,12 +260,6 @@
             break;
         }
     }
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
 }
 
 #pragma mark - Present the privacy view controller
@@ -294,7 +276,10 @@
 
 - (void)presentHelpViewController
 {
-    
+    TAKHelpViewController *help = [[TAKHelpViewController alloc] initWithStyle:UITableViewStylePlain];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:help];
+    navigationController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:navigationController animated:YES completion:NULL];
 }
 
 #pragma mark - Present the settings view controller

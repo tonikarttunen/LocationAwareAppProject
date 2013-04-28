@@ -26,9 +26,9 @@
     if (self) {
         [self enableLocationManager];
         if (![CLLocationManager regionMonitoringAvailable]) {
-            self.isRegionMonitoringDesired = NO;
+            // self.isRegionMonitoringDesired = NO;
         } else {
-            self.isRegionMonitoringDesired = [self isLocationManagerAuthorizedByUser];
+            // self.isRegionMonitoringDesired = [self isLocationManagerAuthorizedByUser];
         }
     }
     return self;
@@ -177,10 +177,10 @@
     
     [self.locationManager startMonitoringForRegion:region];
     
-    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    if (appDelegate != nil) {
-        appDelegate.isRegionMonitoringActive = YES;
-    }
+//    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    if (appDelegate != nil) {
+//        appDelegate.isRegionMonitoringActive = YES;
+//    }
     
 #ifdef DEBUG
     NSLog(@"Region monitoring enabled.");
@@ -227,10 +227,10 @@
                                                            identifier:identifier];
     [self.locationManager startMonitoringForRegion:region];
     
-    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    if (appDelegate != nil) {
-        appDelegate.isRegionMonitoringActive = YES;
-    }
+//    TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//    if (appDelegate != nil) {
+//        appDelegate.isRegionMonitoringActive = YES;
+//    }
     
 #ifdef DEBUG
     NSLog(@"Region monitoring enabled.");
@@ -263,10 +263,10 @@
 #endif
             }
         }
-        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        if (appDelegate != nil) {
-            appDelegate.isRegionMonitoringActive = NO;
-        }
+//        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//        if (appDelegate != nil) {
+//            appDelegate.isRegionMonitoringActive = NO;
+//        }
         return YES;
     }
     @catch (NSException *exception) {
@@ -313,10 +313,10 @@
 #ifdef DEBUG
         NSLog(@"Stopped monitoring region: %@", [region description]);
 #endif
-        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        if (appDelegate != nil) {
-            appDelegate.isRegionMonitoringActive = NO;
-        }
+//        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//        if (appDelegate != nil) {
+//            appDelegate.isRegionMonitoringActive = NO;
+//        }
         return YES;
     }
     @catch (NSException *exception) {
@@ -330,16 +330,16 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     if (status == kCLAuthorizationStatusAuthorized) {
-        self.isRegionMonitoringDesired = YES;
+        // self.isRegionMonitoringDesired = YES;
         [self enableLocationManager];
     } else {
-        self.isRegionMonitoringDesired = NO;
+        // self.isRegionMonitoringDesired = NO;
         [self disableLocationManager];
-        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-        if (appDelegate && appDelegate.isRegionMonitoringActive) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Turned Off" message:@"You have set a location-based reminder. Unfortunately, location-based reminders do not work if location services are turned off" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alertView show];
-        }
+//        TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
+//        if (appDelegate && appDelegate.isRegionMonitoringActive) {
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location Services Turned Off" message:@"You have set a location-based reminder. Unfortunately, location-based reminders do not work if location services are turned off" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//            [alertView show];
+//        }
     }
 #ifdef DEBUG
     NSLog(@"Location manager status: %u", status);

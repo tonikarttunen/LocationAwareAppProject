@@ -12,7 +12,7 @@
 
 @interface TAKLocationController (UnitTestAdditions)
 
-//#warning TODO: Test these methods
+// #warning TODO: Test these methods
 - (BOOL)isEnablingRegionMonitoringSuccessfulForRegion:(CLRegion *)region identifier:(NSString *)identifier;
 - (BOOL)isEnablingRegionMonitoringSuccessfulForCircularMapOverlay:(MKCircle *)overlay identifier:(NSString *)identifier;
 - (void)clearOutOldRegionsFromLocationManager;
@@ -60,15 +60,15 @@
     objc_property_t lastKnownLocationProperty = class_getProperty([self.locationController class], "lastKnownLocation");
     objc_property_t isLocationManagerCurrentlyActiveProperty = class_getProperty([self.locationController class],
                                                                                  "isLocationManagerCurrentlyActive");
-    objc_property_t isRegionMonitoringDesiredProperty = class_getProperty([self.locationController class],
-                                                                                 "isRegionMonitoringDesired");
+    // objc_property_t isRegionMonitoringDesiredProperty = class_getProperty([self.locationController class],
+    //                                                                              "isRegionMonitoringDesired");
     
     STAssertTrue(locationManagerProperty != NULL, @"LocationController needs a locationManager property");
     STAssertTrue(lastKnownLocationProperty != NULL, @"LocationController needs a lastKnownLocation property");
     STAssertTrue(isLocationManagerCurrentlyActiveProperty != NULL,
                  @"LocationController needs an isLocationManagerCurrentlyActive property");
-    STAssertTrue(isRegionMonitoringDesiredProperty != NULL,
-                 @"LocationController needs an isRegionMonitoringDesired property");
+    // STAssertTrue(isRegionMonitoringDesiredProperty != NULL,
+    //              @"LocationController needs an isRegionMonitoringDesired property");
 }
 
 #pragma mark - Location manager

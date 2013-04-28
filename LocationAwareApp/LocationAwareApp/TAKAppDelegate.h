@@ -22,7 +22,7 @@
 @property (strong, nonatomic) TAKMainMenuViewController *mainMenuViewController;
 @property (strong, nonatomic) TAKLocationController *locationController;
 @property (strong, nonatomic) TAKFoursquareController *foursquareController;
-@property (setter = setRegionMonitoringActive:) BOOL isRegionMonitoringActive;
+// @property (setter = setRegionMonitoringActive:) BOOL isRegionMonitoringActive;
 @property NSUInteger currentInformationSource;
 @property NSUInteger currentLocationType;
 

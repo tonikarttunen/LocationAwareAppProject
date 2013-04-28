@@ -89,7 +89,6 @@
 		E95B74E61724822A00E9D60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
 		E95B74E71724822A00E9D60D /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
 		E95B74E81724822A00E9D60D /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
-		E95B74E91724822A00E9D60D /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
 		E95B74EA1724822A00E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */; };
 		E95B74EB1724822A00E9D60D /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */; };
 		E95B74EC1724822A00E9D60D /* TAKFoursquareController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F86A9217141ECA00D249AD /* TAKFoursquareController.m */; };
@@ -135,7 +134,6 @@
 		E95B751E1724825900E9D60D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006616FA3B4F00A76D42 /* main.m */; };
 		E95B751F1724825900E9D60D /* TAKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DA006A16FA3B4F00A76D42 /* TAKAppDelegate.m */; };
 		E95B75201724825900E9D60D /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
-		E95B75211724825900E9D60D /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
 		E95B75221724825900E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638C1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m */; };
 		E95B75231724825900E9D60D /* TAKLocalSearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DD638F171303EB009EEB22 /* TAKLocalSearchResultsViewController.m */; };
 		E95B75241724825900E9D60D /* TAKFoursquareController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F86A9217141ECA00D249AD /* TAKFoursquareController.m */; };
@@ -261,7 +259,6 @@
 		E9813283171A37020046D8C8 /* TAKSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813282171A37020046D8C8 /* TAKSettingsViewController.m */; };
 		E9813287171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9813286171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m */; };
 		E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */; };
-		E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */; };
 		E990AD7B1714F3F5007EA467 /* TAKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */; };
 		E9D1252916FEC01C0057DC74 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */; };
 		E9D1252A16FEC0250057DC74 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */; };
@@ -402,8 +399,6 @@
 		E9813286171A89E50046D8C8 /* TAKFoursquareCheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKFoursquareCheckInViewController.m; path = ViewControllers/FoursquareCheckIn/TAKFoursquareCheckInViewController.m; sourceTree = "<group>"; };
 		E981EE7D16FFD951008717C9 /* TAKMainMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKMainMenuViewController.h; path = ViewControllers/MainMenu/TAKMainMenuViewController.h; sourceTree = "<group>"; };
 		E981EE7E16FFD951008717C9 /* TAKMainMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKMainMenuViewController.m; path = ViewControllers/MainMenu/TAKMainMenuViewController.m; sourceTree = "<group>"; };
-		E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKReminderMasterViewController.h; path = ViewControllers/Reminder/TAKReminderMasterViewController.h; sourceTree = "<group>"; };
-		E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKReminderMasterViewController.m; path = ViewControllers/Reminder/TAKReminderMasterViewController.m; sourceTree = "<group>"; };
 		E990AD791714F3F5007EA467 /* TAKDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAKDetailViewController.h; path = ViewControllers/DetailView/TAKDetailViewController.h; sourceTree = "<group>"; };
 		E990AD7A1714F3F5007EA467 /* TAKDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAKDetailViewController.m; path = ViewControllers/DetailView/TAKDetailViewController.m; sourceTree = "<group>"; };
 		E9D1252816FEC01C0057DC74 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -643,15 +638,6 @@
 			name = "Main Menu";
 			sourceTree = "<group>";
 		};
-		E981EE8016FFEBE1008717C9 /* Reminder */ = {
-			isa = PBXGroup;
-			children = (
-				E981EE8116FFEDC0008717C9 /* TAKReminderMasterViewController.h */,
-				E981EE8216FFEDC0008717C9 /* TAKReminderMasterViewController.m */,
-			);
-			name = Reminder;
-			sourceTree = "<group>";
-		};
 		E990AD711714AF38007EA467 /* NSArrayAdditions */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,7 +692,6 @@
 				E9813284171A896F0046D8C8 /* Foursquare - Check-In */,
 				E9D1251C16FEA7330057DC74 /* Local Search Results */,
 				E981EE7716FFD70E008717C9 /* Main Menu */,
-				E981EE8016FFEBE1008717C9 /* Reminder */,
 				E9813280171A36CF0046D8C8 /* Settings */,
 			);
 			name = "View Controllers";
@@ -1309,7 +1294,6 @@
 				E95B74E61724822A00E9D60D /* main.m in Sources */,
 				E95B74E71724822A00E9D60D /* TAKAppDelegate.m in Sources */,
 				E95B74E81724822A00E9D60D /* TAKMainMenuViewController.m in Sources */,
-				E95B74E91724822A00E9D60D /* TAKReminderMasterViewController.m in Sources */,
 				E95B74EA1724822A00E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */,
 				E95B74EB1724822A00E9D60D /* TAKLocalSearchResultsViewController.m in Sources */,
 				E95B74EC1724822A00E9D60D /* TAKFoursquareController.m in Sources */,
@@ -1339,7 +1323,6 @@
 				E95B751E1724825900E9D60D /* main.m in Sources */,
 				E95B751F1724825900E9D60D /* TAKAppDelegate.m in Sources */,
 				E95B75201724825900E9D60D /* TAKMainMenuViewController.m in Sources */,
-				E95B75211724825900E9D60D /* TAKReminderMasterViewController.m in Sources */,
 				E95B75221724825900E9D60D /* TAKFoursquareLocalSearchResultsViewController.m in Sources */,
 				E95B75231724825900E9D60D /* TAKLocalSearchResultsViewController.m in Sources */,
 				E95B75241724825900E9D60D /* TAKFoursquareController.m in Sources */,
@@ -1369,7 +1352,6 @@
 				E9DA006716FA3B4F00A76D42 /* main.m in Sources */,
 				E9DA006B16FA3B4F00A76D42 /* TAKAppDelegate.m in Sources */,
 				E981EE7F16FFD951008717C9 /* TAKMainMenuViewController.m in Sources */,
-				E981EE8316FFEDC0008717C9 /* TAKReminderMasterViewController.m in Sources */,
 				E9DD638D1713036F009EEB22 /* TAKFoursquareLocalSearchResultsViewController.m in Sources */,
 				E9DD6390171303EB009EEB22 /* TAKLocalSearchResultsViewController.m in Sources */,
 				E9F86A9317141ECA00D249AD /* TAKFoursquareController.m in Sources */,

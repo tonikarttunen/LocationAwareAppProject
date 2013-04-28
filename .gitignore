@@ -18,3 +18,4 @@ DerivedData
 # API keys (Foursquare etc) 
 */APIConstants.h
 APIConstants.h
+__Keys.h

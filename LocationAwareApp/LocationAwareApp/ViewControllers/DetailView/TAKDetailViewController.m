@@ -212,7 +212,7 @@ informationSourceType:(NSUInteger)informationSourceType
         case TAKInformationSourceTypeApple: {
             return self.tableViewContents.count;
         }
-            
+        
         case TAKInformationSourceTypeFoursquare: {
             NSArray *array;
             if (section == 0) {
@@ -242,8 +242,6 @@ informationSourceType:(NSUInteger)informationSourceType
     // Configure the cell...
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-//        [[cell.contentView viewWithTag:5] removeFromSuperview];
-//        [[cell.contentView viewWithTag:6] removeFromSuperview];
         cell.accessoryType = UITableViewCellAccessoryNone;
         
         cell.textLabel.backgroundColor = [UIColor clearColor];
@@ -252,24 +250,18 @@ informationSourceType:(NSUInteger)informationSourceType
         cell.textLabel.opaque = NO;
         cell.textLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18.0];
         cell.textLabel.numberOfLines = 1;
-        // cell.textLabel.tag = 5;
         
         cell.detailTextLabel.backgroundColor = [UIColor clearColor];
         cell.detailTextLabel.textColor = [UIColor colorWithRed:0.35 green:0.35 blue:0.35 alpha:1.0];
         cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
         cell.detailTextLabel.opaque = NO;
         cell.detailTextLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0];
-        cell.detailTextLabel.numberOfLines = 1;
-        
-        // cell.detailTextLabel.tag = 6;
     }
-//    else {
-//        [[cell.contentView viewWithTag:TAK_IMAGE_VIEW_TAG] removeFromSuperview];
-//    }
     
     @try {
         switch (self.informationSourceType) {
             case TAKInformationSourceTypeApple: {
+                cell.detailTextLabel.numberOfLines = 1;
                 if (self.tableViewContents.count > 0) {
                     cell.textLabel.text = [[self.tableViewContents objectAtIndex:indexPath.row] objectAtIndex:0];
                     id obj = [[self.tableViewContents objectAtIndex:indexPath.row] objectAtIndex:1];
@@ -288,6 +280,7 @@ informationSourceType:(NSUInteger)informationSourceType
             }
                 
             case TAKInformationSourceTypeFoursquare: {
+                cell.detailTextLabel.numberOfLines = 1;
                 NSArray *array;
                 if (indexPath.section == 0) {
                     array = [self.tableViewContentDictionary objectForKey:TAK_FOURSQUARE_BASIC_INFORMATION];
@@ -319,6 +312,7 @@ informationSourceType:(NSUInteger)informationSourceType
             case TAKInformationSourceTypeGoogle: {
                 switch (indexPath.section) {
                     case 0: {
+                        cell.detailTextLabel.numberOfLines = 1;
                         if (indexPath.row == 0) {
                             cell.textLabel.text = @"Name";
                             NSString *name = self.title;
@@ -356,6 +350,7 @@ informationSourceType:(NSUInteger)informationSourceType
                     }
                         
                     case 1: {
+                        cell.detailTextLabel.numberOfLines = 1;
                         if (indexPath.row == 0) {
                             cell.textLabel.text = @"Address";
                             NSString *address = [self.tableViewContentDictionary objectForKey:@"vicinity"];
@@ -396,6 +391,7 @@ informationSourceType:(NSUInteger)informationSourceType
 //                        }
                         
                         if (indexPath.row == 0) {
+                            cell.detailTextLabel.numberOfLines = 1;
                             cell.textLabel.text = @"Author name";
                             NSString *author = [review1 objectForKey:@"author_name"];
                             if (author) {

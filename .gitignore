@@ -15,7 +15,4 @@ profile
 DerivedData
 .idea/
 *.hmap
-# API keys (Foursquare etc) 
-*/APIConstants.h
-APIConstants.h
 __Keys.h

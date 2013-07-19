@@ -1,6 +1,8 @@
 # READ ME
 
-This app allows the user to find points of interest nearby. You can select
+*I developed this app for my [Bachelor's thesis](http://tonikarttunen.com/about/bachelorsthesis/).*
+
+The app allows the user to find points of interest nearby. You can select
 whether to use the new Apple Local Search API, Foursquare API v.2 or Google Places API 
 to find local search results. It is also possible to use this app to check in to 
 Foursquare places. 
@@ -52,12 +54,12 @@ Choose a build scheme by clicking the Scheme dropdown menu on Xcode's toolbar (s
 
 ### Build Requirements
 
-+ iOS 6.1 or later
++ iOS 6.1
 + Xcode 4.5 or later (tested with Xcode 4.6.1)
 
 ## License
 
-Copyright (c) 2013, Toni Antero Karttunen
+Copyright (c) 2013, Toni Antero Karttunen.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -85,7 +87,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ## Foursquare API v2 for iOS License
 
-Copyright (C) 2011-2013 [Ba-Z Communication Inc.](http://www.ba-z.co.jp/). All rights reserved.
+Copyright (C) 2011-2013 [Ba-Z Communication Inc.](http://www.ba-z.co.jp/) All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:

@@ -54,14 +54,8 @@
 		E95B10CE17292CBD000BC304 /* Help1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C217292CBC000BC304 /* Help1@2x.png */; };
 		E95B10CF17292CBD000BC304 /* Help1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C217292CBC000BC304 /* Help1@2x.png */; };
 		E95B10D017292CBD000BC304 /* Help1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C217292CBC000BC304 /* Help1@2x.png */; };
-		E95B10D117292CBD000BC304 /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C317292CBC000BC304 /* Help2.png */; };
 		E95B10D217292CBD000BC304 /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C317292CBC000BC304 /* Help2.png */; };
-		E95B10D317292CBD000BC304 /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C317292CBC000BC304 /* Help2.png */; };
-		E95B10D417292CBD000BC304 /* Help2.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C317292CBC000BC304 /* Help2.png */; };
-		E95B10D517292CBD000BC304 /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C417292CBC000BC304 /* Help2@2x.png */; };
 		E95B10D617292CBD000BC304 /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C417292CBC000BC304 /* Help2@2x.png */; };
-		E95B10D717292CBD000BC304 /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C417292CBC000BC304 /* Help2@2x.png */; };
-		E95B10D817292CBD000BC304 /* Help2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C417292CBC000BC304 /* Help2@2x.png */; };
 		E95B10D917292CBD000BC304 /* Help3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C517292CBC000BC304 /* Help3.png */; };
 		E95B10DA17292CBD000BC304 /* Help3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C517292CBC000BC304 /* Help3.png */; };
 		E95B10DB17292CBD000BC304 /* Help3.png in Resources */ = {isa = PBXBuildFile; fileRef = E95B10C517292CBC000BC304 /* Help3.png */; };
@@ -1125,8 +1119,6 @@
 				E95B10B81727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 				E95B10CB17292CBD000BC304 /* Help1.png in Resources */,
 				E95B10CF17292CBD000BC304 /* Help1@2x.png in Resources */,
-				E95B10D317292CBD000BC304 /* Help2.png in Resources */,
-				E95B10D717292CBD000BC304 /* Help2@2x.png in Resources */,
 				E95B10DB17292CBD000BC304 /* Help3.png in Resources */,
 				E95B10DF17292CBD000BC304 /* Help3@2x.png in Resources */,
 				E95B10E317292CBD000BC304 /* Help4.png in Resources */,
@@ -1172,8 +1164,6 @@
 				E95B10B91727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 				E95B10CC17292CBD000BC304 /* Help1.png in Resources */,
 				E95B10D017292CBD000BC304 /* Help1@2x.png in Resources */,
-				E95B10D417292CBD000BC304 /* Help2.png in Resources */,
-				E95B10D817292CBD000BC304 /* Help2@2x.png in Resources */,
 				E95B10DC17292CBD000BC304 /* Help3.png in Resources */,
 				E95B10E017292CBD000BC304 /* Help3@2x.png in Resources */,
 				E95B10E417292CBD000BC304 /* Help4.png in Resources */,
@@ -1224,8 +1214,6 @@
 				E95B10B61727DED5000BC304 /* PrivacyTipsCropped4@2x.png in Resources */,
 				E95B10C917292CBD000BC304 /* Help1.png in Resources */,
 				E95B10CD17292CBD000BC304 /* Help1@2x.png in Resources */,
-				E95B10D117292CBD000BC304 /* Help2.png in Resources */,
-				E95B10D517292CBD000BC304 /* Help2@2x.png in Resources */,
 				E95B10D917292CBD000BC304 /* Help3.png in Resources */,
 				E95B10DD17292CBD000BC304 /* Help3@2x.png in Resources */,
 				E95B10E117292CBD000BC304 /* Help4.png in Resources */,

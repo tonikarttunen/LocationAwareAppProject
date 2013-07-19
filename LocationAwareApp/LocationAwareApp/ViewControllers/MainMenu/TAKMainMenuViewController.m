@@ -218,6 +218,10 @@
     TAKAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
     NSUInteger currentInfoSource = appDelegate.currentInformationSource;
     
+    if (!self.titleArray) {
+        [self generateTitleArray];
+    }
+    
     switch (currentInfoSource) {
         case TAKInformationSourceTypeFoursquare: {
             NSString *categoryName = [[[tableView cellForRowAtIndexPath:indexPath] textLabel] text];
